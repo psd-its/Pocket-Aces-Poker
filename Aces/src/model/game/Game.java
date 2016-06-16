@@ -17,12 +17,18 @@ public interface Game
      * of poker that applies to that game 
      * @param table
      */
-    public void addtable(Table table);
+    public void addTable(Table table);
     /**
      * Add a player to the game
      * @param player
      */
     public void addPlayer(Player player);
+    
+    /**
+     * 
+     * @return player
+     */
+    public Player getPlayer();
     
     /**
      * Deal cards in the format specific to the format 

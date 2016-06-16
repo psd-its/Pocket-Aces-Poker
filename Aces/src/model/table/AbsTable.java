@@ -3,14 +3,15 @@ package model.table;
 import model.card.Deck;
 import model.player.Player;
 
-public abstract class PokerTable implements Table
+// Need to implement concrete classes before use
+public abstract class AbsTable implements Table
 {
     protected Deck deck;
     protected int dealer;
     protected int pot;
     protected int blind;
     protected Player seats[];
-    public PokerTable()
+    public AbsTable()
     {
         this.dealer = 0;
         this.pot = 0;
