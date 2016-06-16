@@ -60,4 +60,18 @@ public class ComputerPlayer extends AbsPlayer
         return false;
     }
 
+    @Override
+    public boolean fold()
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isPlaying()
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
+    
 }

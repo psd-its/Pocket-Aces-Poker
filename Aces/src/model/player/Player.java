@@ -29,4 +29,8 @@ public interface Player
     public boolean raise(int ammount);
     
     public boolean allIn();
+    
+    public boolean fold();
+    
+    public boolean isPlaying();
 }
