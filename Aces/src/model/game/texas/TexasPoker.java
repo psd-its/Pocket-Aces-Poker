@@ -7,7 +7,7 @@ import model.table.Table;
 
 public class TexasPoker implements Game
 {
-
+    private Table table;
     public TexasPoker()
     {
         // TODO Auto-generated constructor stub
@@ -16,8 +16,8 @@ public class TexasPoker implements Game
     @Override
     public void addTable(Table table)
     {
-        // TODO Auto-generated method stub
-
+        // Table object stored as an instance var
+        this.table = table;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class TexasPoker implements Game
     }
 
     @Override
-    public Player getPlayer()
+    public Player[] getPlayers()
     {
         // TODO Auto-generated method stub
         return null;

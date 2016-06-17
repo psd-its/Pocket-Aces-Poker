@@ -2,7 +2,7 @@ package model.card;
 
 /**
  * 
- * @author deep_thought
+ * @author Tristan s3528615
  *
  */
 public class Deck
@@ -13,7 +13,9 @@ public class Deck
     {
         initDeck();
     }
-    //initialize a deck of cards
+    /**
+     * initialize a deck of cards
+     */
     private void initDeck()
     { 
         int count = 0;
@@ -27,10 +29,27 @@ public class Deck
         }
         
     }
-    public Card[] getDeck()
+    
+    /**
+     * Getter for deck of cards
+     * @return cards
+     */
+    public Card[] getCards()
     {
         return cards;
         
+    }
+    
+    /**
+     * Reset the deck to its initial state
+     */
+    public void reset()
+    {
+        for (Card c : cards)
+        {
+            c.setInPlay(false);
+            c.hide();
+        }
     }
    
     

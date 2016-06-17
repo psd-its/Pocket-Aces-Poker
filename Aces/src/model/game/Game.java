@@ -25,10 +25,10 @@ public interface Game
     public void addPlayer(Player player);
     
     /**
-     * 
-     * @return player
+     * Returns players at the table
+     * @return players
      */
-    public Player getPlayer();
+    public Player[] getPlayers();
     
     /**
      * Deal cards in the format specific to the format 

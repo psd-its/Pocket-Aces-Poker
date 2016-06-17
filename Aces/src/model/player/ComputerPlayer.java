@@ -1,6 +1,7 @@
 package model.player;
 
 import model.card.Card;
+import model.card.WinningHands;
 
 public class ComputerPlayer extends AbsPlayer
 {
