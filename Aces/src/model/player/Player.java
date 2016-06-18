@@ -51,4 +51,6 @@ public interface Player
     public boolean fold();
     
     public boolean isPlaying();
+    
+    public String getName();
 }

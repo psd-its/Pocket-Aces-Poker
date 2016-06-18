@@ -51,6 +51,11 @@ public class Card
     {
         return faceUp;
     }
+    @Override
+    public String toString()
+    {
+        return  face + " of " + suit;
+    }
     
     
 }

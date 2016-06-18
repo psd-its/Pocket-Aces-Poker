@@ -1,5 +1,6 @@
 package model.table;
 
+import model.card.Card;
 import model.card.Deck;
 import model.player.Player;
 
@@ -39,6 +40,8 @@ public interface Table
     public int getDealer();
     
     public void setDealer(int dealer);
+    
+    public Card[] getCardsInPlay();
     
     
 }

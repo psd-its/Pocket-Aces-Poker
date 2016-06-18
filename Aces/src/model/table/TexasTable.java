@@ -27,7 +27,7 @@ public class TexasTable extends AbsTable
     public void dealCards()
     {
         // local vars
-        int card, cardsDealt = 0, playersDealt = 0, position = ++dealer;
+        int card, cardsDealt = 0, playersDealt = 0, position = 1 + dealer;
         boolean cardFound = false;
         // deal a texas hold'em hand
         deck.reset();
@@ -36,11 +36,13 @@ public class TexasTable extends AbsTable
             // Avoid array out of bounds exception
             if (position == Table.MAX_PLAYERS)
             {
+                //System.out.println("array reset");
                 position = 0;
             }
             //check the seat contains a valid player 
             if (seats[position] != null)
             {
+                
                 while(!cardFound)
                 {
                     // Random position of a card
@@ -51,13 +53,13 @@ public class TexasTable extends AbsTable
                         // Add the card to the players hand
                         if (position == dealer)
                         {
-                            seats[position++].getHand()[cardsDealt++] = 
-                                    deck.getCards()[card];
+                            seats[position].getHand()[cardsDealt++] = 
+                                    deck.getCards()[card];                           
                         }
                         else
                         {
-                            seats[position++].getHand()[cardsDealt] = 
-                                    deck.getCards()[card];
+                            seats[position].getHand()[cardsDealt] = 
+                                    deck.getCards()[card];                           
                         }
                         deck.getCards()[card].setInPlay(true);
                         ++playersDealt;
@@ -66,7 +68,8 @@ public class TexasTable extends AbsTable
                 }
             }
             cardFound = false;
-        }while(playersDealt < playersAtTable * 2);
+            ++position;
+        }while(!(cardsDealt > 1));
         
         // deal the flop
         

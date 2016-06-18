@@ -19,13 +19,6 @@ public class HumanPlayer extends AbsPlayer
     }
 
     @Override
-    public Card[] getHand()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
     public boolean check()
     {
         // TODO Auto-generated method stub

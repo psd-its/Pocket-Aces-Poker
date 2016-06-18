@@ -20,13 +20,6 @@ public class ComputerPlayer extends AbsPlayer
     }
 
     @Override
-    public Card[] getHand()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
     public int getBalance()
     {
         // TODO Auto-generated method stub
