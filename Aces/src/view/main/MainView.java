@@ -1,8 +1,7 @@
 package view.main;
 
 /*
- * Main view class. Maintains references to all sub views and sets up a window
- * listener to handle the closing of the application. 
+ * Main view class. Maintains references to all sub views. Lots still needs to be added to this.
  * 
  * @author Mathew Harrington
  * */
