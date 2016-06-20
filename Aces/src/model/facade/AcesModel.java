@@ -2,10 +2,11 @@ package model.facade;
 
 import model.game.Game;
 import model.player.Player;
-import model.table.Table;
+import model.table.TableFull;
 
 public class AcesModel implements AcesFacade
 {
+    private Game game;
 
     public AcesModel()
     {
@@ -14,36 +15,59 @@ public class AcesModel implements AcesFacade
 
     public void createGame(Game game)
     {
-        // TODO Auto-generated method stub
+        // Create a game for the model
+        this.game = game;
 
     }
 
-   
     public Game getGame()
     {
         // TODO Auto-generated method stub
-        return null;
+        return this.game;
     }
 
- 
-    public void playGame(Game game)
+    public void playGame()
     {
         // TODO Auto-generated method stub
+        game.play();
+    }
+
+    public void setBlind(int smallBlind)
+    {
+        // Set the small blind, big blind is calculated
+        // from this
+        game.getTable().setBlind(smallBlind);
+    }
+
+    public void addPlayer(Player player) throws TableFull
+    {
+        // Add a player to the game
+        game.addPlayer(player);
+    }
+
+    @Override
+    public boolean removePlayer(Player player)
+    {
+        // Search for player
+        for (int i = 0; i < game.getPlayers().length; ++i)
+        {
+            //if player found remove them from the table
+            if (game.getPlayers()[i] == player)
+            {
+                game.getPlayers()[i] = null;
+                return true;
+            }
+        }
+        //if we get here no player has been found
+        return false;
 
     }
 
-   
-    public void setBlind(Table table)
+    @Override
+    public Player getPlayer(int seat)
     {
-        // TODO Auto-generated method stub
-
-    }
-
-   
-    public void addPlayer(Player player)
-    {
-        // TODO Auto-generated method stub
-
+        // return player at the specified seat   
+        return game.getPlayers()[seat];
     }
 
 }

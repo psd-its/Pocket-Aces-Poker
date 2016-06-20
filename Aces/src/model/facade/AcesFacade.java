@@ -4,9 +4,8 @@
 package model.facade;
 
 import model.game.Game;
-import model.game.Hand;
 import model.player.Player;
-import model.table.Table;
+import model.table.TableFull;
 
 /**
  * @author Tristan s3528615
@@ -30,19 +29,32 @@ public interface AcesFacade
      * game loop
      * @param game
      */
-    public void playGame(Game game);
+    public void playGame();
     
     /**
      * Update the blinds 
      * @param table
      */
-    public void setBlind(Table table);
+    public void setBlind(int smallBlind);
     
     /**
      * Add a player to the game
      * @param player
      */
-    public void addPlayer(Player player);
+    public void addPlayer(Player player) throws TableFull;
     
+    /**
+     * Remove a player from the table
+     * @param player
+     * @return true if player removed
+     */
+    public boolean removePlayer(Player player);
+    
+    /**
+     * Returns the player at a given seat
+     * @param seat
+     * @return Player
+     */
+    public Player getPlayer(int seat);
    
 }

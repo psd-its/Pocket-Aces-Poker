@@ -3,6 +3,7 @@ package model.player;
 import java.util.Arrays;
 
 import model.card.Card;
+import model.card.WinningHands;
 
 public abstract class AbsPlayer implements Player
 {
@@ -11,6 +12,7 @@ public abstract class AbsPlayer implements Player
     protected boolean playingHand;
     protected int cash;
     protected Card hand[];
+    protected WinningHands bestHand;
     public AbsPlayer(String name, boolean Human)
     {
         this.name = name;
@@ -45,5 +47,21 @@ public abstract class AbsPlayer implements Player
         return playerString;
     }
     
+    @Override
+    public int getBalance()
+    {
+        // TODO Auto-generated method stub
+        return cash;
+    }
+
+    public WinningHands getBestHand()
+    {
+        return bestHand;
+    }
+
+    public void setBestHand(WinningHands bestHand)
+    {
+        this.bestHand = bestHand;
+    }
     
 }

@@ -1,9 +1,13 @@
 package model.game.texas;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import model.card.Card;
 import model.game.Game;
-import model.game.Hand;
 import model.player.Player;
 import model.table.Table;
+import model.table.TableFull;
 
 public class TexasPoker implements Game
 {
@@ -21,23 +25,38 @@ public class TexasPoker implements Game
     }
 
     @Override
-    public void addPlayer(Player player)
+    public void addPlayer(Player player) throws TableFull
     {
-        // TODO Auto-generated method stub
-
+        Player[] seats = table.getSeats();
+        // step through until we find an empty seat
+        for (int i = 0; i < seats.length; ++i)
+        {
+            // empty seat found
+            if (seats[i] == null)
+            {
+                //add the player to the seat and exit
+                seats[i] = player;
+                return;
+            }
+        }
+        // If we are here no seat has been found
+        throw new TableFull("Error! The table is full");       
     }
 
     @Override
     public void dealCards()
     {
-        // TODO Auto-generated method stub
+        // deal cards
+        table.dealCards();
 
     }
 
     @Override
-    public Hand checkForWinner(Player player)
+    public Player[] checkForWinner()
     {
-        // TODO Auto-generated method stub
+        // declare data structure to hold winner(s)
+        List list = new ArrayList();
+        Card[] cardsUsed = new Card[5];
         return null;
     }
 
@@ -52,7 +71,20 @@ public class TexasPoker implements Game
     public Player[] getPlayers()
     {
         // TODO Auto-generated method stub
-        return null;
+        return table.getSeats();
     }
 
+    @Override
+    public Table getTable()
+    {
+        // TODO Auto-generated method stub
+        return this.table;
+    }
+
+    @Override
+    public void play()
+    {
+        // TODO Auto-generated method stub
+        
+    }
 }

@@ -18,6 +18,5 @@ public enum WinningHands
     FULL_HOUSE, // 3 of a kind and a pair
     FOUR_OF_A_KIND, // 4 cards of the same value
     STRAIGHT_FLUSH, // 5 sequential cards in the same suit
-    ROYAL_FLUSH; // Ace, king, queen, jack and ten in the same suit
-    
+    ROYAL_FLUSH; // Ace, king, queen, jack and ten in the same suit   
 }

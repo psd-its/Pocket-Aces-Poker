@@ -47,13 +47,6 @@ public class HumanPlayer extends AbsPlayer
     }
 
     @Override
-    public int getBalance()
-    {
-        // TODO Auto-generated method stub
-        return cash;
-    }
-
-    @Override
     public boolean fold()
     {
         // TODO Auto-generated method stub
