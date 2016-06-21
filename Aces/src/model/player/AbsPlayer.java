@@ -1,8 +1,7 @@
 package model.player;
 
-import java.util.Arrays;
-
 import model.card.Card;
+import model.card.Face;
 import model.card.WinningHands;
 
 public abstract class AbsPlayer implements Player
@@ -13,6 +12,9 @@ public abstract class AbsPlayer implements Player
     protected int cash;
     protected Card hand[];
     protected WinningHands bestHand;
+    protected Face highCard;
+    
+
     public AbsPlayer(String name, boolean Human)
     {
         this.name = name;
@@ -62,6 +64,21 @@ public abstract class AbsPlayer implements Player
     public void setBestHand(WinningHands bestHand)
     {
         this.bestHand = bestHand;
+    }
+    
+    /**
+     * Highest card is used for tie breaks of flushes,
+     * straights or pairs
+     * @return Face of card
+     */
+    public Face getHighCard()
+    {
+        return highCard;
+    }
+
+    public void setHighCard(Face highCard)
+    {
+        this.highCard = highCard;
     }
     
 }
