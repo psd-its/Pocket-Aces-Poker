@@ -2,6 +2,7 @@ package model.player;
 
 import model.card.Card;
 import model.card.WinningHands;
+import model.table.Table;
 
 public class ComputerPlayer extends AbsPlayer
 {
@@ -27,7 +28,7 @@ public class ComputerPlayer extends AbsPlayer
     }
 
     @Override
-    public boolean check()
+    public boolean check(Table t)
     {
         // TODO Auto-generated method stub
         return false;
@@ -67,5 +68,7 @@ public class ComputerPlayer extends AbsPlayer
         // TODO Auto-generated method stub
         return false;
     }
+
+   
     
 }

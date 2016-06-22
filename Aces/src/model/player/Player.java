@@ -4,6 +4,7 @@
 package model.player;
 
 import model.card.Card;
+import model.table.Table;
 
 
 /**
@@ -40,7 +41,7 @@ public interface Player
      * Player trys to check. Only valid if no 
      * @return true if able to check
      */
-    public boolean check();
+    public boolean check(Table t);
     
     public boolean call();
     
@@ -53,4 +54,6 @@ public interface Player
     public boolean isPlaying();
     
     public String getName();
+
+   
 }

@@ -1,6 +1,6 @@
 package model.player;
 
-import model.card.Card;
+import model.table.Table;
 
 public class HumanPlayer extends AbsPlayer
 {
@@ -19,7 +19,7 @@ public class HumanPlayer extends AbsPlayer
     }
 
     @Override
-    public boolean check()
+    public boolean check(Table t)
     {
         // TODO Auto-generated method stub
         return false;

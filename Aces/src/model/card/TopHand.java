@@ -9,16 +9,16 @@ public class TopHand implements Process
     // Constructor
     public TopHand()
     {
-        // TODO Auto-generated constructor stub
+        // 
 
     }
 
     @Override
-    public List<Pair<WinningHands, Face>> processHand(Card[] cards)
+    public List<Tup<WinningHands, Face>> processHand(Card[] cards)
     {
-        // Datastructures
-        List<Pair<WinningHands, Face>> matches = new ArrayList<Pair<WinningHands, Face>>();
-        List<Pair<Face, Integer>> multiples = getMultiples(cards);
+        // Data structures
+        List<Tup<WinningHands, Face>> matches = new ArrayList<Tup<WinningHands, Face>>();
+        List<Tup<Face, Integer>> multiples = getMultiples(cards);
 
         // 0 or 1 multiples found
         if (multiples.size() < 2)
@@ -29,7 +29,7 @@ public class TopHand implements Process
                 try
                 {
                     straight(Process.START, best);
-                    matches.add(new Pair<WinningHands, Face>(
+                    matches.add(new Tup<WinningHands, Face>(
                             WinningHands.FLUSH, highCard(best)));
                     return matches;
                 }
@@ -38,7 +38,7 @@ public class TopHand implements Process
                     // test for royal flush
                     if (s.getHighCard() == Face.ACE)
                     {
-                        matches.add(new Pair<WinningHands, Face>(
+                        matches.add(new Tup<WinningHands, Face>(
                                 WinningHands.ROYAL_FLUSH, Face.ACE));
                         return matches;
 
@@ -46,7 +46,7 @@ public class TopHand implements Process
                     // test for straight flush
                     else
                     {
-                        matches.add(new Pair<WinningHands, Face>(
+                        matches.add(new Tup<WinningHands, Face>(
                                 WinningHands.STRAIGHT_FLUSH, s.getHighCard()));
                         return matches;
                     }
@@ -62,7 +62,7 @@ public class TopHand implements Process
                 catch (Straight s)
                 {
                     // add straight
-                    matches.add(new Pair<WinningHands, Face>(
+                    matches.add(new Tup<WinningHands, Face>(
                             WinningHands.STRAIGHT, s.getHighCard()));
                     return matches;
                 }
@@ -70,7 +70,7 @@ public class TopHand implements Process
             // get high card (called bluff win condition)
             if (multiples.size() == 0)
             {
-                matches.add(new Pair<WinningHands, Face>(
+                matches.add(new Tup<WinningHands, Face>(
                         WinningHands.HIGH_CARD, highCard(cards)));
                 return matches;
             }
@@ -80,26 +80,27 @@ public class TopHand implements Process
                 switch (multiples.get(i).l)
                 {
                     case 2:
-                        matches.add(new Pair<WinningHands, Face>(
+                        matches.add(new Tup<WinningHands, Face>(
                                 WinningHands.PAIR, multiples.get(i).f));
                         break;
                     case 3:
-                        matches.add(new Pair<WinningHands, Face>(
+                        matches.add(new Tup<WinningHands, Face>(
                                 WinningHands.THREE_OF_A_KIND,
                                 multiples.get(i).f));
                         break;
                     case 4:
-                        matches.add(new Pair<WinningHands, Face>(
+                        matches.add(new Tup<WinningHands, Face>(
                                 WinningHands.FOUR_OF_A_KIND, multiples.get(i).f));
-                        return matches;
-                     
+                        return matches;                     
                 }
             }
+            // This is done so we can easily see the best hand ie full house we only 
+            // need to worry about card values if someone else has a matching hand
             if (matches.size() > 1)
             {
                 int pairCount, threeCount, fourCount;
                 pairCount = threeCount = fourCount = 0;
-                for (Pair<WinningHands, Face> m : matches)
+                for (Tup<WinningHands, Face> m : matches)
                 {
                     switch (m.f)
                     {
@@ -112,17 +113,42 @@ public class TopHand implements Process
                         case FOUR_OF_A_KIND:
                             ++fourCount;
                             break;
+                        default:
+                            break;
                     }
                 }
                 if (pairCount > 1 && threeCount == 0)
                 {
-                    matches.add(0, new Pair<WinningHands, Face>(
+                    matches.add(0, new Tup<WinningHands, Face>(
                             WinningHands.TWO_PAIR, highCard(cards)));
                 }
-                
-
+                // there can only be 5 cards in a hand so remove the lower triple
+                else if (threeCount > 1 && pairCount == 0)
+                {
+                    if (matches.get(0).l.ordinal() > matches.get(1).l.ordinal())
+                    {
+                        matches.remove(1);
+                    }
+                    else 
+                    {
+                        matches.remove(0);
+                    }
+                }
+                // Full house
+                else if (threeCount == 1 && pairCount > 0)
+                {
+                    Face high = null;
+                    for ( Tup<WinningHands, Face> p: matches)
+                    {
+                        if (p.f == WinningHands.THREE_OF_A_KIND)
+                        {
+                            high = p.l;
+                        }
+                    }
+                    matches.add(new Tup<WinningHands, 
+                            Face>(WinningHands.FULL_HOUSE, high));
+                }
             }
-
         }
 
         return matches;
@@ -232,7 +258,7 @@ public class TopHand implements Process
         while (flush.size() > 5)
         {
             // Card value and index in the hand
-            Pair<Face, Integer> card = null;
+            Tup<Face, Integer> card = null;
             for (int i = 0; i < flush.size(); ++i)
             {
                 if (card == null)
@@ -252,10 +278,10 @@ public class TopHand implements Process
 
     }
 
-    private List<Pair<Face, Integer>> getMultiples(Card[] cards)
+    private List<Tup<Face, Integer>> getMultiples(Card[] cards)
     {
         // Growable data structure for storing duplicate cards in the hand
-        List<Pair<Face, Integer>> doubles = new ArrayList<Pair<Face, Integer>>();
+        List<Tup<Face, Integer>> doubles = new ArrayList<Tup<Face, Integer>>();
         int cardCount = 1;
         // Step through the cards in the hand
         for (int i = 0; i < cards.length; ++i)
@@ -272,7 +298,7 @@ public class TopHand implements Process
             // if a patch was found add it to the list
             if (cardCount > 1)
             {
-                doubles.add(new Pair<Face, Integer>(cards[i].getValue(),
+                doubles.add(new Tup<Face, Integer>(cards[i].getValue(),
                         cardCount));
             }
             // reset the card count
@@ -319,19 +345,4 @@ public class TopHand implements Process
 
 }
 
-/**
- * Mock Tuple representation
- * 
- * @author Tristan s3528615
- */
-class Pair<F, L>
-{
-    public F f;
-    public L l;
 
-    public Pair(F first, L last)
-    {
-        this.f = first;
-        this.l = last;
-    }
-}

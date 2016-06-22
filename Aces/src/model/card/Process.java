@@ -9,13 +9,15 @@ public interface Process
 {
     public static final int HAND = 4; 
     public static final int START = 12; 
+    public static final int HOLE_L = 5;
+    public static final int HOLE_R = 6;
     /**
      * Process the players hand to determine 
      * the best hand they can make
      * @param cards
      * @return bestHand
      */
-    public List<Pair<WinningHands, Face>> processHand(Card[] cards);
+    public List<Tup<WinningHands, Face>> processHand(Card[] cards);
     
     /**
      * Get the highest card in the players hand.
