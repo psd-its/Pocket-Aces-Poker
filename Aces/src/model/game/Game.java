@@ -55,8 +55,9 @@ public interface Game
      * If in NOWINNER is returned it is a split pot in texas hold'em 
      * @param players
      * @return handWon
+     * @throws Exception 
      */
-    public Player[] checkForWinner();
+    public Player[] checkForWinner() throws Exception;
     
     /**
      * Initiates the game
