@@ -7,6 +7,8 @@ import model.player.Player;
 import model.table.Table;
 import model.table.TexasTable;
 
+import view.main.*;
+
 public class Harness
 {
 
@@ -41,6 +43,9 @@ public class Harness
         {
             System.out.printf("%s\n", c.toString());
         }
+        
+        MainView mainView = new MainView();
+        mainView.setVisible(true);
 
     }
 
