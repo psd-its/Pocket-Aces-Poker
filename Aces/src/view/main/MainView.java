@@ -1,7 +1,7 @@
 package view.main;
 
 /*
- * Main view class. Maintains references to all sub views. Lots still needs to be added to this.
+ * Main view class. Maintains references to all sub views.
  * 
  * @author Mathew Harrington
  * */

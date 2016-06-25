@@ -2,11 +2,8 @@ package view;
 
 /*
  * Class represents the menu bar that will be at the top of the main window.
- * We can add more menu items as needed.
- * 
- * TODO 
- * add action listeners to menu items
- * menu bar controller
+ * We can add more menu items as needed. These call the same set of methods 
+ * as when a user clicks one of the buttons within the screen.
  * 
  * @author Mathew Harrington
  */
