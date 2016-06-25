@@ -9,7 +9,7 @@ package view.main;
 import java.awt.HeadlessException;
 import java.awt.*;
 import javax.swing.*;
-import view.MenuBar;
+//import view.MenuBar;
 
 @SuppressWarnings("serial")
 

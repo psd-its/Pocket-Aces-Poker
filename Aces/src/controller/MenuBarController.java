@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import view.MenuBar;
+import view.main.MenuBar;
 import view.main.MainView;
 
 public class MenuBarController implements ActionListener
