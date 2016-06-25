@@ -11,11 +11,14 @@ import java.awt.*;
 import javax.swing.*;
 //import view.MenuBar;
 
+import view.screen.StartScreen;
+
 @SuppressWarnings("serial")
 
 public class MainView extends JFrame
 {
     private MenuBar menuBar;
+    private JPanel startScreen;
 
     public MainView() throws HeadlessException
     {
@@ -36,6 +39,12 @@ public class MainView extends JFrame
 
         // initialize sub views
         this.menuBar = new MenuBar(this);
+        
+        // load each screen
+        // e.g. this.startScreen = new StartScreen();
+        this.startScreen = new StartScreen();
+        this.getContentPane().add(startScreen, BorderLayout.CENTER);
+        this.startScreen.setVisible(true);
         
         // set menu bar of main window with this
         this.setJMenuBar(menuBar);
