@@ -44,7 +44,7 @@ public class MainView extends JFrame
         
         // load each screen
         // e.g. this.startScreen = new StartScreen();
-        this.startScreen = new StartScreen();
+        this.startScreen = new StartScreen(this);
         this.getContentPane().add(startScreen, BorderLayout.CENTER);
         this.startScreen.setVisible(true);
         
