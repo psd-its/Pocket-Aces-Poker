@@ -1,6 +1,7 @@
 package test_harness;
 
 import model.card.Card;
+import model.facade.AcesModel;
 import model.player.ComputerPlayer;
 import model.player.HumanPlayer;
 import model.player.Player;
@@ -11,6 +12,7 @@ import view.main.*;
 
 public class Harness
 {
+    private static AcesModel acesFacade;
 
     public Harness()
     {
@@ -44,9 +46,11 @@ public class Harness
             System.out.printf("%s\n", c.toString());
         }
         
-        MainView mainView = new MainView();
+        // setup facade
+        Harness.acesFacade = new AcesModel();
+        // setup main view
+        MainView mainView = new MainView(Harness.acesFacade);
         mainView.setVisible(true);
 
     }
-
 }
