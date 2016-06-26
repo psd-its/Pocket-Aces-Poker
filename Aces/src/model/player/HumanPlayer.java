@@ -5,58 +5,74 @@ import model.table.Table;
 public class HumanPlayer extends AbsPlayer
 {
 
+    private int currentBet;
+
     public HumanPlayer(String name)
     {
         super(name, true);
-        // TODO Auto-generated constructor stub
     }
-
+    
     @Override
-    public boolean placeBet(int bet)
+    public void placeBet(int bet)
     {
-        // TODO Auto-generated method stub
-        return false;
+        if (bet <= cash)
+        {
+            cash = cash - bet;
+            playingHand = false;
+        }
     }
 
     @Override
     public boolean check(Table t)
     {
-        // TODO Auto-generated method stub
+        //Ends turn
         return false;
     }
 
     @Override
-    public boolean call()
+    public void call(int bet)
     {
-        // TODO Auto-generated method stub
+        if (bet <= cash)
+        {
+            cash = cash - bet;
+            playingHand = false;
+        }
+    }
+
+    @Override
+    public void raise(int amount)
+    {
+        if (amount <= cash && (amount > currentBet))
+        {
+            amount = (currentBet + amount);
+            placeBet(amount);
+            cash = cash - amount;
+            playingHand = false;
+        }
+    }
+
+    @Override
+    public boolean allIn(int cash)
+    {
+        placeBet(cash);
         return false;
     }
 
     @Override
-    public boolean raise(int ammount)
+    public int getBalance()
     {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean allIn()
-    {
-        // TODO Auto-generated method stub
-        return false;
+        return cash;
     }
 
     @Override
     public boolean fold()
     {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean isPlaying()
     {
-        // TODO Auto-generated method stub
         return false;
     }
 

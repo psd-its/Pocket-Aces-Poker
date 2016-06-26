@@ -23,7 +23,7 @@ public interface Player
      * @param bet
      * @return true if bet placed falce if failed
      */
-    public boolean placeBet(int bet);
+    public void placeBet(int bet);
     
     /**
      * Get the cards in a players hand
@@ -45,7 +45,7 @@ public interface Player
     
     public boolean call();
     
-    public boolean raise(int ammount);
+    public void raise(int ammount);
     
     public boolean allIn();
     
