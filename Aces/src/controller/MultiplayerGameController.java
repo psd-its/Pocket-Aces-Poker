@@ -7,7 +7,6 @@
 package controller;
 
 import java.awt.event.ActionEvent;
-
 import model.facade.AcesFacade;
 import view.main.MainView;
 import view.screen.StartScreen;

@@ -9,7 +9,6 @@ package view.main;
 import java.awt.HeadlessException;
 import java.awt.*;
 import javax.swing.*;
-
 import model.facade.AcesFacade;
 import view.screen.StartScreen;
 

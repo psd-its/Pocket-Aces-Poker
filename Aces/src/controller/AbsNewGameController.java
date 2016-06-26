@@ -7,9 +7,6 @@
 package controller;
 
 import java.awt.event.ActionListener;
-
-import javax.swing.JOptionPane;
-
 import model.facade.AcesFacade;
 import model.game.Game;
 import model.player.Player;
