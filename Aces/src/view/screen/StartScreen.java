@@ -20,16 +20,20 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import controller.StartGameController;
+import controller.MultiplayerGameController;
+import controller.SinglePlayerGameController;
+import view.main.MainView;
 
 public class StartScreen extends JPanel
 {
+    // these strings will be referenced by the controllers
+    public static final String SINGLE_PLAYER_BUTTON = "Single-Player";
+    public static final String MULTIPLAYER_BUTTON = "Multiplayer";
+    
+    private String[] gameTypes = { "Texas Hold'Em Poker" };
     private String selectGameText = "Select Game:";
     private String nameInputText = "Enter Your Name:";
-    private String singlePlayerButtonText = "Single-Player";
-    private String multiplayerButtonText = "Multiplayer";
     private String titleText = "Aces High";
-    private String[] gameTypes = { "Texas Hold'Em Poker" };
     private JComboBox<String> selectGameDropdown;
     private JTextArea nameInputTextArea;
     private JLabel selectGameLabel; 
@@ -38,21 +42,19 @@ public class StartScreen extends JPanel
     private JButton singlePlayerButton;
     private JButton multiplayerGameButton;
     private GridBagConstraints constraints;
-    private StartGameController controller;
     
     /**
      * Constructor for start screen. Loads all the buttons and their labels, 
      * adds action listeners and performs some styling.
+     * 
+     * @param MainView A reference to the main view.
      */
-    public StartScreen()
+    public StartScreen(MainView mainView)
     {
         // set layout for panel
         super(new GridBagLayout());
         this.constraints = new GridBagConstraints();
         constraints.insets = new Insets(15,15,15,15);
-        
-        // assign controller
-        this.controller = new StartGameController();
         
         // this will be default for all panels
         this.setVisible(false);
@@ -92,15 +94,48 @@ public class StartScreen extends JPanel
         this.add(nameInputTextArea, constraints);
         
         // configure and add single player button to panel
-        this.singlePlayerButton = new JButton(singlePlayerButtonText);
+        this.singlePlayerButton = new JButton(SINGLE_PLAYER_BUTTON);
+        this.singlePlayerButton.addActionListener(new SinglePlayerGameController(mainView, this));
         constraints.gridx = 2;
         constraints.gridy = 3;
         this.add(singlePlayerButton, constraints);
         
         // configure and add multiplayer button to panel
-        this.multiplayerGameButton = new JButton(multiplayerButtonText);
+        this.multiplayerGameButton = new JButton(MULTIPLAYER_BUTTON);
+        this.multiplayerGameButton.addActionListener(new MultiplayerGameController(mainView, this));
         constraints.gridx = 2;
         constraints.gridy = 4;
         this.add(multiplayerGameButton, constraints);
+    }
+    
+    /**
+     * TODO Might need some input validation here.
+     * 
+     * @return String The text supplied in the name input. Null if empty.
+     */
+    public String getNameInput()
+    {
+        String name = this.nameInputTextArea.getText();
+        
+        if(name.isEmpty())
+        {
+            return null;
+        }
+        
+        return name;
+    }
+    
+    /**
+     * As we have hardcoded the game types into the dropdown there shouldn't
+     * be any risk of returning null here. Again for this reason no validation 
+     * required.
+     * 
+     * @return String The selected value from the game type dropdown.
+     */
+    public String getGameType()
+    {
+        String gameType = String.valueOf(this.selectGameDropdown.getSelectedItem());
+        
+        return gameType;
     }
 }
