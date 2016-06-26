@@ -26,7 +26,7 @@ public class MenuBarController implements ActionListener
      * Constructor for the menu bar controller, all it does is allocate the
      * reference to the main view.
      * 
-     * @author Mathew Harrington
+     * @param MainView A reference to the main window of the application.
      * */
     public MenuBarController(MainView mainView)
     {
