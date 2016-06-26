@@ -9,18 +9,25 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JOptionPane;
-
 import view.main.MenuBar;
 import view.main.MainView;
 
 public class MenuBarController implements ActionListener
 {
     private MainView mainView;
-    private String aboutMessage = "Pocket Aces Poker: Game built for Building IT Systems, SP2 2016.\n\n"
-            + "Team consisting of: \nTristan McSwain\nTaylor Curr\nNanuel Ortiz\nNicholas Henderson\nMathew Harrington";
     
+    // TODO move this message to a separate file and load it when constructor called
+    private String aboutMessage = "Aces High: Game built for Building IT "
+            + "Systems, SP2 2016.\n\n Team consisting of: \nTristan McSwain\n"
+            + "Taylor Curr\nManuel Ortiz\nNicholas Henderson\nMathew Harrington";
+    
+    /*
+     * Constructor for the menu bar controller, all it does is allocate the
+     * reference to the main view.
+     * 
+     * @author Mathew Harrington
+     * */
     public MenuBarController(MainView mainView)
     {
         this.mainView = mainView;
@@ -48,7 +55,7 @@ public class MenuBarController implements ActionListener
                 break;
                 
             // TODO begin new multi player game - go to the 'host game' screen?
-            case MenuBar.NEW_MULTI_PLAYER_GAME_OPTION :
+            case MenuBar.NEW_MULTIPLAYER_GAME_OPTION :
                 break;
                 
             // TODO display readme - still needs to be written (more in depth than the 'about' message)
