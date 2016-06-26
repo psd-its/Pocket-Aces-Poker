@@ -1,4 +1,4 @@
-/*
+/**
  * Start Screen class. A JPanel that will be placed inside the main view.
  * 
  * If anyone wants to help with the game screen panels there's a great intro
@@ -8,7 +8,7 @@
  * the most complex layout manager so thought it'd be cool to learn.
  * 
  * @author Mathew Harrington
- * */
+ */
 
 package view.screen;
 
@@ -20,6 +20,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import controller.StartGameController;
 
 public class StartScreen extends JPanel
 {
@@ -29,7 +30,6 @@ public class StartScreen extends JPanel
     private String multiplayerButtonText = "Multiplayer";
     private String titleText = "Aces High";
     private String[] gameTypes = { "Texas Hold'Em Poker" };
-    //private boolean isVisible = false; // this might be redundant
     private JComboBox<String> selectGameDropdown;
     private JTextArea nameInputTextArea;
     private JLabel selectGameLabel; 
@@ -38,13 +38,23 @@ public class StartScreen extends JPanel
     private JButton singlePlayerButton;
     private JButton multiplayerGameButton;
     private GridBagConstraints constraints;
+    private StartGameController controller;
     
+    /**
+     * Constructor for start screen. Loads all the buttons and their labels, 
+     * adds action listeners and performs some styling.
+     */
     public StartScreen()
     {
+        // set layout for panel
         super(new GridBagLayout());
         this.constraints = new GridBagConstraints();
         constraints.insets = new Insets(15,15,15,15);
         
+        // assign controller
+        this.controller = new StartGameController();
+        
+        // this will be default for all panels
         this.setVisible(false);
         
         // configure and add title label to panel
@@ -52,7 +62,7 @@ public class StartScreen extends JPanel
         constraints.gridx = 2;
         constraints.gridy = 0;
         constraints.gridwidth = 3;
-        title.setFont (title.getFont().deriveFont(64.0f));
+        title.setFont(title.getFont().deriveFont(64.0f));
         this.add(title, constraints);
         
         // configure and add select game label to panel
@@ -75,9 +85,8 @@ public class StartScreen extends JPanel
         this.add(nameInputLabel, constraints);
         
         // configure and add name text input to panel
-        this.nameInputTextArea = new JTextArea();
-        this.nameInputTextArea.setColumns(15); // wont show up if this not set
-        //constraints.gridwidth = 2;
+        this.nameInputTextArea = new JTextArea(1, 15); // rows and columns
+        this.nameInputTextArea.setMargin(new Insets(3,5,3,5)); // some padding
         constraints.gridx = 3;
         constraints.gridy = 2;
         this.add(nameInputTextArea, constraints);

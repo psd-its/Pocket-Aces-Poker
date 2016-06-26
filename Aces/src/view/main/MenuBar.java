@@ -1,6 +1,6 @@
 package view.main;
 
-/*
+/**
  * Class represents the menu bar that will be at the top of the main window.
  * We can add more menu items as needed. These call the same set of methods 
  * as when a user clicks one of the buttons within the screen.
@@ -36,12 +36,12 @@ public class MenuBar extends JMenuBar
     public static final String NEW_MULTIPLAYER_GAME_OPTION = "New Multiplayer Game";
     public static final String README_OPTION = "Readme";
     
-    /*
+    /**
      * Constructor for the menu bar. Initializes its controller, configures
      * and adds menu items and finall adds the menu to the bar.
      * 
      * @param MainView A reference to the main window of the application.
-     * */
+     */
     public MenuBar(MainView mainView)
     {
         super();

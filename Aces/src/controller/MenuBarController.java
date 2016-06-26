@@ -22,12 +22,12 @@ public class MenuBarController implements ActionListener
             + "Systems, SP2 2016.\n\n Team consisting of: \nTristan McSwain\n"
             + "Taylor Curr\nManuel Ortiz\nNicholas Henderson\nMathew Harrington";
     
-    /*
+    /**
      * Constructor for the menu bar controller, all it does is allocate the
      * reference to the main view.
      * 
      * @param MainView A reference to the main window of the application.
-     * */
+     */
     public MenuBarController(MainView mainView)
     {
         this.mainView = mainView;

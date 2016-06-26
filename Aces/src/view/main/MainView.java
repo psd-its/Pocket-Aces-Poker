@@ -1,10 +1,10 @@
 package view.main;
 
-/*
+/**
  * Main view class. Maintains references to all sub views.
  * 
  * @author Mathew Harrington
- * */
+ */
 
 import java.awt.HeadlessException;
 import java.awt.*;
@@ -18,10 +18,10 @@ public class MainView extends JFrame
     private MenuBar menuBar;
     private JPanel startScreen;
 
-    /*
+    /**
      * Constructor for the main view. Sets up the window's title, look and feel, 
      * window size and loads all of the sub views.
-     * */
+     */
     public MainView() throws HeadlessException
     {
         // frame title
@@ -52,7 +52,7 @@ public class MainView extends JFrame
         this.setJMenuBar(menuBar);
     }
     
-    /*
+    /**
      * Sets main window frame location to center of screen.
      */
     private void setWindowLocation()
@@ -64,7 +64,7 @@ public class MainView extends JFrame
         setLocation(screenWidth / 4, screenHeight / 4);
     }
 
-    /*
+    /**
      * Sets applications 'look and feel' to suit the system it's running on. 
      */
     private void setLookAndFeel()
