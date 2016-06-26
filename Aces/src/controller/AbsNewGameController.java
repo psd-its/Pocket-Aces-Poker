@@ -7,6 +7,13 @@
 package controller;
 
 import java.awt.event.ActionListener;
+
+import javax.swing.JOptionPane;
+
+import model.facade.AcesFacade;
+import model.game.Game;
+import model.player.Player;
+import model.table.TableFull;
 import view.main.MainView;
 import view.screen.StartScreen;
 
@@ -14,16 +21,18 @@ public abstract class AbsNewGameController implements ActionListener
 {
     private MainView mainView;
     private StartScreen startScreen;
+    private AcesFacade facade;
     
     /**
      * Base constructor, allocates the main view reference.
      * 
      * @param MainView A reference to the main window of the application.
      */
-    public AbsNewGameController(MainView mainView, StartScreen startScreen)
+    public AbsNewGameController(MainView mainView, StartScreen startScreen, AcesFacade facade)
     {
         this.mainView = mainView;
         this.startScreen = startScreen;
+        this.facade = facade;
     }
     
     /**
@@ -54,5 +63,29 @@ public abstract class AbsNewGameController implements ActionListener
     public String getGameType()
     {
         return this.startScreen.getGameType();
+    }
+    
+    /**
+     * @param Game A reference to the game.
+     */
+    public void createGame(Game game)
+    {
+        this.facade.createGame(game);
+    }
+    
+    /**
+     * @param Player The player to add to the game.
+     */
+    public void addPlayer(Player player)
+    {
+        try
+        {
+            this.facade.addPlayer(player);
+        }
+        catch (TableFull e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }

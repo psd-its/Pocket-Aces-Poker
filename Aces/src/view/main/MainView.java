@@ -9,12 +9,15 @@ package view.main;
 import java.awt.HeadlessException;
 import java.awt.*;
 import javax.swing.*;
+
+import model.facade.AcesFacade;
 import view.screen.StartScreen;
 
 @SuppressWarnings("serial")
 
 public class MainView extends JFrame
 {
+    private AcesFacade acesFacade;
     private MenuBar menuBar;
     private JPanel startScreen;
 
@@ -22,10 +25,13 @@ public class MainView extends JFrame
      * Constructor for the main view. Sets up the window's title, look and feel, 
      * window size and loads all of the sub views.
      */
-    public MainView() throws HeadlessException
+    public MainView(AcesFacade facade) throws HeadlessException
     {
         // frame title
         super("Pocket Aces Poker");
+        
+        // set facade
+        this.acesFacade = facade;
         
         // set look and feel
         this.setLookAndFeel();
@@ -44,7 +50,7 @@ public class MainView extends JFrame
         
         // load each screen
         // e.g. this.startScreen = new StartScreen();
-        this.startScreen = new StartScreen(this);
+        this.startScreen = new StartScreen(this, facade);
         this.getContentPane().add(startScreen, BorderLayout.CENTER);
         this.startScreen.setVisible(true);
         
@@ -91,5 +97,13 @@ public class MainView extends JFrame
             System.err.println("Using the default look and feel.");
             e.printStackTrace();
         }
+    }
+    
+    /**
+     * @return AcesFacade A reference to the facade for the model.
+     */
+    public AcesFacade getFacade()
+    {
+        return this.acesFacade;
     }
 }

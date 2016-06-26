@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import controller.MultiplayerGameController;
 import controller.SinglePlayerGameController;
+import model.facade.AcesFacade;
 import view.main.MainView;
 
 public class StartScreen extends JPanel
@@ -48,8 +49,9 @@ public class StartScreen extends JPanel
      * adds action listeners and performs some styling.
      * 
      * @param MainView A reference to the main view.
+     * @param AcesFacade A reference to the model facade.
      */
-    public StartScreen(MainView mainView)
+    public StartScreen(MainView mainView, AcesFacade facade)
     {
         // set layout for panel
         super(new GridBagLayout());
@@ -95,14 +97,14 @@ public class StartScreen extends JPanel
         
         // configure and add single player button to panel
         this.singlePlayerButton = new JButton(SINGLE_PLAYER_BUTTON);
-        this.singlePlayerButton.addActionListener(new SinglePlayerGameController(mainView, this));
+        this.singlePlayerButton.addActionListener(new SinglePlayerGameController(mainView, this, facade));
         constraints.gridx = 2;
         constraints.gridy = 3;
         this.add(singlePlayerButton, constraints);
         
         // configure and add multiplayer button to panel
         this.multiplayerGameButton = new JButton(MULTIPLAYER_BUTTON);
-        this.multiplayerGameButton.addActionListener(new MultiplayerGameController(mainView, this));
+        this.multiplayerGameButton.addActionListener(new MultiplayerGameController(mainView, this, facade));
         constraints.gridx = 2;
         constraints.gridy = 4;
         this.add(multiplayerGameButton, constraints);

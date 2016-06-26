@@ -7,6 +7,8 @@
 package controller;
 
 import java.awt.event.ActionEvent;
+
+import model.facade.AcesFacade;
 import view.main.MainView;
 import view.screen.StartScreen;
 
@@ -17,10 +19,12 @@ public class MultiplayerGameController extends AbsNewGameController
      * 
      * @param MainView A reference to the main view, sent to superclass 
      * constructor.
+     * @param StartScreen A reference to the game's start screen.
+     * @param AcesFacade A reference to the model facade.
      */
-    public MultiplayerGameController(MainView mainView, StartScreen startScreen)
+    public MultiplayerGameController(MainView mainView, StartScreen startScreen, AcesFacade facade)
     {
-        super(mainView, startScreen);
+        super(mainView, startScreen, facade);
     }
 
     @Override 
