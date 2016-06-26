@@ -19,7 +19,6 @@ import view.main.MainView;
 public class MenuBar extends JMenuBar
 {
     private MenuBarController controller;
-    
     private JMenu file;
     private JMenu newOptions;
     private JMenu help;
@@ -34,9 +33,15 @@ public class MenuBar extends JMenuBar
     public static final String ABOUT_OPTION = "About";
     public static final String NEW_OPTION = "New";
     public static final String NEW_SINGLE_PLAYER_GAME_OPTION = "New Single Player Game";
-    public static final String NEW_MULTI_PLAYER_GAME_OPTION = "New Multiplayer Game";
+    public static final String NEW_MULTIPLAYER_GAME_OPTION = "New Multiplayer Game";
     public static final String README_OPTION = "Readme";
     
+    /*
+     * Constructor for the menu bar. Initializes its controller, configures
+     * and adds menu items and finall adds the menu to the bar.
+     * 
+     * @param MainView A reference to the main window of the application.
+     * */
     public MenuBar(MainView mainView)
     {
         super();
@@ -50,7 +55,7 @@ public class MenuBar extends JMenuBar
         menuItem = new JMenuItem(NEW_SINGLE_PLAYER_GAME_OPTION);
         menuItem.addActionListener(controller);
         newOptions.add(menuItem);
-        menuItem = new JMenuItem(NEW_MULTI_PLAYER_GAME_OPTION);
+        menuItem = new JMenuItem(NEW_MULTIPLAYER_GAME_OPTION);
         menuItem.addActionListener(controller);
         newOptions.add(menuItem);        
         file.add(newOptions);
