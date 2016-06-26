@@ -9,8 +9,6 @@ package view.main;
 import java.awt.HeadlessException;
 import java.awt.*;
 import javax.swing.*;
-//import view.MenuBar;
-
 import view.screen.StartScreen;
 
 @SuppressWarnings("serial")
@@ -20,6 +18,10 @@ public class MainView extends JFrame
     private MenuBar menuBar;
     private JPanel startScreen;
 
+    /*
+     * Constructor for the main view. Sets up the window's title, look and feel, 
+     * window size and loads all of the sub views.
+     * */
     public MainView() throws HeadlessException
     {
         // frame title
