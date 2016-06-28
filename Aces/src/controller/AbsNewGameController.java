@@ -85,4 +85,12 @@ public abstract class AbsNewGameController implements ActionListener
             e.printStackTrace();
         }
     }
+    
+    /**
+     * @param String The requested screen to display.
+     */
+    public void switchScreen(String requestedScreen)
+    {
+        this.mainView.switchScreen(this.startScreen, requestedScreen);
+    }
 }
