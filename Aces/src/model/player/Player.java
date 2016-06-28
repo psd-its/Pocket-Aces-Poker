@@ -43,11 +43,11 @@ public interface Player
      */
     public boolean check(Table t);
     
-    public boolean call();
+    public boolean call(int bet);
     
     public void raise(int ammount);
     
-    public boolean allIn();
+    public boolean allIn(int cash);
     
     public boolean fold();
     

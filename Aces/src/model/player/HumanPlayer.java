@@ -17,7 +17,7 @@ public class HumanPlayer extends AbsPlayer
     {
         if (bet <= cash)
         {
-            cash = cash - bet;
+            cash = (cash - bet);
             playingHand = false;
         }
     }
@@ -30,16 +30,16 @@ public class HumanPlayer extends AbsPlayer
     }
 
     @Override
-    public void call(int bet)
+    public boolean call(int bet)
     {
         if (bet <= cash)
         {
-            cash = cash - bet;
+            cash = (cash - bet);
             playingHand = false;
         }
     }
 
-    @Override
+   @Override
     public void raise(int amount)
     {
         if (amount <= cash && (amount > currentBet))
