@@ -53,6 +53,8 @@ public class SinglePlayerGameController extends AbsNewGameController
                 Player newPlayer = new HumanPlayer(super.getNameInput());
                 // add player to game
                 super.addPlayer(newPlayer);
+                // switch screen
+                super.switchScreen(MainView.SINGLE_PLAYER_SCREEN);
                 break;
             
             default :
