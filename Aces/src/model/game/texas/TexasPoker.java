@@ -65,11 +65,9 @@ public class TexasPoker implements Game
     @Override
     public Player[] checkForWinner() throws Exception
     {
-        // declare data structures
-        // List<Tup<List<Tup<WinningHands, Face>>, Player>> playList =
-        // new ArrayList<Tup<List<Tup<WinningHands, Face>>, Player>>();
+       
         Card[] cards = new Card[7];
-        // im using System.arraycopy instead of a loop to get community cards
+     
         System.arraycopy(table.getCardsInPlay(), 0, cards, 0, 5);
         // get players
         // Add the players cards to the array containing the shared cards
@@ -80,20 +78,14 @@ public class TexasPoker implements Game
                 cards[Process.HOLE_L] = p.getHand()[0];
                 cards[Process.HOLE_R] = p.getHand()[1];
 
-                // Tup<List<Tup<WinningHands, Face>>, Player> best =
-                // new Tup<List<Tup<WinningHands, Face>>, Player>(th
-                // .processHand(cards), p);
-                // playList.add(best);
-                // System.out.println(best);
-                // //p.setBestHand(best.f.get(0));
-                for(Card c : cards)
-                {
-                    if (c != null)
-                        System.out.println("card: " + c.toString());
-                    else
-                        System.out.println("card: NULL ?!?");
-                        
-                }
+//                for(Card c : cards)
+//                {
+//                    if (c != null)
+//                        System.out.println("card: " + c.toString());
+//                    else
+//                        System.out.println("card: NULL ?!?");
+//                        
+//                }
                 List<Tup<WinningHands, Face>> best = th.processHand(cards);
                 if (best.isEmpty())
                 {
@@ -116,8 +108,7 @@ public class TexasPoker implements Game
                 // Add first card as best so far
                 bestSoFar = new Tup<WinningHands, Face>(h.getBestHand().f,
                         h.getBestHand().l);
-                // h.f.get(index).f;
-                // bestSoFar.l = h.f.get(index).l;
+           
                 indexes.add(index);
             }
             // New best so far
