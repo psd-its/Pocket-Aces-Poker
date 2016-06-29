@@ -20,8 +20,8 @@ public class TopHand implements Process
         List<Tup<Face, Integer>> multiples = getMultiples(cards);
 
         // 0 or 1 multiples found
-        if (multiples.size() < 2)
-        {
+//        if (multiples.size() <= 2)
+//        {
             Card[] best = flush(cards);
             if (best != null)
             {
@@ -52,8 +52,8 @@ public class TopHand implements Process
                 }
 
             }
-            else
-            {
+//            else
+//            {
                 try
                 {
                     straight(Process.START, cards);
@@ -65,7 +65,7 @@ public class TopHand implements Process
                             WinningHands.STRAIGHT, s.getHighCard()));
                     return matches;
                 }
-            }
+//            }
             // get high card (called bluff win condition)
             if (multiples.size() == 0)
             {
@@ -148,15 +148,16 @@ public class TopHand implements Process
                             Face>(WinningHands.FULL_HOUSE, high));
                 }
             }
+            return matches;
         }
 
-        return matches;
-    }
+        
+   // }
 
     // Recursive function for finding straight
     private void straight(int start, Card[] cards) throws Straight
     {
-        System.out.println("Straight() called: checking for strainght");
+        //System.out.println("Straight() called: checking for strainght");
         // Failure condition that ends recursive function
         if (start < 5) return;
         // count
@@ -192,7 +193,7 @@ public class TopHand implements Process
 
     private Card[] flush(Card[] cards)
     {
-        System.out.println("flush() called: checking for flush");
+        //System.out.println("flush() called: checking for flush");
         // counts of how many cards belong to each suit
         int hCount, dCount, sCount, cCount;
         hCount = dCount = sCount = cCount = 0;
@@ -282,7 +283,7 @@ public class TopHand implements Process
 
     public List<Tup<Face, Integer>> getMultiples(Card[] cards)
     {
-        System.out.println("getMultiples() called: checking for pairs etc");
+        //System.out.println("getMultiples() called: checking for pairs etc");
         // Growable data structure for storing duplicate cards in the hand
         List<Tup<Face, Integer>> doubles = new ArrayList<Tup<Face, Integer>>();
         int cardCount = 1;
@@ -292,10 +293,10 @@ public class TopHand implements Process
             // Check the rest of the hand for a match
             for (int j = 1 + i; j < cards.length; ++j)
             {
-                System.out.printf("i = %s : j = %s\n", i, j);
+               // System.out.printf("i = %s : j = %s\n", i, j);
                 if (cards[i].getValue() == cards[j].getValue())
                 {
-                    System.out.printf("%s ", cards[i].toString());
+                 //   System.out.printf("%s ", cards[i].toString());
                     System.out.printf("matches %s\n", cards[j].toString());
                     ++cardCount;
                 }
@@ -324,7 +325,7 @@ public class TopHand implements Process
     @Override
     public Face highCard(Card[] cards)
     {
-        System.out.println("highCard() called: checking for the highest card");
+        //System.out.println("highCard() called: checking for the highest card");
         Face bestCard = null;
         // step through cards
         for (Card c : cards)

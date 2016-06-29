@@ -14,17 +14,10 @@ public class ComputerPlayer extends AbsPlayer
     }
 
     @Override
-    public boolean placeBet(int bet)
+    public void placeBet(int bet)
     {
         // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public int getBalance()
-    {
-        // TODO Auto-generated method stub
-        return cash;
+        
     }
 
     @Override
@@ -35,21 +28,21 @@ public class ComputerPlayer extends AbsPlayer
     }
 
     @Override
-    public boolean call()
+    public boolean call(int bet)
     {
         // TODO Auto-generated method stub
         return false;
     }
 
     @Override
-    public boolean raise(int ammount)
+    public void raise(int ammount)
     {
         // TODO Auto-generated method stub
-        return false;
+        
     }
 
     @Override
-    public boolean allIn()
+    public boolean allIn(int cash)
     {
         // TODO Auto-generated method stub
         return false;
@@ -69,6 +62,7 @@ public class ComputerPlayer extends AbsPlayer
         return false;
     }
 
+    
    
     
 }

@@ -78,14 +78,14 @@ public class TexasPoker implements Game
                 cards[Process.HOLE_L] = p.getHand()[0];
                 cards[Process.HOLE_R] = p.getHand()[1];
 
-//                for(Card c : cards)
-//                {
-//                    if (c != null)
-//                        System.out.println("card: " + c.toString());
-//                    else
-//                        System.out.println("card: NULL ?!?");
-//                        
-//                }
+                for(Card c : cards)
+                {
+                    if (c != null)
+                        System.out.println("card: " + c.toString());
+                    else
+                        System.out.println("card: NULL ?!?");
+                        
+                }
                 List<Tup<WinningHands, Face>> best = th.processHand(cards);
                 if (best.isEmpty())
                 {
@@ -102,7 +102,7 @@ public class TexasPoker implements Game
         {
             if (h == null)
                 break;
-            System.out.println(index);
+            //System.out.println(index);
             if (bestSoFar == null)
             {
                 // Add first card as best so far

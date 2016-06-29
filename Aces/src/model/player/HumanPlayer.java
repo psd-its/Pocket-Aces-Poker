@@ -18,7 +18,9 @@ public class HumanPlayer extends AbsPlayer
         if (bet <= cash)
         {
             cash = (cash - bet);
-            playingHand = false;
+            // Playing hand indicates that a player is still in the
+            // round. Sorry should of been clearer
+            //playingHand = false;
         }
     }
 
@@ -35,8 +37,10 @@ public class HumanPlayer extends AbsPlayer
         if (bet <= cash)
         {
             cash = (cash - bet);
-            playingHand = false;
+            //playingHand = false;
+            return true;
         }
+        return false;
     }
 
    @Override

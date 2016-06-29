@@ -104,7 +104,7 @@ public class Harness
                         {
                             if (p != null)
                             {
-                                System.out.printf("%s high %s\n",
+                                System.out.printf("%s: %s high %s\n", p.getName(),
                                         p.getBestHand().l, p.getBestHand().f);
 
                             }
