@@ -9,12 +9,9 @@
 package view.screen;
 
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import model.facade.AcesFacade;
 import view.main.MainView;
 
@@ -32,7 +29,7 @@ public class SinglePlayerScreen extends AbsGameScreen
     
     // text for labels and buttons
     private String titleText = "Single Player";
-    private String numPlayersText = "Number of AI Players (Max 9)";
+    private String numPlayersText = "Select number of AI Players (Maximum 9)";
     private String welcomeMessageText;
     private String backButtonText = "Back";
     
@@ -60,31 +57,64 @@ public class SinglePlayerScreen extends AbsGameScreen
     {
         // configure and add title label to panel
         this.title = new JLabel(titleText);
-        constraints.gridx = 0;
+        constraints.weighty = 0.1;
+        constraints.weighty = 0.1;
+        constraints.gridx = 1;
         constraints.gridy = 0;
-        constraints.gridwidth = 3;
+        constraints.gridheight = 1;
+        constraints.gridwidth = GridBagConstraints.REMAINDER;
+        constraints.anchor = GridBagConstraints.NORTH;
         title.setFont(title.getFont().deriveFont(64.0f));
         this.add(title, constraints);
         
         setWelcomeText();
+        
+        // configure and add welcome massage to screen
         this.welcomeMessage = new JLabel(welcomeMessageText);
-        constraints.gridx = 0;
+        constraints.gridx = 1;
         constraints.gridy = 1;
-        constraints.gridwidth = 3;
-        title.setFont(title.getFont().deriveFont(50.0f));
+        constraints.gridwidth = GridBagConstraints.REMAINDER;
+        welcomeMessage.setFont(title.getFont().deriveFont(27.0f));
         this.add(welcomeMessage, constraints);
+        
+        // number of players message
+        this.numPlayers = new JLabel(numPlayersText);
+        constraints.gridx = 1;
+        constraints.gridy = 2;
+        constraints.gridheight = 1;
+        constraints.gridwidth = GridBagConstraints.RELATIVE;
+        numPlayers.setFont(title.getFont().deriveFont(20.0f));
+        this.add(numPlayers, constraints);
+        
+        // combo box
+        this.numPlayersDropdown = new JComboBox<Integer>(numPlayersList);
+        constraints.gridx = 3;
+        constraints.gridy = 2;
+        constraints.anchor = GridBagConstraints.NORTHWEST;
+        constraints.gridwidth = GridBagConstraints.REMAINDER;
+        numPlayersDropdown.setFont(title.getFont().deriveFont(15.0f));
+        this.add(numPlayersDropdown, constraints);
+        
+        // start button
+        this.startButton = new JButton(START_BUTTON);
+        constraints.gridx = 1;
+        constraints.gridy = 3;
+        constraints.gridheight = 1;
+        constraints.gridwidth = GridBagConstraints.REMAINDER;
+        constraints.anchor = GridBagConstraints.SOUTH;
+        startButton.setFont(title.getFont().deriveFont(20.0f));
+        this.add(startButton, constraints);
     }
     
     /**
      * Simply loads the welcome text with the name the user has entered. This
      * can't be called until user has filled out start screen inputs, so called
-     * from load().
+     * from load(). Text is wrapped in html tags so we can use the break tag.
      */
     private void setWelcomeText()
     {
-        this.welcomeMessageText = "Welcome ";
+        this.welcomeMessageText = "<html><div style='text-align: center;'>Welcome ";
         this.welcomeMessageText += facade.getPlayer(0).getName();
-        this.welcomeMessageText += ".\nHone your skills against 1-9 AI opponents.";
-        
+        this.welcomeMessageText += "<br>Hone your skills against 1-9 AI opponents.</html>";   
     }
 }
