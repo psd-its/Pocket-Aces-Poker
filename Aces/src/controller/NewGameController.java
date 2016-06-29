@@ -1,5 +1,5 @@
 /**
- * Concrete controller class for starting a new single player game.
+ * Concrete controller class for starting a new player game.
  * 
  * @author Mathew Harrington
  */
@@ -21,7 +21,7 @@ import view.main.MainView;
 import view.screen.StartScreen;
 import test_harness.Harness;
 
-public class SinglePlayerGameController extends AbsNewGameController
+public class NewGameController extends AbsNewGameController
 {   
     /**
      * Constructor, just calls super for now.
@@ -29,7 +29,7 @@ public class SinglePlayerGameController extends AbsNewGameController
      * @param MainView A reference to the main view, sent to superclass 
      * constructor.
      */
-    public SinglePlayerGameController(MainView mainView, StartScreen startScreen, AcesFacade facade)
+    public NewGameController(MainView mainView, StartScreen startScreen, AcesFacade facade)
     {
         super(mainView, startScreen, facade);
     }

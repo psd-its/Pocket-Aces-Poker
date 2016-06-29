@@ -18,7 +18,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import controller.MultiplayerGameController;
-import controller.SinglePlayerGameController;
+import controller.NewGameController;
 import model.facade.AcesFacade;
 import view.main.MainView;
 
@@ -126,7 +126,7 @@ public class StartScreen extends AbsGameScreen
         
         // configure and add single player button to panel
         this.singlePlayerButton = new JButton(SINGLE_PLAYER_BUTTON);
-        this.singlePlayerButton.addActionListener(new SinglePlayerGameController(mainView, this, facade));
+        this.singlePlayerButton.addActionListener(new NewGameController(mainView, this, facade));
         constraints.gridx = 2;
         constraints.gridy = 3;
         this.add(singlePlayerButton, constraints);
