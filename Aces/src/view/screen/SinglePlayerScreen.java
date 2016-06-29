@@ -1,6 +1,6 @@
 /**
- * Single Player Screen class, represents the configuration screen for a new
- * single player game.
+ * Concrete Single Player Screen class, represents the configuration screen 
+ * for a new single player game. Contains screen specific variables.
  * 
  * @author Mathew Harrington 
  */
@@ -18,13 +18,9 @@ import javax.swing.JPanel;
 import model.facade.AcesFacade;
 import view.main.MainView;
 
-public class SinglePlayerScreen extends JPanel
+public class SinglePlayerScreen extends AbsGameScreen
 {
     public static final String START_BUTTON = "Start";
-    
-    // main view and model facade references
-    private MainView mainView;
-    private AcesFacade facade;
     
     // labels, buttons etc
     private JLabel title;
@@ -33,7 +29,6 @@ public class SinglePlayerScreen extends JPanel
     private JComboBox<Integer> numPlayersDropdown;
     private JButton startButton;
     private JButton backButton;
-    private GridBagConstraints constraints;
     
     // text for labels and buttons
     private String titleText = "Single Player";
@@ -52,23 +47,8 @@ public class SinglePlayerScreen extends JPanel
      */
     public SinglePlayerScreen(MainView mainView, AcesFacade facade)
     {
-        super(new GridBagLayout());
-        this.mainView = mainView;
-        this.facade = facade;
-        
+        super(mainView, facade);
         this.setVisible(false);
-        
-        // configure layout constraints and insets
-        this.constraints = new GridBagConstraints();
-        constraints.insets = new Insets(15,15,15,15);
-        
-        // configure and add title label to panel
-        this.title = new JLabel(titleText);
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        constraints.gridwidth = 3;
-        title.setFont(title.getFont().deriveFont(64.0f));
-        this.add(title, constraints);
     }
     
     /**
@@ -78,6 +58,14 @@ public class SinglePlayerScreen extends JPanel
      */
     public void load()
     {
+        // configure and add title label to panel
+        this.title = new JLabel(titleText);
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.gridwidth = 3;
+        title.setFont(title.getFont().deriveFont(64.0f));
+        this.add(title, constraints);
+        
         setWelcomeText();
         this.welcomeMessage = new JLabel(welcomeMessageText);
         constraints.gridx = 0;
@@ -88,22 +76,6 @@ public class SinglePlayerScreen extends JPanel
     }
     
     /**
-     * @return MainView A reference to the main window of the application.
-     */
-    public MainView getMainView()
-    {
-        return this.mainView;
-    }
-    
-    /**
-     * @return AcesFacade A reference to the model facade.
-     */
-    public AcesFacade getFacade()
-    {
-        return this.facade;
-    }
-    
-    /**
      * Simply loads the welcome text with the name the user has entered. This
      * can't be called until user has filled out start screen inputs, so called
      * from load().
@@ -111,7 +83,7 @@ public class SinglePlayerScreen extends JPanel
     private void setWelcomeText()
     {
         this.welcomeMessageText = "Welcome ";
-        this.welcomeMessageText += this.facade.getPlayer(0).getName();
+        this.welcomeMessageText += facade.getPlayer(0).getName();
         this.welcomeMessageText += ".\nHone your skills against 1-9 AI opponents.";
         
     }

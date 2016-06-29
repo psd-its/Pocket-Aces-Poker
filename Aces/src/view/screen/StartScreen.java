@@ -25,7 +25,7 @@ import controller.SinglePlayerGameController;
 import model.facade.AcesFacade;
 import view.main.MainView;
 
-public class StartScreen extends JPanel
+public class StartScreen extends AbsGameScreen
 {
     // these strings will be referenced by the controllers
     public static final String SINGLE_PLAYER_BUTTON = "Single-Player";
@@ -42,7 +42,6 @@ public class StartScreen extends JPanel
     private JLabel title;
     private JButton singlePlayerButton;
     private JButton multiplayerGameButton;
-    private GridBagConstraints constraints;
     
     /**
      * Constructor for start screen. Loads all the buttons and their labels, 
@@ -54,13 +53,46 @@ public class StartScreen extends JPanel
     public StartScreen(MainView mainView, AcesFacade facade)
     {
         // set layout for panel
-        super(new GridBagLayout());
-        this.constraints = new GridBagConstraints();
-        constraints.insets = new Insets(15,15,15,15);
+        super(mainView, facade);
         
         // this will be default for all panels
         this.setVisible(false);
+    }
+    
+    /**
+     * TODO Might need some input validation here.
+     * 
+     * @return String The text supplied in the name input. Null if empty.
+     */
+    public String getNameInput()
+    {
+        String name = this.nameInputTextArea.getText();
         
+        if(name.isEmpty())
+        {
+            return null;
+        }
+        
+        return name;
+    }
+    
+    /**
+     * As we have hardcoded the game types into the dropdown there shouldn't
+     * be any risk of returning null here. Again for this reason no validation 
+     * required.
+     * 
+     * @return String The selected value from the game type dropdown.
+     */
+    public String getGameType()
+    {
+        String gameType = String.valueOf(this.selectGameDropdown.getSelectedItem());
+        
+        return gameType;
+    }
+
+    @Override
+    public void load()
+    {
         // configure and add title label to panel
         this.title = new JLabel(titleText);
         constraints.gridx = 2;
@@ -108,36 +140,5 @@ public class StartScreen extends JPanel
         constraints.gridx = 2;
         constraints.gridy = 4;
         this.add(multiplayerGameButton, constraints);
-    }
-    
-    /**
-     * TODO Might need some input validation here.
-     * 
-     * @return String The text supplied in the name input. Null if empty.
-     */
-    public String getNameInput()
-    {
-        String name = this.nameInputTextArea.getText();
-        
-        if(name.isEmpty())
-        {
-            return null;
-        }
-        
-        return name;
-    }
-    
-    /**
-     * As we have hardcoded the game types into the dropdown there shouldn't
-     * be any risk of returning null here. Again for this reason no validation 
-     * required.
-     * 
-     * @return String The selected value from the game type dropdown.
-     */
-    public String getGameType()
-    {
-        String gameType = String.valueOf(this.selectGameDropdown.getSelectedItem());
-        
-        return gameType;
     }
 }

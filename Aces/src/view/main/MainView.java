@@ -10,6 +10,7 @@ import java.awt.HeadlessException;
 import java.awt.*;
 import javax.swing.*;
 import model.facade.AcesFacade;
+import view.screen.AbsGameScreen;
 import view.screen.SinglePlayerScreen;
 import view.screen.StartScreen;
 
@@ -19,8 +20,7 @@ public class MainView extends JFrame
 {
     private AcesFacade acesFacade;
     private MenuBar menuBar;
-    private StartScreen startScreen;
-    private SinglePlayerScreen singlePlayerScreen;
+    private AbsGameScreen startScreen, singlePlayerScreen;
     
     // these are used for swaping out screens in switchScreen()
     public static final String START_SCREEN = "startScreen";
@@ -29,6 +29,8 @@ public class MainView extends JFrame
     /**
      * Constructor for the main view. Sets up the window's title, look and feel, 
      * window size and loads all of the sub views.
+     * 
+     * @param AcesFacade A reference to the model facade object.
      */
     public MainView(AcesFacade facade) throws HeadlessException
     {
@@ -53,18 +55,25 @@ public class MainView extends JFrame
         // initialize sub views
         this.menuBar = new MenuBar(this);
         
-        // load each screen
-        this.startScreen = new StartScreen(this, facade);
-        this.singlePlayerScreen = new SinglePlayerScreen(this, facade);
+        this.loadScreens();
         
         // set start screen to visible
         this.getContentPane().add(startScreen, BorderLayout.CENTER);
-        //this.getContentPane().add(singlePlayerScreen, BorderLayout.CENTER);
-        
         this.startScreen.setVisible(true);
         
         // set menu bar of main window with this
         this.setJMenuBar(menuBar);
+    }
+    
+    /**
+     * Function to load each of the screen used in the application.
+     */
+    private void loadScreens()
+    {
+        // load each screen
+        this.startScreen = new StartScreen(this, acesFacade);
+        this.startScreen.load();
+        this.singlePlayerScreen = new SinglePlayerScreen(this, acesFacade);
     }
     
     /**
