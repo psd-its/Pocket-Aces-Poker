@@ -19,7 +19,6 @@ import view.screen.StartScreen;
 public class MainView extends JFrame
 {
     private AcesFacade acesFacade;
-    private MenuBar menuBar;
     private AbsGameScreen startScreen, singlePlayerScreen;
     
     // these are used for swaping out screens in switchScreen()
