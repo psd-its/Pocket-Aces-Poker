@@ -2,6 +2,7 @@ package model.player;
 
 import model.card.Card;
 import model.card.Face;
+import model.card.Tup;
 import model.card.WinningHands;
 
 public abstract class AbsPlayer implements Player
@@ -11,7 +12,7 @@ public abstract class AbsPlayer implements Player
     protected boolean playingHand;
     protected int cash;
     protected Card hand[];
-    protected WinningHands bestHand;
+    protected Tup<WinningHands, Face> bestHand;
     protected Face highCard;
     
 
@@ -56,12 +57,12 @@ public abstract class AbsPlayer implements Player
         return cash;
     }
 
-    public WinningHands getBestHand()
+    public Tup<WinningHands,Face> getBestHand()
     {
         return bestHand;
     }
 
-    public void setBestHand(WinningHands bestHand)
+    public void setBestHand(Tup<WinningHands, Face> bestHand)
     {
         this.bestHand = bestHand;
     }

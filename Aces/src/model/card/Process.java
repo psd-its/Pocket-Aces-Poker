@@ -27,4 +27,12 @@ public interface Process
      * @return highest card
      */
     public Face highCard(Card[] cards);
+    
+    /**
+     * Get vard values and the number of times they repeat in
+     * the hand passed in
+     * @param cards
+     * @return values that appear more then once
+     */
+    public List<Tup<Face, Integer>> getMultiples(Card[] cards);
 }

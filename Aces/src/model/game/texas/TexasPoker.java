@@ -2,6 +2,7 @@ package model.game.texas;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import model.card.Process;
@@ -65,7 +66,8 @@ public class TexasPoker implements Game
     public Player[] checkForWinner() throws Exception
     {
         // declare data structures
-        List<Tup<List<Tup<WinningHands, Face>>, Player>> playList = new ArrayList<Tup<List<Tup<WinningHands, Face>>, Player>>();
+        // List<Tup<List<Tup<WinningHands, Face>>, Player>> playList =
+        // new ArrayList<Tup<List<Tup<WinningHands, Face>>, Player>>();
         Card[] cards = new Card[7];
         // im using System.arraycopy instead of a loop to get community cards
         System.arraycopy(table.getCardsInPlay(), 0, cards, 0, 5);
@@ -77,46 +79,71 @@ public class TexasPoker implements Game
             {
                 cards[Process.HOLE_L] = p.getHand()[0];
                 cards[Process.HOLE_R] = p.getHand()[1];
-                playList.add(new Tup<List<Tup<WinningHands, Face>>, Player>(th
-                        .processHand(cards), p));
+
+                // Tup<List<Tup<WinningHands, Face>>, Player> best =
+                // new Tup<List<Tup<WinningHands, Face>>, Player>(th
+                // .processHand(cards), p);
+                // playList.add(best);
+                // System.out.println(best);
+                // //p.setBestHand(best.f.get(0));
+                for(Card c : cards)
+                {
+                    if (c != null)
+                        System.out.println("card: " + c.toString());
+                    else
+                        System.out.println("card: NULL ?!?");
+                        
+                }
+                List<Tup<WinningHands, Face>> best = th.processHand(cards);
+                if (best.isEmpty())
+                {
+                    throw new Exception("Error! - processHand has not returned a result");
+                }
+                p.setBestHand(best.get(0));
             }
         }
         int index = 0;
         List<Integer> indexes = new ArrayList<Integer>();
         Tup<WinningHands, Face> bestSoFar = null;
-        for (Tup<List<Tup<WinningHands, Face>>, Player> h : playList)
+        Face f1 = null, f2 = null;
+        for (Player h : table.getSeats())
         {
+            if (h == null)
+                break;
+            System.out.println(index);
             if (bestSoFar == null)
             {
                 // Add first card as best so far
-                bestSoFar.f = h.f.get(index).f;
-                bestSoFar.l = h.f.get(index).l;
+                bestSoFar = new Tup<WinningHands, Face>(h.getBestHand().f,
+                        h.getBestHand().l);
+                // h.f.get(index).f;
+                // bestSoFar.l = h.f.get(index).l;
                 indexes.add(index);
             }
             // New best so far
-            else if (bestSoFar.f.ordinal() < h.f.get(index).f.ordinal())
+            else if (bestSoFar.f.ordinal() < h.getBestHand().f.ordinal())
             {
-                bestSoFar.f = h.f.get(index).f;
-                bestSoFar.l = h.f.get(index).l;
+                bestSoFar = new Tup<WinningHands, Face>(h.getBestHand().f,
+                        h.getBestHand().l);
                 indexes.clear();
                 indexes.add(index);
             }
             // Need to break tie
-            else if (bestSoFar.f.ordinal() == h.f.get(index).f.ordinal())
+            else if (bestSoFar.f.ordinal() == h.getBestHand().f.ordinal())
             {
                 // Card value breaks tie no need to reorder
-                if (bestSoFar.l.ordinal() > h.f.get(index).l.ordinal())
+                if (bestSoFar.l.ordinal() > h.getBestHand().l.ordinal())
                     continue;
                 // Card value breaks tie need to reorder
-                else if (bestSoFar.l.ordinal() < h.f.get(index).l.ordinal())
+                else if (bestSoFar.l.ordinal() < h.getBestHand().l.ordinal())
                 {
-                    bestSoFar.f = h.f.get(index).f;
-                    bestSoFar.l = h.f.get(index).l;
+                    bestSoFar = new Tup<WinningHands, Face>(h.getBestHand().f,
+                            h.getBestHand().l);
                     indexes.clear();
                     indexes.add(index);
                 }
                 // Card value cannot break tie
-                else if (bestSoFar.l.ordinal() == h.f.get(index).l.ordinal())
+                else if (bestSoFar.l.equals(h.getBestHand().l))
                 {
                     // Break tie or split pot
                     switch (bestSoFar.f)
@@ -134,46 +161,58 @@ public class TexasPoker implements Game
                         case FULL_HOUSE:
                             int pos = 0;
                             Face best2 = null;
-                            for (Tup<List<Tup<WinningHands, Face>>, Player> tl : playList)
+                            for (int i = 0; i < 2; ++i)
                             {
-                                // only examine if its a full house
-                                if (tl.f.get(0).f == WinningHands.FULL_HOUSE)
+                                switch(i)
                                 {
-                                    // get the pair value of the full house
-                                    for (Tup<WinningHands, Face> t : tl.f)
+                                    case 0:
+                                        cards[Process.HOLE_L] = h.getHand()[0];
+                                        cards[Process.HOLE_R] = h.getHand()[1];
+                                        break;
+                                    case 1:
+                                        h = table.getSeats()[indexes.get(0)];
+                                        cards[Process.HOLE_L] = h.getHand()[0];
+                                        cards[Process.HOLE_R] = h.getHand()[1];
+                                        break;
+                                }
+                                // Compare the pairs in the full house
+                                for (Tup<Face, Integer> tl : th
+                                        .getMultiples(cards))
+                                {
+                                    // only examine if its a pair
+                                    if (tl.l == 2)
                                     {
 
-                                        if (t.f == WinningHands.PAIR)
+                                        if (best2 == null)
                                         {
-                                            // first pair
-                                            if (best2 == null)
-                                            {
-                                                best2 = t.l;
-                                                pos = index;
-                                            }
-                                            else if (best2.ordinal() > t.l
-                                                    .ordinal())
-                                                continue;
-                                            // new winner
-                                            else if (best2.ordinal() < t.l
-                                                    .ordinal())
-                                            {
-                                                best2 = t.l;
-                                                indexes.clear();
-                                                indexes.add(pos);
-                                            }
-                                            else if (best2.ordinal() == t.l
-                                                    .ordinal())
-                                            {
-                                                // Add a second winner (split
-                                                // pot)
-                                                indexes.add(pos);
-                                            }
-
+                                            best2 = tl.f;
+                                            pos = index;
                                         }
+                                        // original full house wins
+                                        else if (best2.ordinal() < tl.f
+                                                .ordinal())
+                                            continue;
+                                        // new winner
+                                        else if (best2.ordinal() > tl.f
+                                                .ordinal())
+                                        {
+                                            // update the seat index of the 
+                                            // winner
+                                            best2 = tl.f;
+                                            indexes.clear();
+                                            indexes.add(pos);
+                                        }
+                                        else if (best2.ordinal() == tl.f
+                                                .ordinal())
+                                        {
+                                            // Add a second winner (split
+                                            // pot)
+                                            indexes.add(pos);
+                                        }
+
                                     }
+                                    
                                 }
-                                ++pos;
                             }
                             break;
                         // Highest card wins (bluff break)
@@ -186,20 +225,19 @@ public class TexasPoker implements Game
                             List<Card> hand2 = new ArrayList<Card>(
                                     Arrays.asList(table.getCardsInPlay()));
                             // add the players cards
-                            p1 = playList.get(indexes.get(0)).l;
-                            p2 = playList.get(index).l;
+                            p1 = table.getSeats()[indexes.get(0)];
+                            p2 = table.getSeats()[index];
                             hand1.add(p1.getHand()[0]);
                             hand1.add(p1.getHand()[1]);
                             hand2.add(p2.getHand()[0]);
                             hand2.add(p2.getHand()[1]);
-                            Face f1,
-                            f2;
+                            
                             boolean won = false;
                             // Loop through 5 best cards unless tie is broken
                             for (int i = 0; i < 5; ++i)
                             {
-                                f1 = th.highCard((Card[]) hand1.toArray());
-                                f2 = th.highCard((Card[]) hand2.toArray());
+                                f1 = th.highCard(hand1.toArray(new Card[hand1.size()]));
+                                f2 = th.highCard(hand2.toArray(new Card[hand2.size()]));
                                 // cards match remove them and
                                 if (f1 == f2)
                                 {
@@ -235,33 +273,39 @@ public class TexasPoker implements Game
                             hand2 = new ArrayList<Card>(Arrays.asList(table
                                     .getCardsInPlay()));
                             // add the players and there cards
-                            p1 = playList.get(indexes.get(0)).l;
-                            p2 = playList.get(index).l;
+                            p1 = table.getSeats()[indexes.get(0)];
+                            p2 = table.getSeats()[index];
                             hand1.add(p1.getHand()[0]);
                             hand1.add(p1.getHand()[1]);
                             hand2.add(p2.getHand()[0]);
                             hand2.add(p2.getHand()[1]);
-                            Face pairValue = playList.get(indexes.get(0)).f
-                                    .get(0).l;
-                            for (Card c : hand1)
+                            Card c;
+                            // Remove the pair from the hand
+                            for (Iterator<Card> it = hand1.iterator(); 
+                                    it.hasNext();)
                             {
-                                if (c.getValue() == pairValue)
+                                c = it.next();
+                                if (c.getValue() == bestSoFar.l)
                                 {
-                                    hand1.remove(c);
+                                    it.remove();
                                 }
                             }
-                            for (Card c : hand2)
+                            for (Iterator<Card> it = hand2.iterator(); 
+                                    it.hasNext();)
                             {
-                                if (c.getValue() == pairValue)
+                                c = it.next();
+                                if (c.getValue() == bestSoFar.l)
                                 {
-                                    hand2.remove(c);
+                                    it.remove();
                                 }
                             }
+                            // Place holder
                             won = false;
+                            // Compare the rest of the cards looking for high card
                             for (int i = 0; i < 3; ++i)
                             {
-                                f1 = th.highCard((Card[]) hand1.toArray());
-                                f2 = th.highCard((Card[]) hand2.toArray());
+                                f1 = th.highCard(hand1.toArray(new Card[hand1.size()]));
+                                f2 = th.highCard(hand2.toArray(new Card[hand2.size()]));
                                 // cards match remove them and
                                 if (f1 == f2)
                                 {
@@ -314,33 +358,111 @@ public class TexasPoker implements Game
                             hand2 = new ArrayList<Card>(Arrays.asList(table
                                     .getCardsInPlay()));
                             // add the players and there cards
-                            p1 = playList.get(indexes.get(0)).l;
-                            p2 = playList.get(index).l;
+                            p1 = table.getSeats()[indexes.get(0)];
+                            p2 = table.getSeats()[index];
                             hand1.add(p1.getHand()[0]);
                             hand1.add(p1.getHand()[1]);
                             hand2.add(p2.getHand()[0]);
                             hand2.add(p2.getHand()[1]);
-                            Face pair1 = playList.get(indexes.get(0)).f.get(0).l;
-                            Face pair2 = playList.get(indexes.get(0)).f.get(1).l;
-                            for (Card c : hand1)
+                            // Vars for ease of comparison
+                            Face p1_pair1, p1_pair2, p2_pair1, p2_pair2;
+                            p1_pair1 = p1_pair2 = p2_pair1 = p2_pair2 = null;
+                            List<Tup<Face, Integer>> p1_multiples, p2_multiples;
+                            p1_multiples = th.getMultiples(hand1.toArray(new Card[hand1.size()]));
+                            p2_multiples = th.getMultiples(hand2.toArray(new Card[hand2.size()]));
+                            // both hands on have 2 pairs
+                            if(p1_multiples.size() == 2 &&
+                                    p2_multiples.size() ==2)
                             {
-                                if (c.getValue() == pair1
-                                        || c.getValue() == pair2)
+                                p1_pair1 = p1_multiples.get(0).f;
+                                p1_pair2 = p1_multiples.get(1).f;
+                                p2_pair1 = p2_multiples.get(0).f;
+                                p2_pair2 = p2_multiples.get(1).f;                    
+                                
+                            }
+                            // Hands have more the 2 pairs need to determine
+                            // the highest pairs for each hand
+                            else 
+                            {
+                                if (p1_multiples.size() > 2)
                                 {
-                                    hand1.remove(c);
+                                    p1_pair1 = p1_multiples.get(0).f;
+                                    p1_pair2 = p1_multiples.get(1).f;
+                                    Face tmp = p1_multiples.get(2).f;
+                                    if (tmp.ordinal() > p1_pair1.ordinal())
+                                    {
+                                        if (tmp.ordinal() > p1_pair2.ordinal())
+                                        {
+                                            if(p1_pair1.ordinal() > p1_pair2.ordinal())
+                                            {
+                                                p1_pair2 = tmp;
+                                            }
+                                            else
+                                            {
+                                                p1_pair1 = tmp;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            p1_pair1 = tmp;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // if we do not enter this if then 
+                                        // tmp is the lowest pair
+                                        if (tmp.ordinal() > p1_pair2.ordinal())
+                                        {
+                                            p1_pair2 = tmp;
+                                        }
+                                    }
                                 }
                             }
-                            for (Card c : hand2)
+                            // 1 pair matches
+                            if(p1_pair1 == p2_pair1 || p1_pair1 == p2_pair2)
                             {
-                                if (c.getValue() == pair1
-                                        || c.getValue() == pair2)
+                                // both pairs match
+                                if (p1_pair2 == p2_pair1 || p1_pair2 == p2_pair2)
                                 {
-                                    hand2.remove(c);
+                                    // remove pairs from the 
+                                    for (Iterator<Card> it = hand1.iterator(); 
+                                            it.hasNext();)
+                                    {
+                                        c = it.next();
+                                        if (c.getValue() == p1_pair1
+                                                || c.getValue() == p1_pair2)
+                                        {
+                                            it.remove();
+                                        }
+                                    }
+                                    for (Iterator<Card> it = hand2.iterator(); 
+                                            it.hasNext();)
+                                    {
+                                        c = it.next();
+                                        if (c.getValue() == p2_pair1
+                                                || c.getValue() == p2_pair2)
+                                        {
+                                            it.remove();
+                                        }
+                                    }
+                                    f1 = th.highCard(hand1.toArray(new Card[hand1.size()]));
+                                    f2 = th.highCard(hand2.toArray(new Card[hand2.size()]));
+                                    
+                                }
+                                // if pairs are different assign the values
+                                // to a var for comparison
+                                else if (p1_pair1 == p2_pair1)
+                                {
+                                    f1 = p1_pair2;
+                                    f2 = p2_pair2;
+                                }
+                                else
+                                {
+                                    f1 = p1_pair2;
+                                    f2 = p2_pair1;
                                 }
                             }
-                            f1 = th.highCard((Card[]) hand1.toArray());
-                            f2 = th.highCard((Card[]) hand2.toArray());
-                            if (f1 == f2)
+                            if (f1 == f2 && f1 != null)
                             {
                                 indexes.add(index);
                             }
@@ -350,6 +472,8 @@ public class TexasPoker implements Game
                                 indexes.add(index);
                             }
                             break;
+                            
+                            
                         default:
                             break;
 
@@ -362,7 +486,7 @@ public class TexasPoker implements Game
         Player[] players = new Player[indexes.size()];
         for (int i = 0; i < indexes.size(); ++i)
         {
-            players[i] = playList.get(i).l;
+            players[i] = table.getSeats()[i];
         }
         return players;
     }

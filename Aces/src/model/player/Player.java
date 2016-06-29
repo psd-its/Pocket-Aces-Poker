@@ -4,6 +4,9 @@
 package model.player;
 
 import model.card.Card;
+import model.card.Face;
+import model.card.Tup;
+import model.card.WinningHands;
 import model.table.Table;
 
 
@@ -54,6 +57,10 @@ public interface Player
     public boolean isPlaying();
     
     public String getName();
+    
+    public Tup<WinningHands, Face> getBestHand();
+    
+    public void setBestHand(Tup<WinningHands, Face> best);
 
    
 }
