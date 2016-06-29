@@ -79,15 +79,18 @@ public class TopHand implements Process
                 switch (multiples.get(i).l)
                 {
                     case 2:
+                        System.out.println("Pair added");
                         matches.add(new Tup<WinningHands, Face>(
                                 WinningHands.PAIR, multiples.get(i).f));
                         break;
                     case 3:
+                        System.out.println("Three of a kind added");
                         matches.add(new Tup<WinningHands, Face>(
                                 WinningHands.THREE_OF_A_KIND,
                                 multiples.get(i).f));
                         break;
                     case 4:
+                        System.out.println("Four of a kind added");
                         matches.add(new Tup<WinningHands, Face>(
                                 WinningHands.FOUR_OF_A_KIND, multiples.get(i).f));
                         return matches;                     
@@ -118,8 +121,9 @@ public class TopHand implements Process
                 }
                 if (pairCount > 1 && threeCount == 0)
                 {
+                    System.out.println("Two pair added");
                     matches.add(0, new Tup<WinningHands, Face>(
-                            WinningHands.TWO_PAIR, highCard(cards)));
+                            WinningHands.TWO_PAIR, multiples.get(0).f));
                 }
                 // there can only be 5 cards in a hand so remove the lower triple
                 else if (threeCount > 1 && pairCount == 0)

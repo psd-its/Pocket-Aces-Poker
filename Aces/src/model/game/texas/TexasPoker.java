@@ -92,6 +92,7 @@ public class TexasPoker implements Game
                     throw new Exception("Error! - processHand has not returned a result");
                 }
                 p.setBestHand(best.get(0));
+                System.out.printf("%s has %s unprocessed\n\n", p.getName(), p.getBestHand().f);
             }
         }
         int index = 0;
@@ -477,7 +478,7 @@ public class TexasPoker implements Game
         Player[] players = new Player[indexes.size()];
         for (int i = 0; i < indexes.size(); ++i)
         {
-            players[i] = table.getSeats()[i];
+            players[i] = table.getSeats()[indexes.get(i)];
         }
         return players;
     }

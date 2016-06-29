@@ -4,7 +4,7 @@
 package model.card;
 
 /**
- * @author deep_thought
+ * @author Tristan s3528615
  *
  */
 public enum WinningHands
