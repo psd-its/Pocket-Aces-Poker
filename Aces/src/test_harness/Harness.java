@@ -105,43 +105,17 @@ public class Harness
                     // If there is no players add new
                     table = new TexasTable();
                     poker.addTable(table);
-//                    if (table.getSeats().length < 1)
-//                    {
-                        table.addPlayer(new ComputerPlayer("Taylor"));
-                        table.addPlayer(new ComputerPlayer("Mathew"));
-                        table.addPlayer(new HumanPlayer("Tristan"));
-                        table.addPlayer(new HumanPlayer("Manuel"));
-//                    }
+
+                    table.addPlayer(new ComputerPlayer("Taylor"));
+                    table.addPlayer(new ComputerPlayer("Mathew"));
+                    table.addPlayer(new HumanPlayer("Tristan"));
+                    table.addPlayer(new HumanPlayer("Manuel"));
+
                     // Deal hand
                     table.dealCards();
-//                    List<Card> cards = new ArrayList<Card>(Arrays.asList(
-//                                                    table.getCardsInPlay()));
-//                    Card[] flop = table.getCardsInPlay();
-//                    Player[] players = table.getSeats();
-//                    for (int i = 0; i < players.length; ++i)
-//                    {
-//                        if(players[i] != null)
-//                        {    
-//                            cards.add(players[i].getHand()[0]);
-//                            cards.add(players[i].getHand()[1]);
-//                            List<Tup<WinningHands, Face>> bestHand = 
-//                                    th.processHand(cards.toArray(new Card[7]));
-//                            System.out.printf("%s\n",players[i].toString());
-////                            System.out.printf("%s high \n", bestHand.get(0).l,
-////                                    bestHand.get(0).f);
-//                            cards.clear();
-//                            cards = new ArrayList<Card>(Arrays.asList(
-//                                    table.getCardsInPlay()));
-//                            
-//                            
-//                        }
-//                    }
+
                     Player[] winner = null;
-//                    System.out.println("The shared cards are: \n");
-//                    for (Card c : flop)
-//                    {
-//                        System.out.printf("%s\n", c.toString());
-//                    }
+
                     System.out.println("The winner('s) are: ");
                     try
                     {
