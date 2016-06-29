@@ -53,16 +53,11 @@ public class MainView extends JFrame
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         // initialize sub views
-        this.menuBar = new MenuBar(this);
-        
         this.loadScreens();
         
         // set start screen to visible
         this.getContentPane().add(startScreen, BorderLayout.CENTER);
         this.startScreen.setVisible(true);
-        
-        // set menu bar of main window with this
-        this.setJMenuBar(menuBar);
     }
     
     /**
@@ -70,7 +65,6 @@ public class MainView extends JFrame
      */
     private void loadScreens()
     {
-        // load each screen
         this.startScreen = new StartScreen(this, acesFacade);
         this.startScreen.load();
         this.singlePlayerScreen = new SinglePlayerScreen(this, acesFacade);
