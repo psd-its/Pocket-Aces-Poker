@@ -27,7 +27,7 @@ public class TexasTable extends AbsTable
     public void dealCards()
     {
         // local vars
-        int card, cardsDealt = 0, playersDealt = 0, position = ++dealer;
+        int card, cardsDealt = 0, playersDealt = 0, position = 1 + dealer;
         boolean cardFound = false;
         // deal a texas hold'em hand
         deck.reset();
