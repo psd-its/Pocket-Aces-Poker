@@ -245,11 +245,11 @@ public class TopHand implements Process
     }
 
     // helper function for flush
-    // @SuppressWarnings("null")
     private Card[] sortSuit(Card[] cards, Suit suit)
     {
         System.out.println("sortSuit() called: sorting flush by suit");
         List<Card> flush = new ArrayList<Card>();
+        // Store all cards that match the suit passed in as a list
         for (Card c : cards)
         {
             if (c.getSuit() == suit)
@@ -264,22 +264,24 @@ public class TopHand implements Process
         // remove the lowest cards in the flush
         while (flush.size() > 5)
         {
+            System.out.println("The size of the flush is: " + flush.size());
             // Card value and index in the hand
             Tup<Face, Integer> card = null;
+            // Loop through and find the lowest card
             for (int i = 0; i < flush.size(); ++i)
             {
                 if (card == null)
                 {
-                    card.f = flush.get(i).getValue();
-                    card.l = i;
+                    card = new Tup<Face, Integer>(flush.get(i).getValue(), i);
                 }
                 else if (flush.get(i).getValue().ordinal() < card.f.ordinal())
                 {
-                    card.f = flush.get(i).getValue();
-                    card.l = i;
+                    card = new Tup<Face, Integer>(flush.get(i).getValue(), i);
                 }
             }
-            flush.remove(card.l);
+            // Remove the lowest card
+            int index = card.l;
+            flush.remove(index);
         }
         return flush.toArray(new Card[5]);
 

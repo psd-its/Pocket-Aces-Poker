@@ -36,8 +36,9 @@ public class Harness
             System.out.printf("%10s\n", "Tests Harness");
             System.out.printf("-----------------------------\n");
             System.out.printf("%-10d%s\n", 1, "Deal cards");
-            System.out.printf("%-10d%s\n", 2, "Check win conditions");
+            System.out.printf("%-10d%s\n", 2, "Check random win conditions");
             System.out.printf("%-10d%s\n", 3, "Test the main view");
+            System.out.printf("%-10d%s\n", 4, "Check all winning hands");
             System.out.printf("%-10d%s\n", 0, "Exit");
             System.out.printf("\n%s:", "Enter selection");
             result = in.nextInt();
@@ -121,6 +122,24 @@ public class Harness
                     MainView mainView = new MainView(Harness.acesFacade);
                     mainView.setVisible(true);
                     break;
+                case 4:
+                    table = new TexasTable();
+                    poker.addTable(table);
+                    table.addPlayer(new ComputerPlayer("Taylor"));
+                    table.addPlayer(new ComputerPlayer("Mathew"));
+                    table.addPlayer(new HumanPlayer("Tristan"));
+                    table.addPlayer(new HumanPlayer("Manuel"));
+                    RecTest testAll = new RecTest(poker);
+                    try
+                    {
+                        testAll.testAll(0);
+                    }
+                    catch (Exception e)
+                    {
+                        // If an exception is thrown there is a major error
+                        // in game logic
+                        e.printStackTrace();
+                    }
                 case 0:
                     break;
                 default:

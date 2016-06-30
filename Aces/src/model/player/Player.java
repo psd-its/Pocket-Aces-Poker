@@ -61,6 +61,12 @@ public interface Player
     public Tup<WinningHands, Face> getBestHand();
     
     public void setBestHand(Tup<WinningHands, Face> best);
+    
+    /**
+     * Set players cards for test purposes
+     * @param cards
+     */
+    public void setHand(Card[] cards);
 
    
 }

@@ -37,11 +37,29 @@ public interface Table
     
     public Deck getDeck();
     
+    /**
+     * Get the seat of the current dealer
+     * @return seatNumber
+     */
     public int getDealer();
     
+    /**
+     * Set the seat position of the current dealer for this hand
+     * @param dealer
+     */
     public void setDealer(int dealer);
     
+    /**
+     * Texas holdem function
+     * @return shared cards
+     */
     public Card[] getCardsInPlay();
+    
+    /**
+     * Texas holdem tester function that sets the shared
+     * cards 
+     */
+    public void setCardsInPlay(Card[] cards);
     
     
 }

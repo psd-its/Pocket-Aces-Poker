@@ -18,7 +18,7 @@ public class TexasTable extends AbsTable
     {
         // Call super class constructor
         super();
-        this.playersAtTable = 0;
+        this.playersAtTable = 0; //This is not really necessary just use a null check when iterating
         this.setCurrentBet(0);
         this.cardsInPlay = new Card[5];
     }
@@ -204,6 +204,16 @@ public class TexasTable extends AbsTable
     {
         this.currentBet = currentBet;
     }
+
+    @Override
+    public void setCardsInPlay(Card[] cards)
+    {
+        // method is used for test purposes only.
+        this.cardsInPlay = cards;
+        
+    }
+
+   
     
 
 }

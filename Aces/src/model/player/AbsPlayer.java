@@ -82,4 +82,9 @@ public abstract class AbsPlayer implements Player
         this.highCard = highCard;
     }
     
+    public void setHand(Card[] cards)
+    {
+        this.hand = cards;
+    }
+    
 }
