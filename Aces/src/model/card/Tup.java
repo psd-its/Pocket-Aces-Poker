@@ -7,9 +7,10 @@ package model.card;
  */
 public class Tup<F, L>
 {
-    public F f;
-    public L l;
-
+    // Made these final so they are now immutable 
+    public final F f;
+    public final L l;
+    // Tuple pair
     public Tup(F first, L last)
     {
         this.f = first;
