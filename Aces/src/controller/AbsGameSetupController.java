@@ -1,7 +1,7 @@
 /**
  * Abstract game setup controller, when user has entered all required information
  * on new game screen (we only have a new texas game screen right now) the game
- * specific controller will be responsoble for the remainder of game setup
+ * specific controller will be responsible for the remainder of game setup
  * and transfer of control to the actual game screen.
  * 
  * I laid it out this way so if we wanted to add say a blackjack game we'd just
