@@ -11,7 +11,7 @@ import java.awt.*;
 import javax.swing.*;
 import model.facade.AcesFacade;
 import view.screen.AbsGameScreen;
-import view.screen.SinglePlayerScreen;
+import view.screen.SinglePlayerTexasScreen;
 import view.screen.StartScreen;
 
 @SuppressWarnings("serial")
@@ -23,7 +23,7 @@ public class MainView extends JFrame
     
     // these are used for swaping out screens in switchScreen()
     public static final String START_SCREEN = "startScreen";
-    public static final String SINGLE_PLAYER_SCREEN = "singlePlayerScreen";
+    public static final String SINGLE_PLAYER_TEXAS_SCREEN = "singlePlayerTexasScreen";
 
     /**
      * Constructor for the main view. Sets up the window's title, look and feel, 
@@ -66,7 +66,7 @@ public class MainView extends JFrame
     {
         this.startScreen = new StartScreen(this, acesFacade);
         this.startScreen.load();
-        this.singlePlayerScreen = new SinglePlayerScreen(this, acesFacade);
+        this.singlePlayerScreen = new SinglePlayerTexasScreen(this, acesFacade);
     }
     
     /**
@@ -127,7 +127,7 @@ public class MainView extends JFrame
                 this.startScreen.setVisible(true);
                 break;
             
-            case MainView.SINGLE_PLAYER_SCREEN :
+            case MainView.SINGLE_PLAYER_TEXAS_SCREEN :
                 this.singlePlayerScreen.load();
                 currentScreen.setVisible(false);
                 this.getContentPane().add(singlePlayerScreen, BorderLayout.CENTER);

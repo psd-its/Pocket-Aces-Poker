@@ -9,13 +9,15 @@
 package view.screen;
 
 import java.awt.GridBagConstraints;
+import java.awt.Insets;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import model.facade.AcesFacade;
 import view.main.MainView;
 
-public class SinglePlayerScreen extends AbsGameScreen
+public class SinglePlayerTexasScreen extends AbsGameScreen
 {
     public static final String START_BUTTON = "Start";
     
@@ -42,7 +44,7 @@ public class SinglePlayerScreen extends AbsGameScreen
      * @param MainView A reference to the main view window.
      * @param AcesFacade A reference to the model facade.
      */
-    public SinglePlayerScreen(MainView mainView, AcesFacade facade)
+    public SinglePlayerTexasScreen(MainView mainView, AcesFacade facade)
     {
         super(mainView, facade);
         this.setVisible(false);
@@ -102,6 +104,7 @@ public class SinglePlayerScreen extends AbsGameScreen
         constraints.gridheight = 1;
         constraints.gridwidth = GridBagConstraints.REMAINDER;
         constraints.anchor = GridBagConstraints.SOUTH;
+        constraints.insets = new Insets(15, 15, 50, 15);
         startButton.setFont(title.getFont().deriveFont(20.0f));
         this.add(startButton, constraints);
     }
