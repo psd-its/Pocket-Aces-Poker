@@ -62,7 +62,6 @@ public class NewGameController extends AbsNewGameController
                     // switch screen
                     super.switchScreen(MainView.SINGLE_PLAYER_TEXAS_SCREEN);
                 }
-
                 break;
                 
             case StartScreen.MULTIPLAYER_BUTTON :
