@@ -48,7 +48,6 @@ public class StartScreen extends AbsGameScreen
      */
     public StartScreen(MainView mainView, AcesFacade facade)
     {
-        // set layout for panel
         super(mainView, facade);
         
         // this will be default for all panels
