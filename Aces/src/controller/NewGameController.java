@@ -1,5 +1,8 @@
 /**
  * Concrete controller class for starting a new game.
+ * All new games (we only have texas hold 'em right now) can
+ * come through this controller, we can determine game type
+ * and if it's sing/multiplayer and go from there.
  * 
  * @author Mathew Harrington
  */
@@ -7,9 +10,7 @@
 package controller;
 
 import java.awt.event.ActionEvent;
-
 import javax.swing.JOptionPane;
-
 import model.facade.AcesFacade;
 import model.game.Game;
 import model.game.texas.TexasPoker;
