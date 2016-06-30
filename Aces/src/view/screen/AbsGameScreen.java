@@ -19,7 +19,7 @@ public abstract class AbsGameScreen extends JPanel
     protected MainView mainView;
     protected AcesFacade facade;
     protected GridBagConstraints constraints;
-    
+      
     public AbsGameScreen(MainView mainView, AcesFacade facade)
     {
         super(new GridBagLayout());
