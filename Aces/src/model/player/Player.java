@@ -11,7 +11,7 @@ import model.table.Table;
 
 
 /**
- * @author deep_thought
+ * @author Tristan s3528615
  *
  */
 public interface Player 
@@ -41,25 +41,61 @@ public interface Player
     
     // these functions should be void?
     /**
-     * Player trys to check. Only valid if no 
+     * Player tries to check. Only valid if no 
      * @return true if able to check
      */
     public boolean check(Table t);
     
+    /**
+     * Match the current bet to stay in the game
+     * @param table
+     * @return boolean
+     */
     public boolean call(Table t);
     
-    public boolean raise(Table t, int ammount);
+    /**
+     * Raise the bet by the given amount
+     * @param table
+     * @param amount
+     * @return boolean
+     */
+    public boolean raise(Table t, int amount);
     
+    /**
+     * Place all cash on the current hand
+     * @param cash
+     */
     public void allIn(int cash);
     
+    /**
+     * Fold your current hand
+     * @return boolean 
+     */
     public boolean fold();
     
+    /**
+     * True if the player is playing the current hand
+     * False if the player has folded
+     * @return boolean
+     */
     public boolean isPlaying();
     
+    /**
+     * Get the name of the player
+     * @return name
+     */
     public String getName();
     
+    /**
+     * Get the best hand a player can make
+     * @return Tuple pair winning hand and card face
+     */
     public Tup<WinningHands, Face> getBestHand();
-    
+    /**
+     * Set the best hand a player can make 
+     * and the value 
+     * @param best hand
+     */
     public void setBestHand(Tup<WinningHands, Face> best);
     
     /**
