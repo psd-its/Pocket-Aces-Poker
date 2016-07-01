@@ -1,7 +1,7 @@
 /**
- * Concrete controller class for a single player texas hold 'em game. Create 
+ * Concrete controller class for a 'single player texas hold 'em' game. Create 
  * required computer players and add them to the game. Perform any onther setup
- * tasks and then transfer to the actual game playing screen.
+ * tasks and then transfer to the game playing screen.
  * 
  * @author Mathew Harrington
  */
@@ -45,7 +45,7 @@ public class SingleTexasController extends AbsGameSetupController
                     super.getFacade().addPlayer(newPlayer);
                 }
                 
-                // TODO transfer to game playing screen
+                // TODO transfer to game playing screen - single texas poker game should be fully initialised
             }
             
             catch(TableFull exception)
@@ -53,7 +53,6 @@ public class SingleTexasController extends AbsGameSetupController
                 // TODO Handle this - what is procedure for handling this?
                 System.err.println("Table Full");
             }
-
         }
     }
 }
