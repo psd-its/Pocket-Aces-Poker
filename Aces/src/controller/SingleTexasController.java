@@ -50,7 +50,7 @@ public class SingleTexasController extends AbsGameSetupController
             
             catch(TableFull exception)
             {
-                // TODO Handle this - why/how would this occur?
+                // TODO Handle this - what is procedure for handling this?
                 System.err.println("Table Full");
             }
 
