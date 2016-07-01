@@ -13,14 +13,16 @@ public class HumanPlayer extends AbsPlayer
     }
     
     @Override
-    public void placeBet(int bet)
+    public boolean placeBet(int bet)
     {
         if (bet <= cash)
         {
             cash = (cash - bet);
-            // Playing hand indicates that a player is still in the
-            // round. Sorry should of been clearer
-            //playingHand = false;
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
@@ -37,29 +39,34 @@ public class HumanPlayer extends AbsPlayer
         if (bet <= cash)
         {
             cash = (cash - bet);
-            //playingHand = false;
             return true;
         }
+        else
+        {
         return false;
+        }
     }
 
    @Override
-    public void raise(int amount)
+    public boolean raise(int amount)
     {
-        if (amount <= cash && (amount > currentBet))
+        if ((amount <= cash) && (amount > currentBet))
         {
             amount = (currentBet + amount);
             placeBet(amount);
             cash = cash - amount;
-            playingHand = false;
+            return true;
+        }
+        else
+        {
+        return false;
         }
     }
 
     @Override
-    public boolean allIn(int cash)
+    public void allIn(int cash)
     {
         placeBet(cash);
-        return false;
     }
 
     @Override
@@ -74,10 +81,11 @@ public class HumanPlayer extends AbsPlayer
         return false;
     }
 
+
     @Override
     public boolean isPlaying()
     {
-        return false;
+        return this.playingHand;
     }
 
 }

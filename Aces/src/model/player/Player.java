@@ -48,7 +48,7 @@ public interface Player
     
     public boolean call(int bet);
     
-    public void raise(int ammount);
+    public boolean raise(int ammount);
     
     public boolean allIn(int cash);
     
