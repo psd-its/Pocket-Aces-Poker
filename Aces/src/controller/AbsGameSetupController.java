@@ -16,6 +16,7 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import model.facade.AcesFacade;
+import model.table.TableFull;
 import view.main.MainView;
 import view.screen.AbsGameScreen;
 

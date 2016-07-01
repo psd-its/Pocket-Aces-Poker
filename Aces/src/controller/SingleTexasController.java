@@ -9,6 +9,9 @@
 package controller;
 
 import java.awt.event.ActionEvent;
+import model.player.ComputerPlayer;
+import model.player.Player;
+import model.table.TableFull;
 import view.screen.AbsGameScreen;
 import view.screen.SinglePlayerTexasScreen;
 
@@ -24,9 +27,33 @@ public class SingleTexasController extends AbsGameSetupController
     {
         if(e.getActionCommand().equals(SinglePlayerTexasScreen.START_BUTTON))
         {  
-            // TODO init computer players
-            // TODO add comp players to game
-            // TODO transfer to actual game playing screen
+            try
+            {
+                // need to cast 'abstract game' screen to 'single poker game' screen
+                SinglePlayerTexasScreen screen = (SinglePlayerTexasScreen)this.gameSetupScreen;
+                
+                // determine number of AI players requested
+                int numCompPlayers = screen.getNumCompPlayers();
+                
+                // add AI players to game
+                for(int i = 0; i < numCompPlayers; i++)
+                {
+                    // init comp player
+                    Player newPlayer = new ComputerPlayer("HAL" + i); // 2001 - we can change this
+                    
+                    // add comp player
+                    super.getFacade().addPlayer(newPlayer);
+                }
+                
+                // TODO transfer to game playing screen
+            }
+            
+            catch(TableFull exception)
+            {
+                // TODO Handle this - why/how would this occur?
+                System.err.println("Table Full");
+            }
+
         }
     }
 }
