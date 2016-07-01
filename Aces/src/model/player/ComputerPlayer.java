@@ -1,7 +1,5 @@
 package model.player;
 
-import model.card.Card;
-import model.card.WinningHands;
 import model.table.Table;
 
 public class ComputerPlayer extends AbsPlayer
@@ -14,10 +12,10 @@ public class ComputerPlayer extends AbsPlayer
     }
 
     @Override
-    public void placeBet(int bet)
+    public boolean placeBet(int bet)
     {
         // TODO Auto-generated method stub
-        
+        return false;
     }
 
     @Override
@@ -28,24 +26,24 @@ public class ComputerPlayer extends AbsPlayer
     }
 
     @Override
-    public boolean call(int bet)
+    public boolean call(Table t)
     {
         // TODO Auto-generated method stub
         return false;
     }
 
     @Override
-    public void raise(int ammount)
+    public boolean raise(Table t, int ammount)
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public void allIn(int cash)
     {
         // TODO Auto-generated method stub
         
-    }
-
-    @Override
-    public boolean allIn(int cash)
-    {
-        // TODO Auto-generated method stub
-        return false;
     }
 
     @Override
@@ -61,8 +59,5 @@ public class ComputerPlayer extends AbsPlayer
         // TODO Auto-generated method stub
         return false;
     }
-
-    
-   
     
 }

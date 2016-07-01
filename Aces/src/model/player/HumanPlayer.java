@@ -29,44 +29,50 @@ public class HumanPlayer extends AbsPlayer
     @Override
     public boolean check(Table t)
     {
+        if(t.getCurrentBet() == currentBet)
+        {
+            return true;
+        }
         //Ends turn
         return false;
     }
 
     @Override
-    public boolean call(int bet)
+    public boolean call(Table t)
     {
+        // get the difference between the the current expected
+        // bet and what you have already put in this round of betting
+        int bet = t.getCurrentBet() - currentBet;
         if (bet <= cash)
         {
             cash = (cash - bet);
             return true;
         }
-        else
-        {
+       
         return false;
-        }
+        
     }
 
    @Override
-    public boolean raise(int amount)
+    public boolean raise(Table t, int amount)
     {
-        if ((amount <= cash) && (amount > currentBet))
+        if ((amount <= cash) && (amount > t.getCurrentBet()))
         {
-            amount = (currentBet + amount);
+            currentBet += amount;
             placeBet(amount);
-            cash = cash - amount;
+            // This is done in place bet 
+            // cash = cash - amount;
             return true;
         }
-        else
-        {
         return false;
-        }
+        
     }
 
     @Override
     public void allIn(int cash)
     {
         placeBet(cash);
+        this.allIn = true;
     }
 
     @Override
@@ -78,14 +84,18 @@ public class HumanPlayer extends AbsPlayer
     @Override
     public boolean fold()
     {
-        return false;
+        if (!playingHand)
+            return false;
+        playingHand = false;
+        return true;
     }
-
-
+    
     @Override
     public boolean isPlaying()
     {
         return this.playingHand;
     }
+
+    
 
 }

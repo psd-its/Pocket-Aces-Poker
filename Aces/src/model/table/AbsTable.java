@@ -6,6 +6,7 @@ import model.player.Player;
 // Need to implement concrete classes before use
 public abstract class AbsTable implements Table
 {
+    protected int currentBet;
     protected Deck deck;
     protected int dealer;
     protected int pot;

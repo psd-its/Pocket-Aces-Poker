@@ -5,15 +5,15 @@ import model.card.Card;
 import model.card.Deck;
 import model.player.Player;
 /**
- * Concrete table class for texas hold'em poker
+ * Concrete table class for Texas hold'em poker
  * @author Tristan s3528615
  *
  */
 public class TexasTable extends AbsTable
 {
     private int playersAtTable;
-    private int currentBet;
     private Card cardsInPlay[];
+    private int playersDealt;
     public TexasTable()
     {
         // Call super class constructor
@@ -27,9 +27,11 @@ public class TexasTable extends AbsTable
     public void dealCards()
     {
         // local vars
-        int card, cardsDealt = 0, playersDealt = 0, position = 1 + dealer;
+        int card, cardsDealt = 0;
+        playersDealt = 0;
+        int position = 1 + dealer;
         boolean cardFound = false;
-        // deal a texas hold'em hand
+        // deal a Texas hold'em hand
         deck.reset();
         do
         {

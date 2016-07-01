@@ -46,9 +46,9 @@ public interface Player
      */
     public boolean check(Table t);
     
-    public boolean call(int bet);
+    public boolean call(Table t);
     
-    public boolean raise(int ammount);
+    public boolean raise(Table t, int ammount);
     
     public void allIn(int cash);
     
@@ -67,6 +67,25 @@ public interface Player
      * @param cards
      */
     public void setHand(Card[] cards);
+    
+    /**
+     * Player is all in. This is used to for when a player 
+     * is all in but they don't meet the min round bet
+     * @return true if player is all in
+     */
+    public boolean isAllIn();
+    
+    /**
+     * Set the players all in status
+     * @param boolean
+     */
+    public void setAllIn(boolean allIn);
+    
+    /**
+     * Update the players cash
+     * @param amount
+     */
+    public void addCash(int amount);
 
    
 }

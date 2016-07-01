@@ -61,5 +61,18 @@ public interface Table
      */
     public void setCardsInPlay(Card[] cards);
     
+    /**
+     * The current bet amount expected from each
+     * player for this round of betting
+     * @return current bet amount
+     */
+    public int getCurrentBet();
+    
+    /**
+     * Set the bet amount expected from each player
+     * to stay in the hand
+     * @param bet amount
+     */
+    public void setCurrentBet(int bet);
     
 }
