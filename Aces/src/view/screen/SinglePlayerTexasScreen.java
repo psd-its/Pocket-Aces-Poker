@@ -126,4 +126,13 @@ public class SinglePlayerTexasScreen extends AbsGameScreen
         this.welcomeMessageText += facade.getPlayer(0).getName();
         this.welcomeMessageText += "<br>Hone your skills against 1-9 AI opponents.</html>";   
     }
+    
+    /**
+     *@return Integer The number of AI players selected.
+     */
+    public int getNumCompPlayers()
+    {
+        // this is awkward. The +1 is needed because indexes start at 0
+        return Integer.valueOf(this.numPlayersDropdown.getSelectedIndex()) + 1;
+    }
 }
