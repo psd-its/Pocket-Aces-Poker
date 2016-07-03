@@ -75,4 +75,15 @@ public interface Table
      */
     public void setCurrentBet(int bet);
     
+    /**
+     * Count players still playing at the table
+     * @return active player count
+     */
+    public int playerCount();
+
+    /**
+     * Set the pot back to 0 for a new round
+     */
+    public void resetPot();
+    
 }

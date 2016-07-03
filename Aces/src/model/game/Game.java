@@ -3,7 +3,6 @@
  */
 package model.game;
 
-import model.card.WinningHands;
 import model.player.Player;
 import model.table.Table;
 import model.table.TableFull;
@@ -51,6 +50,7 @@ public interface Game
      * @param player
      */
     public void takeTurn(Player player);
+    
     /**
      * If in NOWINNER is returned it is a split pot in texas hold'em 
      * @param players
@@ -63,6 +63,13 @@ public interface Game
      * Initiates the game
      */
     public void play();
+    
+    /**
+     * @return the Thread
+     */
+    public Thread getThread();
+
+   
     
     
 }

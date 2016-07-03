@@ -13,8 +13,6 @@ public abstract class AbsPlayer implements Player
     protected int currentBet;
     // players name
     protected String name;
-    // is the player human or AI
-    protected boolean human;
     // is the player still in the current hand 
     // returns false of they fold
     protected boolean playingHand;
@@ -29,10 +27,9 @@ public abstract class AbsPlayer implements Player
     protected boolean allIn;
     
 
-    public AbsPlayer(String name, boolean human)
+    public AbsPlayer(String name)
     {
         this.name = name;
-        this.human = human;
         this.playingHand = false;
         this.cash = Player.START_BALANCE;
         this.hand = new Card[2]; 
@@ -133,5 +130,6 @@ public abstract class AbsPlayer implements Player
         }
         return playerString;
     }
+
     
 }

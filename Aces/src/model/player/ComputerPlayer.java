@@ -1,13 +1,14 @@
 package model.player;
 
+import model.game.Game;
 import model.table.Table;
 
-public class ComputerPlayer extends AbsPlayer
+public class ComputerPlayer extends AbsPlayer 
 {
 
     public ComputerPlayer(String name)
     {
-        super(name, false);
+        super(name);
         // TODO Auto-generated constructor stub
     }
 
@@ -59,5 +60,13 @@ public class ComputerPlayer extends AbsPlayer
         // TODO Auto-generated method stub
         return false;
     }
+
+    @Override
+    public void playHand(Game g)
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
     
 }

@@ -1,15 +1,16 @@
 package model.player;
 
+import model.game.Game;
 import model.table.Table;
 
-public class HumanPlayer extends AbsPlayer
+public class HumanPlayer extends AbsPlayer 
 {
 
     private int currentBet;
 
     public HumanPlayer(String name)
     {
-        super(name, true);
+        super(name);
     }
     
     @Override
@@ -95,6 +96,27 @@ public class HumanPlayer extends AbsPlayer
     {
         return this.playingHand;
     }
+
+    @Override
+    public void playHand(Game g)
+    {
+        // TODO Auto-generated method stub
+        try
+        {
+            g.getThread().wait(30000);
+        }
+        catch (InterruptedException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        
+    }
+
+   
+
+    
 
     
 

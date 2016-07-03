@@ -79,7 +79,7 @@ public class TexasTable extends AbsTable
         while (cardsDealt < Table.MAX_CARDS)
         {
             cardFound = false;
-            // Check if we need to burnn a card
+            // Check if we need to burn a card
             if (cardsDealt == Table.BURN_ONE ||
                 cardsDealt == Table.BURN_TWO ||
                 cardsDealt == Table.BURN_THREE)
@@ -215,6 +215,32 @@ public class TexasTable extends AbsTable
         
     }
 
+    /**
+     * Count players still playing at the table
+     * @return active player count
+     */
+    public int playerCount()
+    {
+        int count = 0;
+        for(Player p : seats)
+        {
+            if (p != null)
+            {
+                if (p.getBalance() > 0)
+                {
+                    ++count;
+                }
+            }
+        }
+        return count;
+    }
+
+    @Override
+    public void resetPot()
+    {
+        // reset the pot for a new round
+        this.pot = 0;
+    }
    
     
 

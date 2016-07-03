@@ -9,7 +9,7 @@ public class TopHand implements Process
     // Constructor
     public TopHand()
     {
-        // 
+        //
     }
 
     @Override
@@ -19,149 +19,141 @@ public class TopHand implements Process
         List<Tup<WinningHands, Face>> matches = new ArrayList<Tup<WinningHands, Face>>();
         List<Tup<Face, Integer>> multiples = getMultiples(cards);
 
-        // 0 or 1 multiples found
-//        if (multiples.size() <= 2)
-//        {
-            Card[] best = flush(cards);
-            if (best != null)
+        Card[] best = flush(cards);
+        if (best != null)
+        {
+            try
             {
-                try
-                {
-                    straight(Process.START, best);
-                    matches.add(new Tup<WinningHands, Face>(
-                            WinningHands.FLUSH, highCard(best)));
-                    return matches;
-                }
-                catch (Straight s)
-                {
-                    // test for royal flush
-                    if (s.getHighCard() == Face.ACE)
-                    {
-                        matches.add(new Tup<WinningHands, Face>(
-                                WinningHands.ROYAL_FLUSH, Face.ACE));
-                        return matches;
-
-                    }
-                    // test for straight flush
-                    else
-                    {
-                        matches.add(new Tup<WinningHands, Face>(
-                                WinningHands.STRAIGHT_FLUSH, s.getHighCard()));
-                        return matches;
-                    }
-                }
-
-            }
-//            else
-//            {
-                try
-                {
-                    straight(Process.START, cards);
-                }
-                catch (Straight s)
-                {
-                    // add straight
-                    matches.add(new Tup<WinningHands, Face>(
-                            WinningHands.STRAIGHT, s.getHighCard()));
-                    return matches;
-                }
-//            }
-            // get high card (called bluff win condition)
-            if (multiples.size() == 0)
-            {
-                matches.add(new Tup<WinningHands, Face>(
-                        WinningHands.HIGH_CARD, highCard(cards)));
+                straight(Process.START, best);
+                matches.add(new Tup<WinningHands, Face>(WinningHands.FLUSH,
+                        highCard(best)));
                 return matches;
             }
-            // Process matched values
-            for (int i = 0; i < multiples.size(); ++i)
+            catch (Straight s)
             {
-                switch (multiples.get(i).l)
+                // test for royal flush
+                if (s.getHighCard() == Face.ACE)
                 {
-                    case 2:
-                        System.out.println("Pair added");
-                        matches.add(new Tup<WinningHands, Face>(
-                                WinningHands.PAIR, multiples.get(i).f));
-                        break;
-                    case 3:
-                        System.out.println("Three of a kind added");
-                        matches.add(new Tup<WinningHands, Face>(
-                                WinningHands.THREE_OF_A_KIND,
-                                multiples.get(i).f));
-                        break;
-                    case 4:
-                        System.out.println("Four of a kind added");
-                        matches.add(new Tup<WinningHands, Face>(
-                                WinningHands.FOUR_OF_A_KIND, multiples.get(i).f));
-                        return matches;                     
+                    matches.add(new Tup<WinningHands, Face>(
+                            WinningHands.ROYAL_FLUSH, Face.ACE));
+                    return matches;
+
+                }
+                // test for straight flush
+                else
+                {
+                    matches.add(new Tup<WinningHands, Face>(
+                            WinningHands.STRAIGHT_FLUSH, s.getHighCard()));
+                    return matches;
                 }
             }
-            // This is done so we can easily see the best hand ie full house we only 
-            // need to worry about card values if someone else has a matching hand
-            if (matches.size() > 1)
-            {
-                int pairCount, threeCount, fourCount;
-                pairCount = threeCount = fourCount = 0;
-                for (Tup<WinningHands, Face> m : matches)
-                {
-                    switch (m.f)
-                    {
-                        case PAIR:
-                            ++pairCount;
-                            break;
-                        case THREE_OF_A_KIND:
-                            ++threeCount;
-                            break;
-                        case FOUR_OF_A_KIND:
-                            ++fourCount;
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                if (pairCount > 1 && threeCount == 0)
-                {
-                    System.out.println("Two pair added");
-                    matches.add(0, new Tup<WinningHands, Face>(
-                            WinningHands.TWO_PAIR, multiples.get(0).f));
-                }
-                // there can only be 5 cards in a hand so remove the lower triple
-                else if (threeCount > 1 && pairCount == 0)
-                {
-                    if (matches.get(0).l.ordinal() > matches.get(1).l.ordinal())
-                    {
-                        matches.remove(1);
-                    }
-                    else 
-                    {
-                        matches.remove(0);
-                    }
-                }
-                // Full house
-                else if (threeCount == 1 && pairCount > 0)
-                {
-                    Face high = null;
-                    for ( Tup<WinningHands, Face> p: matches)
-                    {
-                        if (p.f == WinningHands.THREE_OF_A_KIND)
-                        {
-                            high = p.l;
-                        }
-                    }
-                    matches.add(0, new Tup<WinningHands, 
-                            Face>(WinningHands.FULL_HOUSE, high));
-                }
-            }
+
+        }
+
+        try
+        {
+            straight(Process.START, cards);
+        }
+        catch (Straight s)
+        {
+            // add straight
+            matches.add(new Tup<WinningHands, Face>(WinningHands.STRAIGHT, s
+                    .getHighCard()));
             return matches;
         }
 
-        
-   // }
+        // get high card (called bluff win condition)
+        if (multiples.size() == 0)
+        {
+            matches.add(new Tup<WinningHands, Face>(WinningHands.HIGH_CARD,
+                    highCard(cards)));
+            return matches;
+        }
+        // Process matched values
+        for (int i = 0; i < multiples.size(); ++i)
+        {
+            switch (multiples.get(i).l)
+            {
+                case 2:
+                    System.out.println("Pair added");
+                    matches.add(new Tup<WinningHands, Face>(WinningHands.PAIR,
+                            multiples.get(i).f));
+                    break;
+                case 3:
+                    System.out.println("Three of a kind added");
+                    matches.add(new Tup<WinningHands, Face>(
+                            WinningHands.THREE_OF_A_KIND, multiples.get(i).f));
+                    break;
+                case 4:
+                    System.out.println("Four of a kind added");
+                    matches.add(new Tup<WinningHands, Face>(
+                            WinningHands.FOUR_OF_A_KIND, multiples.get(i).f));
+                    return matches;
+            }
+        }
+        // This is done so we can easily see the best hand ie full house we only
+        // need to worry about card values if someone else has a matching hand
+        if (matches.size() > 1)
+        {
+            int pairCount, threeCount, fourCount;
+            pairCount = threeCount = fourCount = 0;
+            for (Tup<WinningHands, Face> m : matches)
+            {
+                switch (m.f)
+                {
+                    case PAIR:
+                        ++pairCount;
+                        break;
+                    case THREE_OF_A_KIND:
+                        ++threeCount;
+                        break;
+                    case FOUR_OF_A_KIND:
+                        ++fourCount;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            if (pairCount > 1 && threeCount == 0)
+            {
+                System.out.println("Two pair added");
+                matches.add(0, new Tup<WinningHands, Face>(
+                        WinningHands.TWO_PAIR, multiples.get(0).f));
+            }
+            // there can only be 5 cards in a hand so remove the lower triple
+            else if (threeCount > 1 && pairCount == 0)
+            {
+                if (matches.get(0).l.ordinal() > matches.get(1).l.ordinal())
+                {
+                    matches.remove(1);
+                }
+                else
+                {
+                    matches.remove(0);
+                }
+            }
+            // Full house
+            else if (threeCount == 1 && pairCount > 0)
+            {
+                Face high = null;
+                for (Tup<WinningHands, Face> p : matches)
+                {
+                    if (p.f == WinningHands.THREE_OF_A_KIND)
+                    {
+                        high = p.l;
+                    }
+                }
+                matches.add(0, new Tup<WinningHands, Face>(
+                        WinningHands.FULL_HOUSE, high));
+            }
+        }
+        return matches;
+    }
 
     // Recursive function for finding straight
     private void straight(int start, Card[] cards) throws Straight
     {
-        //System.out.println("Straight() called: checking for strainght");
+        // System.out.println("Straight() called: checking for strainght");
         // Failure condition that ends recursive function
         if (start < 5) return;
         // count
@@ -197,7 +189,7 @@ public class TopHand implements Process
 
     private Card[] flush(Card[] cards)
     {
-        //System.out.println("flush() called: checking for flush");
+        // System.out.println("flush() called: checking for flush");
         // counts of how many cards belong to each suit
         int hCount, dCount, sCount, cCount;
         hCount = dCount = sCount = cCount = 0;
@@ -289,7 +281,7 @@ public class TopHand implements Process
 
     public List<Tup<Face, Integer>> getMultiples(Card[] cards)
     {
-        //System.out.println("getMultiples() called: checking for pairs etc");
+        // System.out.println("getMultiples() called: checking for pairs etc");
         // Growable data structure for storing duplicate cards in the hand
         List<Tup<Face, Integer>> doubles = new ArrayList<Tup<Face, Integer>>();
         int cardCount = 1;
@@ -299,10 +291,10 @@ public class TopHand implements Process
             // Check the rest of the hand for a match
             for (int j = 1 + i; j < cards.length; ++j)
             {
-               // System.out.printf("i = %s : j = %s\n", i, j);
+                // System.out.printf("i = %s : j = %s\n", i, j);
                 if (cards[i].getValue() == cards[j].getValue())
                 {
-                 //   System.out.printf("%s ", cards[i].toString());
+                    // System.out.printf("%s ", cards[i].toString());
                     System.out.printf("matches %s\n", cards[j].toString());
                     ++cardCount;
                 }
@@ -331,7 +323,7 @@ public class TopHand implements Process
     @Override
     public Face highCard(Card[] cards)
     {
-        //System.out.println("highCard() called: checking for the highest card");
+        // System.out.println("highCard() called: checking for the highest card");
         Face bestCard = null;
         // step through cards
         for (Card c : cards)
@@ -358,5 +350,3 @@ public class TopHand implements Process
     }
 
 }
-
-

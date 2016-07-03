@@ -7,6 +7,7 @@ import model.card.Card;
 import model.card.Face;
 import model.card.Tup;
 import model.card.WinningHands;
+import model.game.Game;
 import model.table.Table;
 
 
@@ -24,13 +25,13 @@ public interface Player
     /**
      * 
      * @param bet
-     * @return true if bet placed falce if failed
+     * @return true if bet placed false if failed
      */
     public boolean placeBet(int bet);
     
     /**
      * Get the cards in a players hand
-     * @return 2 cards in an array
+     * @return cards in an array
      */
     public Card[] getHand();
     
@@ -122,6 +123,22 @@ public interface Player
      * @param amount
      */
     public void addCash(int amount);
+    
+    /**
+     * Defines how a player has their turn
+     * @param game
+     */
+    public void playHand(Game g);
+    
+    /** 
+     * money player has put into the current round of betting
+     * @return 
+     */
+    public int getCurrentBet();
 
-   
+    /**
+     * @param currentBet the currentBet to set
+     */
+    public void setCurrentBet(int currentBet);
+    
 }
