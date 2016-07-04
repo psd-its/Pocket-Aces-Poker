@@ -9,8 +9,6 @@ public interface Table
     //table constants
     public static final int MAX_PLAYERS = 10;
     
-    public static final int START_BLIND = 25;
-    
     public static final int MAX_CARDS = 5;
     
     public static final int BURN_ONE = 0;

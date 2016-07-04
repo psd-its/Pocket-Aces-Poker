@@ -13,3 +13,4 @@ public enum Bet
     RIVER,
     LAST
 }
+

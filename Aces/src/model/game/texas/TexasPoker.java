@@ -554,6 +554,18 @@ public class TexasPoker implements Game
                         // ensure we are looking at a valid player
                         if (getTable().getSeats()[index] != null)
                         {
+                            // Set blinds
+                            if (stage == Bet.FLOP && i == Const.SMALL_BLIND)
+                            {
+                                getTable().getSeats()[index].
+                                    placeBet(Const.START_BLIND);
+                            }
+                            else if (stage == Bet.FLOP && i == Const.BIG_BLIND)
+                            {
+                                getTable().getSeats()[index].
+                                    placeBet(Const.START_BLIND * 2);
+                            }
+                            // Give the player there turn
                             getTable().getSeats()[index].playHand(this);
                         }
                         // we are back at the dealer
