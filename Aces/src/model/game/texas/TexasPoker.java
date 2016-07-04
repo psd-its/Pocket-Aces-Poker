@@ -653,6 +653,12 @@ public class TexasPoker implements Game
         }
     }
 
+    public TopHand getTh()
+    {
+        return th;
+    }
+
+
     /**
      * @return the texThread
      */

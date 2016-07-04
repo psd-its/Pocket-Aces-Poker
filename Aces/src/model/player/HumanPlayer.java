@@ -100,17 +100,21 @@ public class HumanPlayer extends AbsPlayer
     @Override
     public void playHand(Game g)
     {
-        // TODO Auto-generated method stub
-        try
+        Thread t = g.getThread();
+        // Synchronize with the game thread
+        synchronized(t)
         {
-            g.getThread().wait(30000);
+            try
+            {
+                // Wait for input 
+                Thread.sleep(30000);
+            }
+            catch (InterruptedException e)
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
-        catch (InterruptedException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        
         
     }
 

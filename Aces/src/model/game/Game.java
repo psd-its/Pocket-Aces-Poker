@@ -3,6 +3,7 @@
  */
 package model.game;
 
+import model.card.TopHand;
 import model.player.Player;
 import model.table.Table;
 import model.table.TableFull;
@@ -68,6 +69,8 @@ public interface Game
      * @return the Thread
      */
     public Thread getThread();
+    
+    public TopHand getTh();
 
    
     
