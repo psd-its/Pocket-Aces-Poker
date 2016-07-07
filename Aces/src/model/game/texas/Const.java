@@ -27,4 +27,9 @@ public interface Const
      * constant for the player that is the dealer
      */
     public static final int DEALER = 9;
+    
+    /**
+     * constant for the number of cards in the flop
+     */
+    public static final int FLOP = 3;
 }

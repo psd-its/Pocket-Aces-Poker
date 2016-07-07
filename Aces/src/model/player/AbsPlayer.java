@@ -7,7 +7,7 @@ import model.card.WinningHands;
 
 public abstract class AbsPlayer implements Player
 {
-    // This holds the ammount the player has staked
+    // This holds the amount the player has staked
     //in the current round of betting. It is moved into the 
     // pot before the next round of betting starts
     protected int currentBet;

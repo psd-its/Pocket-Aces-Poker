@@ -25,7 +25,8 @@ public class TexasPoker implements Game
 
     public TexasPoker()
     {
-        // TODO Auto-generated constructor stub
+        // Instantiate a new thread and an instance 
+        // of top hand for processing hands
         this.th = new TopHand();
         this.texThread = new Thread();
     }
@@ -74,7 +75,7 @@ public class TexasPoker implements Game
         // Add the players cards to the array containing the shared cards
         for (Player p : table.getSeats())
         {
-            if (p != null)
+            if (p != null && p.isPlaying())
             {
                 cards[Process.HOLE_L] = p.getHand()[0];
                 cards[Process.HOLE_R] = p.getHand()[1];
@@ -600,6 +601,7 @@ public class TexasPoker implements Game
                     }
                 }
                 // Count how many players are still in the round
+                playersIn = 0;
                 for (Player p : table.getSeats())
                 {
                     if (p != null && p.isPlaying())
@@ -608,7 +610,7 @@ public class TexasPoker implements Game
                     }
                 }
                 // All but 1 player have folded
-                if (playersIn < 1)
+                if (playersIn < 2)
                 {
                     break;
                 }
@@ -617,7 +619,7 @@ public class TexasPoker implements Game
                 {
                     case FLOP:
                         // Show first 3 cards
-                        for (int i = 0; i < 3; ++i)
+                        for (int i = 0; i < Const.FLOP; ++i)
                         {
                             table.getCardsInPlay()[i].show();
                         }
