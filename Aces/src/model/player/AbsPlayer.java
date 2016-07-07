@@ -30,7 +30,7 @@ public abstract class AbsPlayer implements Player
     public AbsPlayer(String name)
     {
         this.name = name;
-        this.playingHand = false;
+        this.playingHand = true;
         this.cash = Player.START_BALANCE;
         this.hand = new Card[2]; 
         this.currentBet = 0;

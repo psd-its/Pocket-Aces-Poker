@@ -25,7 +25,7 @@ public class TexasPoker implements Game
 
     public TexasPoker()
     {
-        // Instantiate a new thread and an instance 
+        // Instantiate a new thread and an instance
         // of top hand for processing hands
         this.th = new TopHand();
         this.texThread = new Thread();
@@ -75,7 +75,7 @@ public class TexasPoker implements Game
         // Add the players cards to the array containing the shared cards
         for (Player p : table.getSeats())
         {
-            if (p != null && p.isPlaying())
+            if (p != null /* && p.isPlaying() */)
             {
                 cards[Process.HOLE_L] = p.getHand()[0];
                 cards[Process.HOLE_R] = p.getHand()[1];
@@ -106,7 +106,8 @@ public class TexasPoker implements Game
         for (Player h : table.getSeats())
         {
             if (h == null) break;
-            // System.out.println(index);
+            System.out.println("index: " + index);
+            System.out.println(h.getBestHand());
             if (bestSoFar == null)
             {
                 // Add first card as best so far
@@ -495,7 +496,10 @@ public class TexasPoker implements Game
         Player[] players = new Player[indexes.size()];
         for (int i = 0; i < indexes.size(); ++i)
         {
-            players[i] = table.getSeats()[indexes.get(i)];
+            if (players[i]!= null && players[i].isPlaying())
+            {
+                players[i] = table.getSeats()[indexes.get(i)];
+            }
         }
         return players;
     }
@@ -506,7 +510,7 @@ public class TexasPoker implements Game
         // Ensure we are dealing with a valid player that is playing the hand
         if (player == null || !player.isPlaying()) return;
         player.playHand(this);
-        
+
     }
 
     @Override
@@ -558,13 +562,13 @@ public class TexasPoker implements Game
                             // Set blinds
                             if (stage == Bet.FLOP && i == Const.SMALL_BLIND)
                             {
-                                getTable().getSeats()[index].
-                                    placeBet(Const.START_BLIND);
+                                getTable().getSeats()[index]
+                                        .placeBet(Const.START_BLIND);
                             }
                             else if (stage == Bet.FLOP && i == Const.BIG_BLIND)
                             {
-                                getTable().getSeats()[index].
-                                    placeBet(Const.START_BLIND * 2);
+                                getTable().getSeats()[index]
+                                        .placeBet(Const.START_BLIND * 2);
                             }
                             // Give the player there turn
                             getTable().getSeats()[index].playHand(this);
@@ -631,7 +635,7 @@ public class TexasPoker implements Game
                     case RIVER:
                         // Show the river
                         table.getCardsInPlay()[4].show();
-                        break;    
+                        break;
                     case LAST:
                         // Players have been called so show there cards
                         for (Player p : table.getSeats())
@@ -671,7 +675,6 @@ public class TexasPoker implements Game
     {
         return th;
     }
-
 
     /**
      * @return the texThread

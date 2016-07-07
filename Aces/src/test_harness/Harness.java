@@ -39,6 +39,7 @@ public class Harness
             System.out.printf("%-10d%s\n", 2, "Check random win conditions");
             System.out.printf("%-10d%s\n", 3, "Test the main view");
             System.out.printf("%-10d%s\n", 4, "Check all winning hands");
+            System.out.printf("%-10d%s\n", 5, "Play Game");
             System.out.printf("%-10d%s\n", 0, "Exit");
             System.out.printf("\n%s:", "Enter selection");
             result = in.nextInt();
@@ -105,8 +106,9 @@ public class Harness
                         {
                             if (p != null)
                             {
-                                System.out.printf("%s: %s high %s\n", p.getName(),
-                                        p.getBestHand().l, p.getBestHand().f);
+                                System.out.printf("%s: %s high %s\n",
+                                        p.getName(), p.getBestHand().l,
+                                        p.getBestHand().f);
 
                             }
                         }
@@ -114,7 +116,7 @@ public class Harness
                     break;
 
                 }
-                    
+
                 case 3:
                     // setup facade
                     Harness.acesFacade = new AcesModel();
@@ -140,6 +142,84 @@ public class Harness
                         // in game logic
                         e.printStackTrace();
                     }
+                    break;
+                case 5:
+                    int input = -1;
+
+                    table = new TexasTable();
+                    poker.addTable(table);
+                    System.out.printf("Enter your name: ");
+                    String name = in.nextLine();
+                    Player p = new HumanPlayer(name);
+                    table.addPlayer(p);
+                    table.addPlayer(new ComputerPlayer("Taylor"));
+                    table.addPlayer(new ComputerPlayer("Mathew"));
+                    table.addPlayer(new ComputerPlayer("Tristan"));
+                    table.addPlayer(new ComputerPlayer("Manuel"));
+                    poker.play();
+                    do
+                    {
+                        System.out.println("\nCommunity cards: ");
+                        for (Card c : table.getCardsInPlay())
+                        {
+                            if (c.isShowing())
+                            {
+                                System.out.println(c.toString());
+                            }
+                        }
+                        System.out.printf("Your cards: %s %s\n",
+                                p.getHand()[0].toString(),
+                                p.getHand()[1].toString());
+                        System.out.printf("1. Fold 2. Check 3. Call 4. Raise"
+                                + " 0. Fold\nEnter your selection:");
+                        boolean done = false;
+                        while (!done)
+                        {
+                            input = in.nextInt();
+                            switch (input)
+                            {
+                                case 1:
+                                    p.fold();
+                                    done = true;
+                                    break;
+                                case 2:
+                                    p.check(table);
+                                    done = true;
+                                    break;
+                                case 3:
+                                    if (p.call(table))
+                                    {
+                                        done = true;
+                                    }
+                                    else
+                                    {
+                                        System.out.println("Call failed!");
+                                    }
+                                    break;
+                                case 4:
+                                    System.out
+                                            .printf("Enter amount to raise: ");
+                                    int amount = in.nextInt();
+                                    if (p.raise(table, amount))
+                                    {
+                                        done = true;
+                                    }
+                                    else
+                                    {
+                                        System.out.println("Raise failed!");
+                                    }
+                                    break;
+                                case 0:
+                                    done = true;
+                                    break;
+                                default:
+                                    System.out.println("Invalid input!");
+                                    break;
+
+                            }
+                        }
+                    } while (input > 0 && table.getSeats()[0].getBalance() > 0);
+                    break;
                 case 0:
                     break;
                 default:
@@ -151,5 +231,4 @@ public class Harness
         } while (result != 0);
 
     }
-
 }
