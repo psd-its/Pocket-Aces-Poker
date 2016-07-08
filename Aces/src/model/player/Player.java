@@ -141,4 +141,9 @@ public interface Player
      */
     public void setCurrentBet(int currentBet);
     
+    /**
+     * Indicates if the player is still playing in the current hand
+     * @param playingHand true if playing, false if folded. 
+     */
+    public void setPlayingHand(boolean playingHand);
 }

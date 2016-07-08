@@ -1,11 +1,14 @@
 package model.player;
 
+import java.util.TimerTask;
+
 import model.card.Card;
 import model.card.Face;
 import model.card.Tup;
 import model.card.WinningHands;
+import model.table.Table;
 
-public abstract class AbsPlayer implements Player
+public abstract class AbsPlayer extends TimerTask implements Player 
 {
     // This holds the amount the player has staked
     //in the current round of betting. It is moved into the 
@@ -62,13 +65,6 @@ public abstract class AbsPlayer implements Player
     {
         // TODO Auto-generated method stub
         return hand;
-    }
-    
-    @Override
-    public int getBalance()
-    {
-        // TODO Auto-generated method stub
-        return cash;
     }
     
     /**
@@ -130,6 +126,96 @@ public abstract class AbsPlayer implements Player
         }
         return playerString;
     }
+    
+    @Override
+    public void allIn(int cash)
+    {
+        placeBet(cash);
+        this.allIn = true;
+    }
+
+    @Override
+    public int getBalance()
+    {
+        return cash;
+    }
+
+    @Override
+    public boolean fold()
+    {
+        if (!playingHand)
+            return false;
+        playingHand = false;
+        return true;
+    }
+    
+    public void setPlayingHand(boolean playingHand)
+    {
+        this.playingHand = playingHand;
+    }
+
+    @Override
+    public boolean isPlaying()
+    {
+        return this.playingHand;
+    }
+
+    @Override
+    public boolean placeBet(int bet)
+    {
+        if (bet <= cash)
+        {
+            cash = (cash - bet);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean check(Table t)
+    {
+        if(t.getCurrentBet() == currentBet)
+        {
+            return true;
+        }
+        //Ends turn
+        return false;
+    }
+
+    @Override
+    public boolean call(Table t)
+    {
+        // get the difference between the the current expected
+        // bet and what you have already put in this round of betting
+        int bet = t.getCurrentBet() - currentBet;
+        if (bet <= cash)
+        {
+            cash = (cash - bet);
+            return true;
+        }
+       
+        return false;
+        
+    }
+
+   @Override
+    public boolean raise(Table t, int amount)
+    {
+        if ((amount <= cash) && (amount > t.getCurrentBet()))
+        {
+            currentBet += amount;
+            placeBet(amount);
+            // This is done in place bet 
+            // cash = cash - amount;
+            return true;
+        }
+        return false;
+        
+    }
+
 
     
 }

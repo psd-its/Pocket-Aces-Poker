@@ -4,9 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Timer;
 
+import model.card.Card;
+import model.card.Face;
 import model.card.Process;
-import model.card.*;
+import model.card.TopHand;
+import model.card.Tup;
+import model.card.WinningHands;
 import model.game.Game;
 import model.player.Player;
 import model.table.Table;
@@ -21,14 +26,14 @@ public class TexasPoker implements Game
 {
     private TopHand th;
     private Table table;
-    private Thread texThread;
+    private Timer texThread;
 
     public TexasPoker()
     {
         // Instantiate a new thread and an instance
         // of top hand for processing hands
         this.th = new TopHand();
-        this.texThread = new Thread();
+        this.texThread = new Timer(true);
     }
 
     @Override
@@ -80,14 +85,14 @@ public class TexasPoker implements Game
                 cards[Process.HOLE_L] = p.getHand()[0];
                 cards[Process.HOLE_R] = p.getHand()[1];
 
-                for (Card c : cards)
-                {
-                    if (c != null)
-                        System.out.println("card: " + c.toString());
-                    else
-                        System.out.println("card: NULL ?!?");
-
-                }
+//                for (Card c : cards)
+//                {
+//                    if (c != null)
+//                        System.out.println("card: " + c.toString());
+//                    else
+//                        System.out.println("card: NULL ?!?");
+//
+//                }
                 List<Tup<WinningHands, Face>> best = th.processHand(cards);
                 if (best.isEmpty())
                 {
@@ -95,8 +100,8 @@ public class TexasPoker implements Game
                             "Error! - processHand has not returned a result");
                 }
                 p.setBestHand(best.get(0));
-                System.out.printf("%s has %s unprocessed\n\n", p.getName(),
-                        p.getBestHand().f);
+                // System.out.printf("%s has %s unprocessed\n\n", p.getName(),
+                // p.getBestHand().f);
             }
         }
         int index = 0;
@@ -106,8 +111,8 @@ public class TexasPoker implements Game
         for (Player h : table.getSeats())
         {
             if (h == null) break;
-            System.out.println("index: " + index);
-            System.out.println(h.getBestHand());
+            // System.out.println("index: " + index);
+            // System.out.println(h.getBestHand());
             if (bestSoFar == null)
             {
                 // Add first card as best so far
@@ -496,10 +501,21 @@ public class TexasPoker implements Game
         Player[] players = new Player[indexes.size()];
         for (int i = 0; i < indexes.size(); ++i)
         {
-            if (players[i]!= null && players[i].isPlaying())
+//            if (table.getSeats()[indexes.get(i)] != null)
+//            {
+//                System.out.println(table.getSeats()[indexes.get(i)].getName()
+//                        + " is playing " + table.getSeats()[indexes.get(i)].isPlaying());
+//            }
+            if (table.getSeats()[indexes.get(i)] != null && 
+                    table.getSeats()[indexes.get(i)].isPlaying())
             {
                 players[i] = table.getSeats()[indexes.get(i)];
             }
+        }
+        for (Player p : players)
+        {
+            System.out.println(p.getName() + " with a " + p.getBestHand().f +
+                    " of " + p.getBestHand().l + "s");
         }
         return players;
     }
@@ -564,22 +580,24 @@ public class TexasPoker implements Game
                             {
                                 getTable().getSeats()[index]
                                         .placeBet(Const.START_BLIND);
-                            }
-                            else if (stage == Bet.FLOP && i == Const.BIG_BLIND)
-                            {
-                                getTable().getSeats()[index]
+                                getTable().getSeats()[index + 1]
                                         .placeBet(Const.START_BLIND * 2);
                             }
+                            // else if (stage == Bet.FLOP && i ==
+                            // Const.BIG_BLIND)
+                            // {
+                            //
+                            // }
                             // Give the player there turn
-                            getTable().getSeats()[index].playHand(this);
+                            // getTable().getSeats()[index].playHand(this);
+                            this.takeTurn(table.getSeats()[index]);
                         }
                         // we are back at the dealer
                         if (i == getTable().getSeats().length - 1)
                         {
                             boolean moreBets = false;
                             // Check everyone playing has met the current min
-                            // bet
-                            // for this round of betting
+                            // bet for this round of betting
                             for (Player p : table.getSeats())
                             {
                                 if (p != null && p.isPlaying())
@@ -654,6 +672,7 @@ public class TexasPoker implements Game
                 Player[] winners = checkForWinner();
                 // Account for split pot
                 double amount = table.getPot() / winners.length;
+                System.out.println("Pot: " + amount);
                 for (Player p : winners)
                 {
                     p.addCash((int) amount);
@@ -679,7 +698,7 @@ public class TexasPoker implements Game
     /**
      * @return the texThread
      */
-    public Thread getThread()
+    public Timer getTimer()
     {
         return texThread;
     }

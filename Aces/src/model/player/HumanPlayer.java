@@ -1,120 +1,111 @@
 package model.player;
 
+import java.util.Timer;
+
+import test_harness.Harness;
+import model.card.Card;
 import model.game.Game;
 import model.table.Table;
 
 public class HumanPlayer extends AbsPlayer 
 {
 
-    private int currentBet;
+    //private int currentBet;
 
     public HumanPlayer(String name)
     {
         super(name);
     }
     
-    @Override
-    public boolean placeBet(int bet)
-    {
-        if (bet <= cash)
-        {
-            cash = (cash - bet);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    @Override
-    public boolean check(Table t)
-    {
-        if(t.getCurrentBet() == currentBet)
-        {
-            return true;
-        }
-        //Ends turn
-        return false;
-    }
-
-    @Override
-    public boolean call(Table t)
-    {
-        // get the difference between the the current expected
-        // bet and what you have already put in this round of betting
-        int bet = t.getCurrentBet() - currentBet;
-        if (bet <= cash)
-        {
-            cash = (cash - bet);
-            return true;
-        }
-       
-        return false;
-        
-    }
-
-   @Override
-    public boolean raise(Table t, int amount)
-    {
-        if ((amount <= cash) && (amount > t.getCurrentBet()))
-        {
-            currentBet += amount;
-            placeBet(amount);
-            // This is done in place bet 
-            // cash = cash - amount;
-            return true;
-        }
-        return false;
-        
-    }
-
-    @Override
-    public void allIn(int cash)
-    {
-        placeBet(cash);
-        this.allIn = true;
-    }
-
-    @Override
-    public int getBalance()
-    {
-        return cash;
-    }
-
-    @Override
-    public boolean fold()
-    {
-        if (!playingHand)
-            return false;
-        playingHand = false;
-        return true;
-    }
     
-    @Override
-    public boolean isPlaying()
-    {
-        return this.playingHand;
-    }
-
+    
     @Override
     public void playHand(Game g)
     {
-        Thread t = g.getThread();
-        // Synchronize with the game thread
-        synchronized(t)
+        int input = -1;
+//        Timer t = g.getTimer();  
+//        t.schedule(this, 30000);
+        do
         {
-            try
+            System.out.println("\nCommunity cards: ");
+            for (Card c : g.getTable().getCardsInPlay())
             {
-                // Wait for input 
-                Thread.sleep(30000);
+                if (c.isShowing())
+                {
+                    System.out.println(c.toString());
+                }
             }
-            catch (InterruptedException e)
+            System.out.printf("Your cards: %s %s\n",
+                    hand[0].toString(),
+                    hand[1].toString());
+            System.out.printf("1. Fold 2. Check 3. Call 4. Raise"
+                    + " 0. Fold\nEnter your selection:");
+            boolean done = false;
+            while (!done)
             {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                input = Harness.in.nextInt();
+                // Clear trailing new line char
+                Harness.in.nextLine();
+                switch (input)
+                {
+                    case 1:
+                        fold();
+                        done = true;
+                        System.out.println("you folded!");
+                        //g.getTimer().cancel();
+                        break;
+                    case 2:
+                        check(g.getTable());
+                        done = true;
+                        System.out.println("you checked!");
+                        //g.getTimer().cancel();
+                        break;
+                    case 3:
+                        if (call(g.getTable()))
+                        {
+                            done = true;
+                            System.out.println("you called!");
+                            //g.getTimer().cancel();
+                        }
+                        else
+                        {
+                            System.out.println("Call failed!");
+                        }
+                        break;
+                    case 4:
+                        System.out
+                                .printf("Enter amount to raise: ");
+                        int amount = Harness.in.nextInt();
+                        if (raise(g.getTable(), amount))
+                        {
+                            done = true;
+                            System.out.println("you raised the pot by " + amount);
+                            //g.getTimer().cancel();
+                        }
+                        else
+                        {
+                            System.out.println("Raise failed!");
+                        }
+                        break;
+                    case 0:
+                        done = true;
+                        break;
+                    default:
+                        System.out.println("Invalid input!");
+                        break;
+
+                }
             }
-        }
+        } while (input > 0 && g.getTable().getSeats()[0].getBalance() > 0);
+        
+    }
+
+    @Override
+    public void run()
+    {
+        // TODO Auto-generated method stub
+        this.fold();
+        System.out.println("You have been folded");
         
     }
 

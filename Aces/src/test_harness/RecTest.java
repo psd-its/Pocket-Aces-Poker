@@ -243,7 +243,7 @@ public class RecTest
             
         }
         g.checkForWinner();
-        System.out.println("Test completed.");
+        System.out.println("Test completed.\n");
         testAll(++pos);
     }
 

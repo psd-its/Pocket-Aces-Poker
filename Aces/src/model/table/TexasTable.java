@@ -21,6 +21,7 @@ public class TexasTable extends AbsTable
         this.playersAtTable = 0; //This is not really necessary just use a null check when iterating
         this.setCurrentBet(0);
         this.cardsInPlay = new Card[5];
+        this.playersDealt = 0;
     }
 
     @Override
@@ -44,7 +45,10 @@ public class TexasTable extends AbsTable
             //check the seat contains a valid player 
             if (seats[position] != null)
             {
-                
+                if(seats[position].getBalance() > 0)
+                {
+                    seats[position].setPlayingHand(true);
+                }
                 while(!cardFound)
                 {
                     // Random position of a card

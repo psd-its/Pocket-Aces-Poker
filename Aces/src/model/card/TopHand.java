@@ -75,17 +75,17 @@ public class TopHand implements Process
             switch (multiples.get(i).l)
             {
                 case 2:
-                    System.out.println("Pair added");
+//                    System.out.println("Pair added");
                     matches.add(new Tup<WinningHands, Face>(WinningHands.PAIR,
                             multiples.get(i).f));
                     break;
                 case 3:
-                    System.out.println("Three of a kind added");
+//                    System.out.println("Three of a kind added");
                     matches.add(new Tup<WinningHands, Face>(
                             WinningHands.THREE_OF_A_KIND, multiples.get(i).f));
                     break;
                 case 4:
-                    System.out.println("Four of a kind added");
+//                    System.out.println("Four of a kind added");
                     matches.add(new Tup<WinningHands, Face>(
                             WinningHands.FOUR_OF_A_KIND, multiples.get(i).f));
                     return matches;
@@ -116,7 +116,7 @@ public class TopHand implements Process
             }
             if (pairCount > 1 && threeCount == 0)
             {
-                System.out.println("Two pair added");
+//                System.out.println("Two pair added");
                 matches.add(0, new Tup<WinningHands, Face>(
                         WinningHands.TWO_PAIR, multiples.get(0).f));
             }
@@ -239,7 +239,7 @@ public class TopHand implements Process
     // helper function for flush
     private Card[] sortSuit(Card[] cards, Suit suit)
     {
-        System.out.println("sortSuit() called: sorting flush by suit");
+//        System.out.println("sortSuit() called: sorting flush by suit");
         List<Card> flush = new ArrayList<Card>();
         // Store all cards that match the suit passed in as a list
         for (Card c : cards)
@@ -256,7 +256,7 @@ public class TopHand implements Process
         // remove the lowest cards in the flush
         while (flush.size() > 5)
         {
-            System.out.println("The size of the flush is: " + flush.size());
+//            System.out.println("The size of the flush is: " + flush.size());
             // Card value and index in the hand
             Tup<Face, Integer> card = null;
             // Loop through and find the lowest card
@@ -295,7 +295,7 @@ public class TopHand implements Process
                 if (cards[i].getValue() == cards[j].getValue())
                 {
                     // System.out.printf("%s ", cards[i].toString());
-                    System.out.printf("matches %s\n", cards[j].toString());
+//                    System.out.printf("matches %s\n", cards[j].toString());
                     ++cardCount;
                 }
             }
@@ -308,7 +308,7 @@ public class TopHand implements Process
             // reset the card count
             cardCount = 1;
         }
-        System.out.println("count of multiples: " + doubles.size());
+//        System.out.println("count of multiples: " + doubles.size());
         return doubles;
 
     }

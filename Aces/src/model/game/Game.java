@@ -3,6 +3,8 @@
  */
 package model.game;
 
+import java.util.Timer;
+
 import model.card.TopHand;
 import model.player.Player;
 import model.table.Table;
@@ -68,7 +70,7 @@ public interface Game
     /**
      * @return the Thread
      */
-    public Thread getThread();
+    public Timer getTimer();
     
     public TopHand getTh();
 
