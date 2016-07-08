@@ -8,15 +8,15 @@ import model.card.Tup;
 import model.card.WinningHands;
 import model.table.Table;
 
-public abstract class AbsPlayer extends TimerTask implements Player 
+public abstract class AbsPlayer extends TimerTask implements Player
 {
     // This holds the amount the player has staked
-    //in the current round of betting. It is moved into the 
+    // in the current round of betting. It is moved into the
     // pot before the next round of betting starts
     protected int currentBet;
     // players name
     protected String name;
-    // is the player still in the current hand 
+    // is the player still in the current hand
     // returns false of they fold
     protected boolean playingHand;
     // Players total remaining credit
@@ -24,22 +24,21 @@ public abstract class AbsPlayer extends TimerTask implements Player
     // Cards in the players hand
     protected Card hand[];
     // Is the best hand a player can make along with
-    // the high card value (face) 
+    // the high card value (face)
     protected Tup<WinningHands, Face> bestHand;
-   // protected Face highCard; @deprecated
+    // protected Face highCard; @deprecated
     protected boolean allIn;
-    
 
     public AbsPlayer(String name)
     {
         this.name = name;
         this.playingHand = true;
         this.cash = Player.START_BALANCE;
-        this.hand = new Card[2]; 
+        this.hand = new Card[2];
         this.currentBet = 0;
         this.allIn = false;
     }
-    
+
     /**
      * @return the currentBet
      */
@@ -49,7 +48,8 @@ public abstract class AbsPlayer extends TimerTask implements Player
     }
 
     /**
-     * @param currentBet the currentBet to set
+     * @param currentBet
+     *            the currentBet to set
      */
     public void setCurrentBet(int currentBet)
     {
@@ -66,19 +66,18 @@ public abstract class AbsPlayer extends TimerTask implements Player
         // TODO Auto-generated method stub
         return hand;
     }
-    
+
     /**
-     * If the player wins a hand the pot is passed
-     * to this function
+     * If the player wins a hand the pot is passed to this function
      */
     @Override
     public void addCash(int amount)
     {
         cash += amount;
     }
-    
+
     @Override
-    public Tup<WinningHands,Face> getBestHand()
+    public Tup<WinningHands, Face> getBestHand()
     {
         return bestHand;
     }
@@ -88,7 +87,7 @@ public abstract class AbsPlayer extends TimerTask implements Player
     {
         this.bestHand = bestHand;
     }
-    
+
     @Override
     public void setHand(Card[] cards)
     {
@@ -105,7 +104,8 @@ public abstract class AbsPlayer extends TimerTask implements Player
     }
 
     /**
-     * @param allIn the allIn to set
+     * @param allIn
+     *            the allIn to set
      */
     @Override
     public void setAllIn(boolean allIn)
@@ -116,17 +116,17 @@ public abstract class AbsPlayer extends TimerTask implements Player
     @Override
     public String toString()
     {
-        String playerString = getName() +"\n";
+        String playerString = getName() + "\n";
         for (Card c : getHand())
         {
             if (c != null)
                 playerString += c.toString() + "\n";
-            else 
+            else
                 playerString += "Hand empty\n";
         }
         return playerString;
     }
-    
+
     @Override
     public void allIn(int cash)
     {
@@ -143,12 +143,11 @@ public abstract class AbsPlayer extends TimerTask implements Player
     @Override
     public boolean fold()
     {
-        if (!playingHand)
-            return false;
+        if (!playingHand) return false;
         playingHand = false;
         return true;
     }
-    
+
     public void setPlayingHand(boolean playingHand)
     {
         this.playingHand = playingHand;
@@ -165,23 +164,22 @@ public abstract class AbsPlayer extends TimerTask implements Player
     {
         if (bet <= cash)
         {
-            cash = (cash - bet);
+            cash -= bet;
             return true;
         }
-        else
-        {
-            return false;
-        }
+
+        return false;
+
     }
 
     @Override
     public boolean check(Table t)
     {
-        if(t.getCurrentBet() == currentBet)
+        if (t.getCurrentBet() == currentBet)
         {
             return true;
         }
-        //Ends turn
+        // Ends turn
         return false;
     }
 
@@ -194,28 +192,29 @@ public abstract class AbsPlayer extends TimerTask implements Player
         if (bet <= cash)
         {
             cash = (cash - bet);
+            currentBet += bet;
+            t.addToPot(bet);
             return true;
         }
-       
+
         return false;
-        
+
     }
 
-   @Override
+    @Override
     public boolean raise(Table t, int amount)
     {
-        if ((amount <= cash) && (amount > t.getCurrentBet()))
+        if (amount <= cash)
         {
+            if (t.getCurrentBet() > currentBet + amount)
+                return false;
             currentBet += amount;
             placeBet(amount);
-            // This is done in place bet 
-            // cash = cash - amount;
+            t.setCurrentBet(currentBet);
             return true;
         }
         return false;
-        
+
     }
 
-
-    
 }
