@@ -8,6 +8,7 @@ import model.card.Face;
 import model.card.Tup;
 import model.card.WinningHands;
 import model.game.Game;
+import model.game.RTM;
 import model.table.Table;
 
 
@@ -127,8 +128,9 @@ public interface Player
     /**
      * Defines how a player has their turn
      * @param game
+     * @throws Return to menu exception
      */
-    public void playHand(Game g);
+    public void playHand(Game g) throws RTM;
     
     /** 
      * money player has put into the current round of betting

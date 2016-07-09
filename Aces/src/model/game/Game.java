@@ -51,8 +51,9 @@ public interface Game
     /**
      * Human will need input from controller 
      * @param player
+     * @throws RTM 
      */
-    public void takeTurn(Player player);
+    public void takeTurn(Player player) throws RTM;
     
     /**
      * If in NOWINNER is returned it is a split pot in texas hold'em 
@@ -64,8 +65,9 @@ public interface Game
     
     /**
      * Initiates the game
+     * @throws RTM 
      */
-    public void play();
+    public void play() throws RTM;
     
     /**
      * @return the Thread

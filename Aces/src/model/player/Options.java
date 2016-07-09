@@ -2,5 +2,5 @@ package model.player;
 
 public enum Options
 {
-    CALL, RAISE, FOLD,  CHECK, POT, MY_CASH;
+    CALL, RAISE, FOLD,  CHECK, POT, MY_CASH, EXIT;
 }

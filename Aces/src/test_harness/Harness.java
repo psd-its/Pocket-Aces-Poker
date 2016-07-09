@@ -6,6 +6,7 @@ import model.card.Card;
 import model.card.TopHand;
 import model.facade.AcesModel;
 import model.game.Game;
+import model.game.RTM;
 import model.game.texas.TexasPoker;
 import model.player.ComputerPlayer;
 import model.player.HumanPlayer;
@@ -17,6 +18,8 @@ import view.main.MainView;
 public class Harness
 {
     private static AcesModel acesFacade;
+    // Made the scanner a global var as for console version 
+    // its also accessed inside human player
     public static Scanner in = new Scanner(System.in);
 
     public Harness()
@@ -152,7 +155,14 @@ public class Harness
                     table.addPlayer(new ComputerPlayer("Mathew"));
                     table.addPlayer(new ComputerPlayer("Tristan"));
                     table.addPlayer(new ComputerPlayer("Manuel"));
-                    poker.play();
+                    try
+                    {
+                        poker.play();
+                    }
+                    catch(RTM ex)
+                    {
+                        break;
+                    }
                     break;
                 case 0:
                     break;

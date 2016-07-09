@@ -13,6 +13,7 @@ import model.card.TopHand;
 import model.card.Tup;
 import model.card.WinningHands;
 import model.game.Game;
+import model.game.RTM;
 import model.player.Player;
 import model.table.Table;
 import model.table.TableFull;
@@ -84,7 +85,7 @@ public class TexasPoker implements Game
             {
                 cards[Process.HOLE_L] = p.getHand()[0];
                 cards[Process.HOLE_R] = p.getHand()[1];
-
+                // // Print the cards for this player DEBUG
                 // for (Card c : cards)
                 // {
                 // if (c != null)
@@ -100,19 +101,21 @@ public class TexasPoker implements Game
                             "Error! - processHand has not returned a result");
                 }
                 p.setBestHand(best.get(0));
-                // System.out.printf("%s has %s unprocessed\n\n", p.getName(),
-                // p.getBestHand().f);
+                
             }
         }
         int index = 0;
+        // List holds the seat position of a player
         List<Integer> indexes = new ArrayList<Integer>();
+        //Tuple of best hand so far
         Tup<WinningHands, Face> bestSoFar = null;
+        // Vars to make comparison cleaner
         Face f1 = null, f2 = null;
         for (Player h : table.getSeats())
         {
-            if (h == null) break;
-            // System.out.println("index: " + index);
-            // System.out.println(h.getBestHand());
+            // if player is invalid or folded skip the,
+            if (h == null || !h.isPlaying()) continue;
+            // First iteration so best so far not set
             if (bestSoFar == null)
             {
                 // Add first card as best so far
@@ -124,6 +127,7 @@ public class TexasPoker implements Game
             // New best so far
             else if (bestSoFar.f.ordinal() < h.getBestHand().f.ordinal())
             {
+                
                 bestSoFar = new Tup<WinningHands, Face>(h.getBestHand().f,
                         h.getBestHand().l);
                 indexes.clear();
@@ -506,12 +510,13 @@ public class TexasPoker implements Game
             // System.out.println(table.getSeats()[indexes.get(i)].getName()
             // + " is playing " + table.getSeats()[indexes.get(i)].isPlaying());
             // }
-            if (table.getSeats()[indexes.get(i)] != null
-                    && table.getSeats()[indexes.get(i)].isPlaying())
+            if (table.getSeats()[indexes.get(i)] != null)
+                   // && table.getSeats()[indexes.get(i)].isPlaying())
             {
                 players[i] = table.getSeats()[indexes.get(i)];
             }
         }
+        // Print the winner(s)
         for (Player p : players)
         {
             System.out.println(p.getName() + " with a " + p.getBestHand().f
@@ -521,7 +526,7 @@ public class TexasPoker implements Game
     }
 
     @Override
-    public void takeTurn(Player player)
+    public void takeTurn(Player player) throws RTM
     {
         // Ensure we are dealing with a valid player that is playing the hand
         if (player == null || !player.isPlaying()) return;
@@ -544,7 +549,7 @@ public class TexasPoker implements Game
     }
 
     @Override
-    public void play()
+    public void play() throws RTM
     {
         // infinite table
         boolean progress;

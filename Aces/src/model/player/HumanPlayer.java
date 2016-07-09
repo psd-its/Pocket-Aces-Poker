@@ -1,13 +1,17 @@
 package model.player;
 
+import java.util.InputMismatchException;
+
 import model.card.Card;
 import model.game.Game;
+import model.game.RTM;
+import model.game.texas.Const;
 import test_harness.Harness;
 
 public class HumanPlayer extends AbsPlayer
 {
 
-    // private int currentBet;
+    //Currently set for console play;
 
     public HumanPlayer(String name)
     {
@@ -15,9 +19,10 @@ public class HumanPlayer extends AbsPlayer
     }
 
     @Override
-    public void playHand(Game g)
+    public void playHand(Game g) throws RTM
     {
-        Options input;
+        // initialize var to null
+        Options input = null;
         // Timer t = g.getTimer();
         // t.schedule(this, 30000);
 
@@ -31,14 +36,42 @@ public class HumanPlayer extends AbsPlayer
         }
         System.out.printf("Your cards: %s %s\n", hand[0].toString(),
                 hand[1].toString());
-        System.out.printf("1. Fold 2. Check 3. Call 4. Raise"
-                + " 0. Fold\nEnter your selection:");
+        System.out
+                .printf("0. Call \n1. Raise  \n2. Fold \n3. Check"
+                        + "\n4. Show Pot \n5. Show remaining cash" +
+                        "\n6. Return to main menu \nEnter your selection: ");
         boolean done = false;
         while (!done)
         {
-            input = Options.values()[Harness.in.nextInt()];
+            int selection = -1;
+            while (selection < 0 || selection >= Const.MENU_ITEMS)
+            {
+                
+                try
+                {
+                    selection = Harness.in.nextInt();
+                    Harness.in.nextLine();
+                    if (selection >= 0 && selection < Const.MENU_ITEMS)
+                    {
+                        input = Options.values()[selection];
+                
+                    }
+                    else
+                    {
+                        System.out.println("Enter selection: ");
+                        continue;
+                    }
+                }
+                catch (InputMismatchException ex)
+                {
+                    System.out.println("ERROR- please enter a valid integer"
+                            + " in the specified range\nEnter selection: ");
+                    Harness.in.nextLine();
+                   
+                }
+            }
             // Clear trailing new line char
-            Harness.in.nextLine();
+            //Harness.in.nextLine();
             switch (input)
             {
                 case FOLD:
@@ -82,11 +115,14 @@ public class HumanPlayer extends AbsPlayer
                     }
                     break;
                 case POT:
-                    System.out.println("Current pot is: " + g.getTable().getPot());
+                    System.out.println("Current pot is: "
+                            + g.getTable().getPot());
                     break;
                 case MY_CASH:
                     System.out.println("Current cash remaining: " + cash);
                     break;
+                case EXIT:
+                    throw new RTM();
                 default:
                     System.out.println("Invalid input!");
                     break;

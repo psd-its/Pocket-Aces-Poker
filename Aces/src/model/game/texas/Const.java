@@ -32,4 +32,6 @@ public interface Const
      * constant for the number of cards in the flop
      */
     public static final int FLOP = 3;
+    
+    public static final int MENU_ITEMS = 7;
 }
