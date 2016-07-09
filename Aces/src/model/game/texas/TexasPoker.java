@@ -660,10 +660,12 @@ public class TexasPoker implements Game
                             // check valid player still in game
                             if (p != null && p.isPlaying())
                             {
+                                
                                 for (Card c : p.getHand())
                                 {
                                     c.show();
                                 }
+                                System.out.println(p.toString() + "\n");
                             }
                         }
                         break;
@@ -674,12 +676,14 @@ public class TexasPoker implements Game
                 // Check for a winner of the pot
                 Player[] winners = checkForWinner();
                 // Account for split pot
-                double amount = table.getPot() / winners.length;
-                System.out.println("Pot: " + amount);
+                int amount = table.getPot() / winners.length;
+                System.out.println("Pot: " + amount +"\nWon by:");
                 for (Player p : winners)
                 {
-                    p.addCash((int) amount);
+                    System.out.println(p.getName());
+                    p.addCash(amount);
                 }
+                System.out.println();
                 // reset the pot and current bet
                 table.setCurrentBet(0);
                 table.resetPot();

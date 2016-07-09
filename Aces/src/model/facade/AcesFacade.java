@@ -4,6 +4,7 @@
 package model.facade;
 
 import model.game.Game;
+import model.game.RTM;
 import model.player.Player;
 import model.table.TableFull;
 
@@ -28,8 +29,9 @@ public interface AcesFacade
     /**
      * game loop
      * @param game
+     * @throws RTM 
      */
-    public void playGame();
+    public void playGame() throws RTM;
     
     /**
      * Update the blinds 

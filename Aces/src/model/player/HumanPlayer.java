@@ -11,7 +11,7 @@ import test_harness.Harness;
 public class HumanPlayer extends AbsPlayer
 {
 
-    //Currently set for console play;
+    // Currently set for console play;
 
     public HumanPlayer(String name)
     {
@@ -23,9 +23,12 @@ public class HumanPlayer extends AbsPlayer
     {
         // initialize var to null
         Options input = null;
+        int tableBet = 0;
+        String tableUpdate= null;
         // Timer t = g.getTimer();
         // t.schedule(this, 30000);
 
+        // print communal cards
         System.out.println("\nCommunity cards: ");
         for (Card c : g.getTable().getCardsInPlay())
         {
@@ -34,19 +37,33 @@ public class HumanPlayer extends AbsPlayer
                 System.out.println(c.toString());
             }
         }
+        // print players cards
         System.out.printf("Your cards: %s %s\n", hand[0].toString(),
                 hand[1].toString());
-        System.out
-                .printf("0. Call \n1. Raise  \n2. Fold \n3. Check"
-                        + "\n4. Show Pot \n5. Show remaining cash" +
-                        "\n6. Return to main menu \nEnter your selection: ");
+        // Update the player of the current min bet required to play
+        tableBet = g.getTable().getCurrentBet() - currentBet;
+        if (tableBet > 0)
+        {
+            tableUpdate = "$" + tableBet + " to call";
+        }
+        else
+        {
+            tableUpdate = "You can check or raise";
+        }
+        System.out.println(tableUpdate);
+        // menu loop
         boolean done = false;
         while (!done)
         {
+            // print options
+            System.out.printf("0. Call \n1. Raise  \n2. Fold \n3. Check"
+                    + "\n4. Show Pot \n5. Show remaining cash"
+                    + "\n6. Return to main menu \nEnter your selection: ");
             int selection = -1;
+            // get users input
             while (selection < 0 || selection >= Const.MENU_ITEMS)
             {
-                
+
                 try
                 {
                     selection = Harness.in.nextInt();
@@ -54,7 +71,7 @@ public class HumanPlayer extends AbsPlayer
                     if (selection >= 0 && selection < Const.MENU_ITEMS)
                     {
                         input = Options.values()[selection];
-                
+
                     }
                     else
                     {
@@ -62,16 +79,17 @@ public class HumanPlayer extends AbsPlayer
                         continue;
                     }
                 }
+                // ensure valid input
                 catch (InputMismatchException ex)
                 {
                     System.out.println("ERROR- please enter a valid integer"
                             + " in the specified range\nEnter selection: ");
                     Harness.in.nextLine();
-                   
+
                 }
             }
             // Clear trailing new line char
-            //Harness.in.nextLine();
+            // Harness.in.nextLine();
             switch (input)
             {
                 case FOLD:

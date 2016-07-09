@@ -73,7 +73,7 @@ public abstract class AbsPlayer extends TimerTask implements Player
     @Override
     public void addCash(int amount)
     {
-        cash += amount;
+        this.cash += amount;
     }
 
     @Override
@@ -211,6 +211,7 @@ public abstract class AbsPlayer extends TimerTask implements Player
             currentBet += amount;
             placeBet(amount);
             t.setCurrentBet(currentBet);
+            t.addToPot(amount);
             return true;
         }
         return false;

@@ -64,21 +64,24 @@ public class ComputerPlayer extends AbsPlayer
 //                return;
 //            }
 //        }
-        int choice = Rand.getRand().nextInt(3);
+        int choice = Rand.getRand().nextInt(50);
+        if (choice < 10) choice = 1;
+        else if( choice > 39) choice = 2;
+        else choice = 0;
         switch(Options.values()[choice])
         {
             case CALL:
                 super.call(g.getTable());
-                System.out.println(name + " calls"); 
+                System.out.println(name + "(" + cash + ") calls"); 
                 break;
             case FOLD:
                 super.fold();
-                System.out.println(name + " folds"); 
+                System.out.println(name + "(" + cash + ") folds"); 
                 break;
             case RAISE:
-                int bet = cash / 10;
+                int bet = (cash * 5) / 100;
                 super.raise(g.getTable(), bet);
-                System.out.println(name + " raises by " + bet); 
+                System.out.println(name + "(" + cash + ") bets " + bet); 
                 break;
             default:
                 break;
@@ -91,9 +94,11 @@ public class ComputerPlayer extends AbsPlayer
     @Override
     public void run()
     {
-        // this is not needed for PC player 
+        // TODO Auto-generated method stub
         
     }
+
+ 
 
     
     

@@ -1,6 +1,7 @@
 package model.facade;
 
 import model.game.Game;
+import model.game.RTM;
 import model.player.Player;
 import model.table.TableFull;
 
@@ -26,7 +27,7 @@ public class AcesModel implements AcesFacade
         return this.game;
     }
 
-    public void playGame()
+    public void playGame() throws RTM
     {
         // TODO Auto-generated method stub
         game.play();
