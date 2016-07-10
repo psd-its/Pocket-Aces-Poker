@@ -38,7 +38,7 @@ public class HumanPlayer extends AbsPlayer
             }
         }
         // print players cards
-        System.out.printf("Your cards: %s %s\n", hand[0].toString(),
+        System.out.printf("Your cards:\n%s\n%s\n\n", hand[0].toString(),
                 hand[1].toString());
         // Update the player of the current min bet required to play
         tableBet = g.getTable().getCurrentBet() - currentBet;

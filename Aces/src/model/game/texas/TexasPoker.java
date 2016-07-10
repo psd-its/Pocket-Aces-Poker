@@ -81,7 +81,7 @@ public class TexasPoker implements Game
         // Add the players cards to the array containing the shared cards
         for (Player p : table.getSeats())
         {
-            if (p != null /* && p.isPlaying() */)
+            if (p != null && p.isPlaying() )
             {
                 cards[Process.HOLE_L] = p.getHand()[0];
                 cards[Process.HOLE_R] = p.getHand()[1];
@@ -101,13 +101,13 @@ public class TexasPoker implements Game
                             "Error! - processHand has not returned a result");
                 }
                 p.setBestHand(best.get(0));
-                
+
             }
         }
         int index = 0;
         // List holds the seat position of a player
         List<Integer> indexes = new ArrayList<Integer>();
-        //Tuple of best hand so far
+        // Tuple of best hand so far
         Tup<WinningHands, Face> bestSoFar = null;
         // Vars to make comparison cleaner
         Face f1 = null, f2 = null;
@@ -127,7 +127,7 @@ public class TexasPoker implements Game
             // New best so far
             else if (bestSoFar.f.ordinal() < h.getBestHand().f.ordinal())
             {
-                
+
                 bestSoFar = new Tup<WinningHands, Face>(h.getBestHand().f,
                         h.getBestHand().l);
                 indexes.clear();
@@ -511,7 +511,7 @@ public class TexasPoker implements Game
             // + " is playing " + table.getSeats()[indexes.get(i)].isPlaying());
             // }
             if (table.getSeats()[indexes.get(i)] != null)
-                   // && table.getSeats()[indexes.get(i)].isPlaying())
+            // && table.getSeats()[indexes.get(i)].isPlaying())
             {
                 players[i] = table.getSeats()[indexes.get(i)];
             }
@@ -549,16 +549,23 @@ public class TexasPoker implements Game
     }
 
     @Override
-    public void play() throws RTM
+    public void play() throws RTM // RTM = Return to menu
     {
         // infinite table
-        boolean progress;
+        boolean progress, firstIter;
         int playersIn = 0;
         // ensure there is at least 2 players
         while (table.playerCount() > 1)
         {
+            // reset the pot and current bet
+            table.setCurrentBet(0);
+            table.resetPot();
             // Deal the cards
             dealCards();
+            firstIter = true;
+            // Print header
+            System.out.printf("%s\n%-10s\n%s\n", Const.BREAK, 
+                    Const.SSTRING, Const.BREAK);
             // Go through the stages of betting
             for (Bet stage : Bet.values())
             {
@@ -573,7 +580,7 @@ public class TexasPoker implements Game
                     for (int i = 0; i < getTable().getSeats().length; ++i)
                     {
                         // Avoid array out of bounds
-                        if (index == getTable().getSeats().length)
+                        if (index >= getTable().getSeats().length)
                         {
                             index = 0;
                         }
@@ -581,15 +588,44 @@ public class TexasPoker implements Game
                         if (getTable().getSeats()[index] != null)
                         {
                             // Set blinds
-                            if (stage == Bet.FLOP && i == Const.SMALL_BLIND)
+                            if (stage == Bet.FLOP && firstIter)
                             {
-                                getTable().getSeats()[index]
-                                        .placeBet(Const.START_BLIND);
-                                getTable().getSeats()[index + 1]
-                                        .placeBet(Const.START_BLIND * 2);
+                                // pay small blind
+                                if (i == Const.SMALL_BLIND)
+                                {
+                                    getTable().getSeats()[index]
+                                            .placeBet(Const.START_BLIND);
+                                    getTable().setCurrentBet(
+                                            Const.START_BLIND);
+                                    System.out.println(table.getSeats()[index].getName() +
+                                            " pays small blind of $" + 
+                                            (int)Const.START_BLIND);
+
+                                }
+                                // pay big blind
+                                else if (i == Const.BIG_BLIND)
+                                {
+                                    getTable().getSeats()[index]
+                                            .placeBet(Const.START_BLIND * 2);
+                                    getTable().setCurrentBet(
+                                            Const.START_BLIND * 2);
+                                    System.out.println(table.getSeats()[index].getName() +
+                                            " pays small blind of $" 
+                                            + (2 * (int)Const.START_BLIND));
+                                }
+                                // only give players if blinds have been payed
+                                else
+                                {
+                                    this.takeTurn(table.getSeats()[index]);
+                                }
+
                             }
-                            // Let the player have there turn
-                            this.takeTurn(table.getSeats()[index]);
+                            else
+                            {
+                                // Let the player have there turn
+                                this.takeTurn(table.getSeats()[index]);
+                            }
+
                         }
                         // we are back at the dealer
                         if (i == getTable().getSeats().length - 1)
@@ -617,9 +653,11 @@ public class TexasPoker implements Game
                                 progress = true;
                             }
                         }
+                        
                         // move to the next player
                         ++index;
                     }
+                    firstIter = false;
                 }
                 // Count how many players are still in the round
                 playersIn = 0;
@@ -660,33 +698,35 @@ public class TexasPoker implements Game
                             // check valid player still in game
                             if (p != null && p.isPlaying())
                             {
-                                
+
                                 for (Card c : p.getHand())
                                 {
                                     c.show();
                                 }
-                                System.out.println(p.toString() + "\n");
+                                System.out.println(p.toString());
                             }
                         }
+                        System.out.println();
                         break;
                 }
             }
+            
             try
             {
                 // Check for a winner of the pot
                 Player[] winners = checkForWinner();
                 // Account for split pot
                 int amount = table.getPot() / winners.length;
-                System.out.println("Pot: " + amount +"\nWon by:");
+                System.out.println("Pot: " + amount + "\nWon by:");
                 for (Player p : winners)
                 {
                     System.out.println(p.getName());
                     p.addCash(amount);
                 }
                 System.out.println();
-                // reset the pot and current bet
-                table.setCurrentBet(0);
-                table.resetPot();
+                // move the dealer button
+                int button = table.getDealer() + 1;
+                table.setDealer(button);
 
             }
             catch (Exception e)

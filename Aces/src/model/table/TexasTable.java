@@ -178,9 +178,25 @@ public class TexasTable extends AbsTable
     @Override
     public void setDealer(int dealer)
     {
-        // TODO Auto-generated method stub
+        // function increments to the next valid dealer
+        // if the dealer passed in is invalid
+        boolean found = false;
+        while(!found)
+        {
+            // Avoid out of bounds exception
+            if (dealer >= seats.length)
+            {
+                dealer = 0;
+            }
+            // check that dealer is pointing to a valid player
+            if(seats[dealer] != null)
+            {
+                found = true; // redundant but meh
+                break; // stops dealer being incremented again
+            }
+            ++dealer;
+        }
         this.dealer = dealer;
-
     }
     
     public Card[] getCardsInPlay()

@@ -33,5 +33,20 @@ public interface Const
      */
     public static final int FLOP = 3;
     
+    /**
+     * Number of options in the console game menu
+     */
     public static final int MENU_ITEMS = 7;
+    
+    /**
+     * Line break marker
+     */
+    public static final String BREAK = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+    
+    /**
+     * Heading for new round beginning 
+     */
+    public static final String SSTRING = "Starting a new round";
+    
+    
 }

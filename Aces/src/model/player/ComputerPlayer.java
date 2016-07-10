@@ -72,16 +72,17 @@ public class ComputerPlayer extends AbsPlayer
         {
             case CALL:
                 super.call(g.getTable());
-                System.out.println(name + "(" + cash + ") calls"); 
+                int callAmount = g.getTable().getCurrentBet() - currentBet;
+                System.out.println(name + "($" + cash + ") calls $" + callAmount); 
                 break;
             case FOLD:
                 super.fold();
-                System.out.println(name + "(" + cash + ") folds"); 
+                System.out.println(name + "($" + cash + ") folds"); 
                 break;
             case RAISE:
                 int bet = (cash * 5) / 100;
                 super.raise(g.getTable(), bet);
-                System.out.println(name + "(" + cash + ") bets " + bet); 
+                System.out.println(name + "($" + cash + ") bets $" + bet); 
                 break;
             default:
                 break;

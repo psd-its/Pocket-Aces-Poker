@@ -2,7 +2,9 @@ package model.game;
 
 public class RTM extends Exception
 {
-
+    // This class signal return to menu
+    // will remove this after the console version
+    // is completed
     public RTM()
     {
         // TODO Auto-generated constructor stub
