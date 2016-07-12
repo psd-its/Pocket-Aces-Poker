@@ -13,17 +13,19 @@ import model.facade.AcesFacade;
 import view.screen.AbsGameScreen;
 import view.screen.SinglePlayerTexasScreen;
 import view.screen.StartScreen;
+import view.screen.TexasGameScreen;
 
 @SuppressWarnings("serial")
 
 public class MainView extends JFrame
 {
     private AcesFacade acesFacade;
-    private AbsGameScreen startScreen, singlePlayerScreen;
+    private AbsGameScreen startScreen, singlePlayerScreen, texasGameScreen;
     
     // these are used for swaping out screens in switchScreen()
     public static final String START_SCREEN = "startScreen";
     public static final String SINGLE_PLAYER_TEXAS_SCREEN = "singlePlayerTexasScreen";
+    public static final String TEXAS_GAME_SCREEN = "texasGameScreeen";
 
     /**
      * Constructor for the main view. Sets up the window's title, look and feel, 
@@ -60,17 +62,18 @@ public class MainView extends JFrame
     }
     
     /**
-     * Function to load each of the screen used in the application.
+     * Function to load each of the screens used in the application.
      */
     private void loadScreens()
     {
         this.startScreen = new StartScreen(this, acesFacade);
-        this.startScreen.load();
+        this.startScreen.load(); // we only load the start screen at this time
         this.singlePlayerScreen = new SinglePlayerTexasScreen(this, acesFacade);
+        this.texasGameScreen = new TexasGameScreen(this, acesFacade);
     }
     
     /**
-     * Sets main window frame location to center of screen.
+     * Sets main window frame location to center of user's screen.
      */
     private void setWindowLocation()
     {
@@ -82,7 +85,7 @@ public class MainView extends JFrame
     }
 
     /**
-     * Sets applications 'look and feel' to suit the system it's running on. 
+     * Sets application's 'look and feel' to suit the system it's running on. 
      */
     private void setLookAndFeel()
     {
@@ -132,6 +135,12 @@ public class MainView extends JFrame
                 currentScreen.setVisible(false);
                 this.getContentPane().add(singlePlayerScreen, BorderLayout.CENTER);
                 this.singlePlayerScreen.setVisible(true);
+                break;
+                
+            case MainView.TEXAS_GAME_SCREEN :
+                this.texasGameScreen.load();
+                currentScreen.setVisible(false);
+                this.getContentPane().add(texasGameScreen, BorderLayout.CENTER);
                 break;
             
             default :

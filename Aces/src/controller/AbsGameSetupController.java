@@ -57,6 +57,14 @@ public abstract class AbsGameSetupController implements ActionListener
     {
         return this.gameSetupScreen;
     }
+    
+    /**
+     * @param String The name of the screen to switch to.
+     */
+    public void switchScreen(String requestedScreen)
+    {
+        this.mainView.switchScreen(this.gameSetupScreen, requestedScreen);
+    }
 
     @Override
     public abstract void actionPerformed(ActionEvent e);
