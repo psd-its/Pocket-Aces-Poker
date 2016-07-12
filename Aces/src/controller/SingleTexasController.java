@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import model.player.ComputerPlayer;
 import model.player.Player;
 import model.table.TableFull;
+import view.main.MainView;
 import view.screen.AbsGameScreen;
 import view.screen.SinglePlayerTexasScreen;
 
@@ -39,19 +40,22 @@ public class SingleTexasController extends AbsGameSetupController
                 for(int i = 0; i < numCompPlayers; i++)
                 {
                     // init comp player
-                    Player newPlayer = new ComputerPlayer("HAL" + i); // 2001 - we can change this
+                    Player newPlayer = new ComputerPlayer("HAL" + i); 
                     
                     // add comp player
                     super.getFacade().addPlayer(newPlayer);
                 }
                 
-                // TODO transfer to game playing screen - single texas poker game should be fully initialised
+                // transfer to game playing screen - single texas poker game should be fully initialised
+                super.switchScreen(MainView.TEXAS_GAME_SCREEN);
+                
             }
             
             catch(TableFull exception)
             {
                 // TODO Handle this - what is procedure for handling this?
                 System.err.println("Table Full");
+                super.switchScreen(MainView.START_SCREEN);
             }
         }
     }
