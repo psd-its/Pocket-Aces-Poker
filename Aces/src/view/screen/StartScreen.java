@@ -13,10 +13,14 @@
 package view.screen;
 
 import java.awt.Insets;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
+
 import controller.NewGameController;
 import model.facade.AcesFacade;
 import view.main.MainView;
@@ -56,19 +60,25 @@ public class StartScreen extends AbsGameScreen
     
     /**
      * TODO Might need some input validation here.
-     * 
-     * @return String The text supplied in the name input. Null if empty.
      */
     public String getNameInput()
     {
         String name = this.nameInputTextArea.getText();
         
-        if(name.isEmpty())
-        {
-            return null;
-        }
+        Pattern p = Pattern.compile("^\\D[A-Za-z]{1,10}\\D$");
+        /* Creates a pattern to match "name" against, not case sensitive and
+         * and must contain at least 1 character (making sure 'not empty'
+         */
+        Matcher m = p.matcher(name);
+        // Matches input 'name' against pattern exceptions
         
+        if (!m.find())
+        {
+            nameInputTextArea.setText("");
+            getNameInput();
+        }
         return name;
+
     }
     
     /**
