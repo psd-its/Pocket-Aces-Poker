@@ -13,7 +13,7 @@ import model.facade.AcesFacade;
 import view.screen.AbsGameScreen;
 import view.screen.SinglePlayerTexasScreen;
 import view.screen.StartScreen;
-import view.screen.TexasGameScreen;
+import view.screen.PokerGameScreen;
 
 @SuppressWarnings("serial")
 
@@ -69,7 +69,7 @@ public class MainView extends JFrame
         this.startScreen = new StartScreen(this, acesFacade);
         this.startScreen.load(); // we only load the start screen at this time
         this.singlePlayerScreen = new SinglePlayerTexasScreen(this, acesFacade);
-        this.texasGameScreen = new TexasGameScreen(this, acesFacade);
+        this.texasGameScreen = new PokerGameScreen(this, acesFacade);
     }
     
     /**
@@ -141,6 +141,7 @@ public class MainView extends JFrame
                 this.texasGameScreen.load();
                 currentScreen.setVisible(false);
                 this.getContentPane().add(texasGameScreen, BorderLayout.CENTER);
+                this.texasGameScreen.setVisible(true);
                 break;
             
             default :
