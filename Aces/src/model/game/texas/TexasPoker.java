@@ -113,8 +113,22 @@ public class TexasPoker implements Game
         Face f1 = null, f2 = null;
         for (Player h : table.getSeats())
         {
-            // if player is invalid or folded skip the,
-            if (h == null || !h.isPlaying()) continue;
+            // fix the null pointer on first round fold:
+            if (h == null || !h.isPlaying()) 
+                {
+                    ++index; // index wasn't being incremented 
+                    continue;
+                }
+            
+            /**
+             *  this is the original:
+             *  
+             *  if(h == null || !h.isPlaying()) continue;
+             *  
+             *  so breaking out of the for loop skips incrementing 'index'
+             *  
+             */
+            
             // First iteration so best so far not set
             if (bestSoFar == null)
             {
