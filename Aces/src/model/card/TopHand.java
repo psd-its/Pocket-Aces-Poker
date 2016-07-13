@@ -16,7 +16,8 @@ public class TopHand implements Process
     public List<Tup<WinningHands, Face>> processHand(Card[] cards)
     {
         // Data structures
-        List<Tup<WinningHands, Face>> matches = new ArrayList<Tup<WinningHands, Face>>();
+        List<Tup<WinningHands, Face>> matches = 
+                new ArrayList<Tup<WinningHands, Face>>();
         List<Tup<Face, Integer>> multiples = getMultiples(cards);
 
         Card[] best = flush(cards);
@@ -25,6 +26,7 @@ public class TopHand implements Process
             try
             {
                 straight(Process.START, best);
+                // No exception thrown means that we have a flush
                 matches.add(new Tup<WinningHands, Face>(WinningHands.FLUSH,
                         highCard(best)));
                 return matches;
@@ -153,7 +155,7 @@ public class TopHand implements Process
     // Recursive function for finding straight
     private void straight(int start, Card[] cards) throws Straight
     {
-        // System.out.println("Straight() called: checking for strainght");
+        // System.out.println("Straight() called: checking for straight");
         // Failure condition that ends recursive function
         if (start < 5) return;
         // count

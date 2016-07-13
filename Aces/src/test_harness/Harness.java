@@ -1,5 +1,6 @@
 package test_harness;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import model.card.Card;
@@ -46,10 +47,18 @@ public class Harness
             System.out.printf("%-10d%s\n", 5, "Play Game");
             System.out.printf("%-10d%s\n", 0, "Exit");
             System.out.printf("\n%s:", "Enter selection");
-            result = in.nextInt();
-            // Clear trailing new line char
-            in.nextLine();
-
+            try
+            {
+                result = in.nextInt();
+                // Clear trailing new line char
+                in.nextLine();
+            }
+            catch(InputMismatchException ex)
+            {
+                result = -1;
+                // Clear trailing new line char
+                in.nextLine();
+            }
             switch (result)
             {
                 case 1:

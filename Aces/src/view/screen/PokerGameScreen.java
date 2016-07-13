@@ -74,17 +74,17 @@ public class PokerGameScreen extends AbsGameScreen
         this.add(pane, c);
         
         // 1x3 - P4 cell
-        pane = createPlayerPane("bob", 20);
+        pane = createPlayerPane(4);
         c.gridx = 2;
         this.add(pane, c);
         
         // 1x4 - P5 cell
-        pane = createPlayerPane("phil", 20);
+        pane = createPlayerPane(5);
         c.gridx = 3;
         this.add(pane, c);
         
         // 1x5 - P6 cell
-        pane = createPlayerPane("spud", 20);
+        pane = createPlayerPane(6);
         c.gridx = 4;
         this.add(pane, c);
         
@@ -103,7 +103,7 @@ public class PokerGameScreen extends AbsGameScreen
         c.gridwidth = 1;
         
         // 2x1 - P3 cell
-        pane = createPlayerPane("skeet", 10000); // skeet's a baws
+        pane = createPlayerPane(3);
         c.gridx = 0;
         c.gridy = GridBagConstraints.RELATIVE;
         this.add(pane, c);
@@ -134,7 +134,7 @@ public class PokerGameScreen extends AbsGameScreen
         this.add(pane, c);
         
         // 2x7 - P7 cell
-        pane = createPlayerPane("mat", 20);
+        pane = createPlayerPane(7);
         c.gridx = 6;
         c.gridwidth = GridBagConstraints.REMAINDER;
         this.add(pane, c);
@@ -185,13 +185,13 @@ public class PokerGameScreen extends AbsGameScreen
         c.gridwidth = 1;
         
         // 4x1 - P2 cell
-        pane = createPlayerPane("rachel", 2000);
+        pane = createPlayerPane(2);
         c.gridx = 0;
         c.gridy = 3;
         this.add(pane, c);
         
         // 4x7 - P8 cell
-        pane = createPlayerPane("steve", 120);
+        pane = createPlayerPane(8);
         c.gridx = 6;
         c.gridwidth = GridBagConstraints.REMAINDER;
         this.add(pane, c);
@@ -211,7 +211,7 @@ public class PokerGameScreen extends AbsGameScreen
         this.add(pane, c);
         
         // 5x3 - P1 Cell
-        pane = createPlayerPane("manuel", 2500);
+        pane = createPlayerPane(1);
         c.gridx = 2;
         this.add(pane, c);
         
@@ -221,7 +221,7 @@ public class PokerGameScreen extends AbsGameScreen
         this.add(pane);
         
         // 5x5 - P9 cell
-        pane = createPlayerPane("taylor", 3400);
+        pane = createPlayerPane(9);
         c.gridx = 4;
         this.add(pane, c);
         
@@ -256,7 +256,7 @@ public class PokerGameScreen extends AbsGameScreen
         this.add(pane);
         
         // 6x4 - Name + Balance cell
-        pane = createTextBalancePane("username", 1200);
+        pane = createTextBalancePane(players[0].getName(), players[0].getBalance());
         c.gridx = 3;
         this.add(pane);
         
@@ -291,26 +291,34 @@ public class PokerGameScreen extends AbsGameScreen
         return panel;
     }
     
+    
     /**
      * Will contain nested panes, player's name, balance and status will need
-     * to be represented along with the backs of their cards.
+     * to be represented along with the backs of their cards. A null check is needed
+     * as some seats in the array may be empty.
      * 
-     * @param name The players name to be displayed (will come from players array).
-     * @param startingBalance The intial balance of the player.
+     * @param int playerNum The table loaction of player cell, will correspond with the players array.
      * @return JPanel A player panel.
      */
-    private JPanel createPlayerPane(String name, int startingBalance)
-    {
-        JLabel playerName, playerBalance;
-        JPanel playerPanel = createEmptyPane();
+    private JPanel createPlayerPane(int playerNum)
+    {   
+        if(players[playerNum] != null)
+        {
+            JPanel playerPanel = createEmptyPane();
+            JLabel name = new JLabel(players[playerNum].getName());
+            JLabel balance = new JLabel(Integer.toString(players[playerNum].getBalance()));
+            
+            playerPanel.add(name);
+            playerPanel.add(balance);
+            
+            return playerPanel;
+        }
         
-        playerName = new JLabel(name);
-        playerBalance = new JLabel(Integer.toString(startingBalance));
-        
-        playerPanel.add(playerName);
-        playerPanel.add(playerBalance);
-        
-        return playerPanel;
+        else
+        {
+            // this could be createEmptyPlayerPane? Depends how we want to display empty seats
+            return createEmptyPane();
+        }
     }
     
     /**
@@ -322,7 +330,7 @@ public class PokerGameScreen extends AbsGameScreen
      */
     private JPanel createUserPane()
     {
-        return createEmptyPane();
+        return createPlayerPane(0);
     }
     
     /**
@@ -387,5 +395,4 @@ public class PokerGameScreen extends AbsGameScreen
         players = super.getFacade().getGame().getPlayers();
         allocateGrid();
     }
-
 }
