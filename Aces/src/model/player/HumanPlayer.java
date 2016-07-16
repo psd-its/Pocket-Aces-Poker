@@ -24,7 +24,7 @@ public class HumanPlayer extends AbsPlayer
         // initialize var to null
         Options input = null;
         int tableBet = 0;
-        String tableUpdate= null;
+        String tableUpdate = null;
         // Timer t = g.getTimer();
         // t.schedule(this, 30000);
 
@@ -99,9 +99,15 @@ public class HumanPlayer extends AbsPlayer
                     // g.getTimer().cancel();
                     break;
                 case CHECK:
-                    check(g.getTable());
-                    done = true;
-                    System.out.println("you checked!");
+                    if (check(g.getTable()))
+                    {
+                        done = true;
+                        System.out.println("you checked!");
+                    }
+                    else
+                    {
+                        System.out.println("Check failed");
+                    }
                     // g.getTimer().cancel();
                     break;
                 case CALL:
