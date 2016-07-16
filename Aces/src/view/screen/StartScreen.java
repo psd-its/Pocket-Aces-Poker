@@ -65,7 +65,7 @@ public class StartScreen extends AbsGameScreen
     {
         String name = this.nameInputTextArea.getText();
         
-        Pattern p = Pattern.compile("^\\D[A-Za-z]{1,10}\\D$");
+        Pattern p = Pattern.compile("^[A-Za-z]{1,10}$");
         /* Creates a pattern to match "name" against, not case sensitive and
          * and must contain at least 1 character (making sure 'not empty'
          */
