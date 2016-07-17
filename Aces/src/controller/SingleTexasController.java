@@ -40,7 +40,7 @@ public class SingleTexasController extends AbsGameSetupController
                 for(int i = 0; i < numCompPlayers; i++)
                 {
                     // init comp player
-                    Player newPlayer = new ComputerPlayer("HAL" + i); 
+                    Player newPlayer = new ComputerPlayer("HAL" + (i + 1)); 
                     
                     // add comp player
                     super.getFacade().addPlayer(newPlayer);
