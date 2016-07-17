@@ -13,7 +13,6 @@
  * Finish createUserPane()
  * Finish createPlayerPane()
  * Add action listener (controller) to buttons.
- * Add real player names, from players array (check for null at index first).
  * Remove borders when we're happy with where everything is sitting.
  * Add graphics.
  * 
@@ -24,6 +23,8 @@ package view.screen;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -32,11 +33,15 @@ import javax.swing.JTextArea;
 import model.facade.AcesFacade;
 import model.player.Player;
 import view.main.MainView;
+import view.screen.cell.AbsCell;
+import view.screen.cell.PlayerCell;
+import view.screen.cell.PotDisplayCell;
 
 public class PokerGameScreen extends AbsGameScreen
 {
     private GridBagConstraints c;
     Player[] players;
+    private Map<String, AbsCell> cells;
     
     /**
      * TexasGameScreen constructor, sets visibility to false, the default for
@@ -49,6 +54,7 @@ public class PokerGameScreen extends AbsGameScreen
     {
         super(mainView, facade);
         this.setVisible(false);  
+        this.cells = new HashMap<String, AbsCell>();
     }
     
     private void allocateGrid()
@@ -74,19 +80,25 @@ public class PokerGameScreen extends AbsGameScreen
         this.add(pane, c);
         
         // 1x3 - P4 cell
-        pane = createPlayerPane(4);
         c.gridx = 2;
-        this.add(pane, c);
+        if(!addPlayerCell(c, 4))
+        {
+            this.add(createEmptyPane(), c);
+        }
         
-        // 1x4 - P5 cell
-        pane = createPlayerPane(5);
+        // 1x4 P5 cell
         c.gridx = 3;
-        this.add(pane, c);
+        if(!addPlayerCell(c, 5))
+        {
+            this.add(createEmptyPane(), c);
+        }
         
         // 1x5 - P6 cell
-        pane = createPlayerPane(6);
         c.gridx = 4;
-        this.add(pane, c);
+        if(!addPlayerCell(c, 6))
+        {
+            this.add(createEmptyPane(), c);
+        }
         
         // 1x6
         pane = createEmptyPane();
@@ -103,10 +115,12 @@ public class PokerGameScreen extends AbsGameScreen
         c.gridwidth = 1;
         
         // 2x1 - P3 cell
-        pane = createPlayerPane(3);
         c.gridx = 0;
         c.gridy = GridBagConstraints.RELATIVE;
-        this.add(pane, c);
+        if(!addPlayerCell(c, 3))
+        {
+            this.add(createEmptyPane(), c);
+        }
         
         // 2x2
         pane = createEmptyPane();
@@ -119,10 +133,11 @@ public class PokerGameScreen extends AbsGameScreen
         this.add(pane, c);
         
         // 2x4 - POT cell
-        pane = createTextBalancePane("POT", 500);
+        AbsCell potCell = new PotDisplayCell(super.facade, 100000);
         c.gridx = 3;
-        this.add(pane, c);
-        
+        this.add(potCell);
+        cells.put("potCell", potCell);
+  
         // 2x5
         pane = createEmptyPane();
         c.gridx = 4;
@@ -134,10 +149,11 @@ public class PokerGameScreen extends AbsGameScreen
         this.add(pane, c);
         
         // 2x7 - P7 cell
-        pane = createPlayerPane(7);
         c.gridx = 6;
-        c.gridwidth = GridBagConstraints.REMAINDER;
-        this.add(pane, c);
+        if(!addPlayerCell(c, 7))
+        {
+            this.add(createEmptyPane(), c);
+        }
         
         // reset grid width
         c.gridwidth = 1;
@@ -185,16 +201,20 @@ public class PokerGameScreen extends AbsGameScreen
         c.gridwidth = 1;
         
         // 4x1 - P2 cell
-        pane = createPlayerPane(2);
         c.gridx = 0;
         c.gridy = 3;
-        this.add(pane, c);
+        if(!addPlayerCell(c, 2))
+        {
+            this.add(createEmptyPane(), c);
+        }
         
         // 4x7 - P8 cell
-        pane = createPlayerPane(8);
         c.gridx = 6;
         c.gridwidth = GridBagConstraints.REMAINDER;
-        this.add(pane, c);
+        if(!addPlayerCell(c, 8))
+        {
+            this.add(createEmptyPane(), c);
+        }
         
         // reset grid width
         c.gridwidth = 1;
@@ -211,19 +231,25 @@ public class PokerGameScreen extends AbsGameScreen
         this.add(pane, c);
         
         // 5x3 - P1 Cell
-        pane = createPlayerPane(1);
         c.gridx = 2;
-        this.add(pane, c);
+        if(!addPlayerCell(c, 1))
+        {
+            this.add(createEmptyPane(), c);
+        }
         
         // 5x4 - P0 (USER) cell
-        pane = createUserPane();
         c.gridx = 3;
-        this.add(pane);
+        if(!addPlayerCell(c, 0))
+        {
+            this.add(createEmptyPane());
+        }
         
         // 5x5 - P9 cell
-        pane = createPlayerPane(9);
         c.gridx = 4;
-        this.add(pane, c);
+        if(!addPlayerCell(c, 9))
+        {
+            this.add(createEmptyPane(), c);
+        }
         
         // 5x6
         pane = createEmptyPane();
@@ -256,9 +282,11 @@ public class PokerGameScreen extends AbsGameScreen
         this.add(pane);
         
         // 6x4 - Name + Balance cell
-        pane = createTextBalancePane(players[0].getName(), players[0].getBalance());
+        pane = createUserInfoPane(players[0]);
         c.gridx = 3;
         this.add(pane);
+        
+        
         
         // 6x5 - Raise button
         pane = createButtonPane("raise $");
@@ -293,66 +321,88 @@ public class PokerGameScreen extends AbsGameScreen
     
     
     /**
-     * Will contain nested panes, player's name, balance and status will need
-     * to be represented along with the backs of their cards. A null check is needed
-     * as some seats in the array may be empty.
-     * 
-     * @param int playerNum The table loaction of player cell, will correspond with the players array.
-     * @return JPanel A player panel.
+     * Updates all cells on the screen.
      */
-    private JPanel createPlayerPane(int playerNum)
-    {   
-        if(players[playerNum] != null)
+    public void updateAllCells()
+    {
+        for(AbsCell cell : cells.values())
         {
-            JPanel playerPanel = createEmptyPane();
-            JLabel name = new JLabel(players[playerNum].getName());
-            JLabel balance = new JLabel(Integer.toString(players[playerNum].getBalance()));
-            
-            playerPanel.add(name);
-            playerPanel.add(balance);
-            
-            return playerPanel;
-        }
-        
-        else
-        {
-            // this could be createEmptyPlayerPane? Depends how we want to display empty seats
-            return createEmptyPane();
+            cell.refresh(); 
         }
     }
     
     /**
-     * Will just contain user's hand, face up, as they wont have any cards
-     * to begin with just allocate space for them with nested panes.
-     * 
-     * @return JPanel The pane divided into two for the user's cards to be
-     * displayed in.
+     * Updates the pot cell with the new amount in the pot.
      */
-    private JPanel createUserPane()
+    public void updatePotCell()
     {
-        return createPlayerPane(0);
+        AbsCell pot = cells.get("potCell");
+        pot.refresh();
+    }
+    
+    /**
+     * Updates the specific cell selected, playerNum corresponds to player
+     * seat in array.
+     * 
+     * @param playerNum The index at which the player reference is stored.
+     */
+    public void updatePlayerCell(int playerNum)
+    {
+        String player = "player" + playerNum;
+        AbsCell playerCell = cells.get(player);
+        playerCell.refresh();
+    }
+    
+    /**
+     * Updates the user info cell.
+     */
+    public void updateUserCell()
+    {
+        // we know user is player 0
+        AbsCell userCell = cells.get("player0");
+        userCell.refresh();
+    }
+    
+    /**
+     * Creates new player cell, adds it to the screen and the map of cells.
+     * 
+     * @param c The grid bag constraints
+     * @param playerNum The index in the players array
+     * @return true if new player cell added to screen.
+     */
+    private boolean addPlayerCell(GridBagConstraints c,int playerNum)
+    {
+        if(players[playerNum] != null)
+        {
+            PlayerCell pCell = new PlayerCell(facade, players[playerNum]);
+            this.add(pCell, c);
+            cells.put("player" + playerNum, pCell);
+            return true;
+        }
+        
+        else 
+        {
+            return false;
+        }
     }
     
     /**
      * Displays supplied text and given amount, can be used for the 'pot' cell
      * or inside a player cell for their name+balance.
      * 
-     * @param text The text associated with the amount.
-     * @param balance The amount to be displayed.
+     * @param Player The player object representing the user.
      * @return JPanel Panel divided into required sections (see diagram).
      */
-    private JPanel createTextBalancePane(String text, int balance)
+    private JPanel createUserInfoPane(Player player)
     {
         JLabel title, amount;
-        JPanel textBalancePane = createEmptyPane();
+        JPanel userInfoPane = createEmptyPane();
+        title = new JLabel(player.getName());
+        amount = new JLabel(Integer.toString(player.getBalance()));
+        userInfoPane.add(title);
+        userInfoPane.add(amount);
         
-        title = new JLabel(text);
-        amount = new JLabel(Integer.toString(balance));
-        
-        textBalancePane.add(title);
-        textBalancePane.add(amount);
-        
-        return textBalancePane;
+        return userInfoPane;
     }
     
     /**
@@ -369,7 +419,6 @@ public class PokerGameScreen extends AbsGameScreen
         // TODO add action listener here
         
         buttonPane.add(button);
-        
         return buttonPane;
     }
     
@@ -377,15 +426,15 @@ public class PokerGameScreen extends AbsGameScreen
      * Creates a JPanel containing a text input field of the specified size,
      * rows/cols.
      * 
+     * @param int Number of rows the textarea should be.
+     * @param int Number of columns the textarea should be.
      * @return JPanel A panel containing a text input field.
      */
     private JPanel createTextInputPane(int rows, int cols)
     {
         JPanel inputPanel = createEmptyPane();
         JTextArea field = new JTextArea(rows, cols);
-        
         inputPanel.add(field);
-        
         return inputPanel;
     }
 
