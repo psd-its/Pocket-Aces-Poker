@@ -84,4 +84,9 @@ public interface Table
      */
     public void resetPot();
     
+    /**
+     * Reset the current bet for players and table
+     **/
+    public void resetBets();
+    
 }

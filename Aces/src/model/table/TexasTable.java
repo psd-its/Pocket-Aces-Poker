@@ -261,6 +261,21 @@ public class TexasTable extends AbsTable
         // reset the pot for a new round
         this.pot = 0;
     }
+
+    @Override
+    public void resetBets()
+    {
+        // Reset the bet for the table
+        this.setCurrentBet(0);
+        // Reset all the players current bet
+        for (Player p : seats)
+        {
+            if (p != null)
+            {
+                p.setCurrentBet(0);
+            }
+        }        
+    }
    
     
 

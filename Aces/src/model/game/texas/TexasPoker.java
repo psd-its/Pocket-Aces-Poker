@@ -572,7 +572,7 @@ public class TexasPoker implements Game
         while (table.playerCount() > 1)
         {
             // reset the pot and current bet
-            table.setCurrentBet(0);
+            table.resetBets();
             table.resetPot();
             // Deal the cards
             dealCards();
@@ -586,6 +586,10 @@ public class TexasPoker implements Game
                 // Flag for progressing to the next
                 // stage of betting
                 progress = false;
+                // Clean slate for new round of betting
+                table.resetBets();
+                // Loop for ensuring all players meet the minimum bet 
+                // requirements for the current round of betting
                 while (!progress)
                 {
                     // index of the players seat that is left of dealer
@@ -642,7 +646,7 @@ public class TexasPoker implements Game
 
                         }
                         // we are back at the dealer
-                        if (i == getTable().getSeats().length - 1)
+                        if (i == Table.MAX_PLAYERS - 1)
                         {
                             boolean moreBets = false;
                             // Check everyone playing has met the current min
