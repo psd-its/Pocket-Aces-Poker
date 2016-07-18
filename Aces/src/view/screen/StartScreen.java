@@ -63,13 +63,14 @@ public class StartScreen extends AbsGameScreen
      */
     public String getNameInput()
     {
-        String name = this.nameInputTextArea.getText();
+        String[] name = this.nameInputTextArea.getText()
+                                    .split("\\p{javaSpaceChar}+");
         
         Pattern p = Pattern.compile("^[A-Za-z]{1,10}$");
         /* Creates a pattern to match "name" against, not case sensitive and
          * and must contain at least 1 character (making sure 'not empty'
          */
-        Matcher m = p.matcher(name);
+        Matcher m = p.matcher(name[0]);
         // Matches input 'name' against pattern exceptions
         
         if (!m.find())
@@ -77,7 +78,7 @@ public class StartScreen extends AbsGameScreen
             nameInputTextArea.setText("");
             getNameInput();
         }
-        return name;
+        return name[0];
 
     }
     
