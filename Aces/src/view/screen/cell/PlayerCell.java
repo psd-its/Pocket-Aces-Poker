@@ -7,8 +7,8 @@
  */
 package view.screen.cell;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-
 import model.facade.AcesFacade;
 import model.player.Player;
 
@@ -16,7 +16,6 @@ public class PlayerCell extends AbsCell
 {
     private JLabel nameLabel, statusLabel, balanceLabel;
     private Player player;
-    
     
     public PlayerCell(AcesFacade facade, Player player)
     {
@@ -38,6 +37,22 @@ public class PlayerCell extends AbsCell
         this.balanceLabel.setText(Integer.toString(player.getBalance()));
         //this.statusLabel.setText(status);
         
+        // only draw cards if player has a hand
+        if(this.player.getHand()[0] != null)
+        {
+            drawCards();
+        }     
+    }
+    
+    public void drawCards()
+    {
+        JLabel cards;
+        ImageIcon cardback = new ImageIcon("src/assets/cardback.png");
+        
+        cards = new JLabel();
+        cards.setIcon(cardback);
+        
+        this.add(cards);
     }
     
 //    public void setStatus(String status)

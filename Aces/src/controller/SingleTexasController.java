@@ -47,8 +47,7 @@ public class SingleTexasController extends AbsGameSetupController
                 }
                 
                 // transfer to game playing screen - single texas poker game should be fully initialised
-                super.switchScreen(MainView.TEXAS_GAME_SCREEN);
-                
+                super.switchScreen(MainView.TEXAS_GAME_SCREEN);     
             }
             
             catch(TableFull exception)

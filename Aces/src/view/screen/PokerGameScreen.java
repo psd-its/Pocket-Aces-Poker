@@ -36,6 +36,8 @@ import view.main.MainView;
 import view.screen.cell.AbsCell;
 import view.screen.cell.PlayerCell;
 import view.screen.cell.PotDisplayCell;
+import view.screen.cell.UserHandCell;
+import view.screen.cell.UserInfoCell;
 
 public class PokerGameScreen extends AbsGameScreen
 {
@@ -239,10 +241,7 @@ public class PokerGameScreen extends AbsGameScreen
         
         // 5x4 - P0 (USER) cell
         c.gridx = 3;
-        if(!addPlayerCell(c, 0))
-        {
-            this.add(createEmptyPane());
-        }
+        this.addUserHandCell(c);
         
         // 5x5 - P9 cell
         c.gridx = 4;
@@ -282,12 +281,9 @@ public class PokerGameScreen extends AbsGameScreen
         this.add(pane);
         
         // 6x4 - Name + Balance cell
-        pane = createUserInfoPane(players[0]);
         c.gridx = 3;
-        this.add(pane);
-        
-        
-        
+        this.addUserInfoCell(c);
+    
         // 6x5 - Raise button
         pane = createButtonPane("raise $");
         c.gridx = 4;
@@ -354,20 +350,28 @@ public class PokerGameScreen extends AbsGameScreen
     }
     
     /**
-     * Updates the user info cell.
+     * Updates the user's hand cell.
      */
-    public void updateUserCell()
+    public void updateUserHand()
     {
-        // we know user is player 0
-        AbsCell userCell = cells.get("player0");
+        AbsCell userCell = cells.get("userCell");
         userCell.refresh();
+    }
+    
+    /**
+     * Updates the user's balance.
+     */
+    public void updateUserBalance()
+    {
+        AbsCell cell = cells.get("userInfoCell");
+        cell.refresh();
     }
     
     /**
      * Creates new player cell, adds it to the screen and the map of cells.
      * 
-     * @param c The grid bag constraints
-     * @param playerNum The index in the players array
+     * @param c The grid bag constraints.
+     * @param playerNum The index in the players array.
      * @return true if new player cell added to screen.
      */
     private boolean addPlayerCell(GridBagConstraints c,int playerNum)
@@ -387,22 +391,29 @@ public class PokerGameScreen extends AbsGameScreen
     }
     
     /**
-     * Displays supplied text and given amount, can be used for the 'pot' cell
-     * or inside a player cell for their name+balance.
+     * Adds a user cell to the game screen, the cell where the user's hand
+     * will be displayed. The cell is added to the cells map.
      * 
-     * @param Player The player object representing the user.
-     * @return JPanel Panel divided into required sections (see diagram).
+     * @param c The grid bag constraints.
      */
-    private JPanel createUserInfoPane(Player player)
+    private void addUserHandCell(GridBagConstraints c)
     {
-        JLabel title, amount;
-        JPanel userInfoPane = createEmptyPane();
-        title = new JLabel(player.getName());
-        amount = new JLabel(Integer.toString(player.getBalance()));
-        userInfoPane.add(title);
-        userInfoPane.add(amount);
-        
-        return userInfoPane;
+        UserHandCell uCell = new UserHandCell(facade, players[0]);
+        this.add(uCell, c);
+        cells.put("userHandCell", uCell);
+    }
+    
+    /**
+     * Adds a user info cell to the game screen, this cell will contain the user's
+     * name and current balance.
+     * 
+     * @param c
+     */
+    private void addUserInfoCell(GridBagConstraints c)
+    {
+        UserInfoCell uiCell = new UserInfoCell(facade, players[0]);
+        this.add(uiCell, c);
+        cells.put("userInfoCell", uiCell);
     }
     
     /**

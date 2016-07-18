@@ -10,6 +10,8 @@ import java.awt.HeadlessException;
 import java.awt.*;
 import javax.swing.*;
 import model.facade.AcesFacade;
+import model.game.Game;
+import model.game.RTM;
 import view.screen.AbsGameScreen;
 import view.screen.SinglePlayerTexasScreen;
 import view.screen.StartScreen;
@@ -142,6 +144,10 @@ public class MainView extends JFrame
                 currentScreen.setVisible(false);
                 this.getContentPane().add(texasGameScreen, BorderLayout.CENTER);
                 this.texasGameScreen.setVisible(true);
+                this.acesFacade.getGame().dealCards();
+                PokerGameScreen pokerScreen = (PokerGameScreen) this.texasGameScreen;
+                pokerScreen.updateAllCells();
+                this.pack();
                 break;
             
             default :
