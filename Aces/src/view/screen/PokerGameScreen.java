@@ -30,6 +30,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+
+import controller.PokerGameScreenController;
 import model.facade.AcesFacade;
 import model.player.Player;
 import view.main.MainView;
@@ -42,6 +44,7 @@ import view.screen.cell.UserInfoCell;
 public class PokerGameScreen extends AbsGameScreen
 {
     private GridBagConstraints c;
+    private PokerGameScreenController controller;
     Player[] players;
     private Map<String, AbsCell> cells;
     
@@ -57,6 +60,7 @@ public class PokerGameScreen extends AbsGameScreen
         super(mainView, facade);
         this.setVisible(false);  
         this.cells = new HashMap<String, AbsCell>();
+        this.controller = new PokerGameScreenController(facade, this, mainView);
     }
     
     private void allocateGrid()
@@ -315,7 +319,6 @@ public class PokerGameScreen extends AbsGameScreen
         return panel;
     }
     
-    
     /**
      * Updates all cells on the screen.
      */
@@ -426,8 +429,7 @@ public class PokerGameScreen extends AbsGameScreen
     {
         JPanel buttonPane = createEmptyPane();
         JButton button = new JButton(buttonName);
-        
-        // TODO add action listener here
+        button.addActionListener(controller);
         
         buttonPane.add(button);
         return buttonPane;
