@@ -47,7 +47,7 @@ public class PlayerCell extends AbsCell
     public void drawCards()
     {
         JLabel cards;
-        ImageIcon cardback = new ImageIcon("src/assets/cardback.png");
+        ImageIcon cardback = new ImageIcon("src/assets/CARDBACK.png");
         
         cards = new JLabel();
         cards.setIcon(cardback);
