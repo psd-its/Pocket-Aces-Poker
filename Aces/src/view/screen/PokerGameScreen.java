@@ -33,6 +33,7 @@ import javax.swing.JTextArea;
 
 import controller.PokerGameScreenController;
 import model.facade.AcesFacade;
+import model.game.RTM;
 import model.player.Player;
 import view.main.MainView;
 import view.screen.cell.AbsCell;
@@ -47,6 +48,7 @@ public class PokerGameScreen extends AbsGameScreen
     private PokerGameScreenController controller;
     Player[] players;
     private Map<String, AbsCell> cells;
+    private JTextArea raiseInput;
     
     /**
      * TexasGameScreen constructor, sets visibility to false, the default for
@@ -63,6 +65,21 @@ public class PokerGameScreen extends AbsGameScreen
         this.controller = new PokerGameScreenController(facade, this, mainView);
     }
     
+    /**
+     * Loads grid, buttons etc.
+     */
+    @Override
+    public void load()
+    {
+        players = super.getFacade().getGame().getPlayers();
+        controller.setUser(players[0]);
+        allocateGrid();
+    }
+    
+    /**
+     * Divides game screen into workable grid, matching as closely as I could
+     * to the designs given.
+     */
     private void allocateGrid()
     {
         // get a fresh constraints object
@@ -294,7 +311,10 @@ public class PokerGameScreen extends AbsGameScreen
         this.add(pane);
         
         // 6x6 - Raise input field
-        pane = createTextInputPane(1, 10);
+        //pane = createTextInputPane(1, 10);
+        this.raiseInput = new JTextArea(1,10);
+        pane = createEmptyPane();
+        pane.add(this.raiseInput);
         c.gridx = 5;
         this.add(pane);
         
@@ -303,20 +323,6 @@ public class PokerGameScreen extends AbsGameScreen
         c.gridx = 6;
         c.gridwidth = GridBagConstraints.REMAINDER;
         this.add(pane, c);
-    }
-    
-    /**
-     * Returns an empty pane, I have border turned on while we get this all
-     * working, to keep track of where things are and how much space they're
-     * taking up.
-     * 
-     * @return JPanel An empty panel.
-     */
-    private JPanel createEmptyPane()
-    {
-        JPanel panel = new JPanel();
-        panel.setBorder(BorderFactory.createLineBorder(Color.black));
-        return panel;
     }
     
     /**
@@ -420,6 +426,20 @@ public class PokerGameScreen extends AbsGameScreen
     }
     
     /**
+     * Returns an empty pane, I have border turned on while we get this all
+     * working, to keep track of where things are and how much space they're
+     * taking up.
+     * 
+     * @return JPanel An empty panel.
+     */
+    private JPanel createEmptyPane()
+    {
+        JPanel panel = new JPanel();
+        panel.setBorder(BorderFactory.createLineBorder(Color.black));
+        return panel;
+    }
+    
+    /**
      * Creates a pane with a button in it, should we add the action listener
      * here? Make all buttons in center of their pane.
      * 
@@ -435,26 +455,8 @@ public class PokerGameScreen extends AbsGameScreen
         return buttonPane;
     }
     
-    /**
-     * Creates a JPanel containing a text input field of the specified size,
-     * rows/cols.
-     * 
-     * @param int Number of rows the textarea should be.
-     * @param int Number of columns the textarea should be.
-     * @return JPanel A panel containing a text input field.
-     */
-    private JPanel createTextInputPane(int rows, int cols)
+    public JTextArea getRaiseInput()
     {
-        JPanel inputPanel = createEmptyPane();
-        JTextArea field = new JTextArea(rows, cols);
-        inputPanel.add(field);
-        return inputPanel;
-    }
-
-    @Override
-    public void load()
-    {
-        players = super.getFacade().getGame().getPlayers();
-        allocateGrid();
+        return this.raiseInput;
     }
 }
