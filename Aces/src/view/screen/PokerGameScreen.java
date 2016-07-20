@@ -37,6 +37,7 @@ import model.game.RTM;
 import model.player.Player;
 import view.main.MainView;
 import view.screen.cell.AbsCell;
+import view.screen.cell.CardDisplayCell;
 import view.screen.cell.PlayerCell;
 import view.screen.cell.PotDisplayCell;
 import view.screen.cell.UserHandCell;
@@ -188,30 +189,25 @@ public class PokerGameScreen extends AbsGameScreen
         this.add(pane, c);
         
         // 3x2 - Display card 1
-        pane = createEmptyPane();
         c.gridx = 1;
         c.gridheight = 2;
-        this.add(pane, c);
+        addCardDisplayCell(c, 1);
         
         // 3x3 - Display card 2
-        pane = createEmptyPane();
         c.gridx = 2;
-        this.add(pane, c);
+        addCardDisplayCell(c, 2);
         
         // 3x4 - Display card 3
-        pane = createEmptyPane();
         c.gridx = 3;
-        this.add(pane, c);
+        addCardDisplayCell(c, 3);
         
         // 3x5 - Display card 4
-        pane = createEmptyPane();
         c.gridx = 4;
-        this.add(pane, c);
+        addCardDisplayCell(c, 4);
         
         // 3x6 - Display card 5
-        pane = createEmptyPane();
         c.gridx = 5;
-        this.add(pane, c);
+        addCardDisplayCell(c, 5);
         
         // 3x7
         pane = createEmptyPane();
@@ -416,13 +412,25 @@ public class PokerGameScreen extends AbsGameScreen
      * Adds a user info cell to the game screen, this cell will contain the user's
      * name and current balance.
      * 
-     * @param c
+     * @param c The grid bag constraints.
      */
     private void addUserInfoCell(GridBagConstraints c)
     {
         UserInfoCell uiCell = new UserInfoCell(facade, players[0]);
         this.add(uiCell, c);
         cells.put("userInfoCell", uiCell);
+    }
+    
+    /**
+     * Adds a card display cell to the center area of the game screen.
+     * 
+     * @param c The grid bag constraints.
+     */
+    private void addCardDisplayCell(GridBagConstraints c, int i)
+    {
+        CardDisplayCell cdCell = new CardDisplayCell(facade, facade.getGame().getTable(), i);
+        this.add(cdCell, c);
+        cells.put("cardDisplayCell" + i, cdCell);
     }
     
     /**
