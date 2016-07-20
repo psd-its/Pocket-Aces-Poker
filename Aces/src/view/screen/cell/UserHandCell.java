@@ -9,20 +9,20 @@ package view.screen.cell;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import controller.CardMappingController;
+import controller.CardMapper;
 import model.facade.AcesFacade;
 import model.player.Player;
 
 public class UserHandCell extends AbsCell
 {
     private Player player;
-    private CardMappingController mapper;
+    private CardMapper mapper;
     
     public UserHandCell(AcesFacade facade, Player player)
     {
         super(facade);
         this.player = player;
-        this.mapper = new CardMappingController();
+        this.mapper = new CardMapper();
     }
 
     @Override

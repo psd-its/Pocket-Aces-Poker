@@ -9,12 +9,12 @@ package controller;
 
 import java.io.File;
 
-public class CardMappingController
+public class CardMapper
 {
     private String assetPath = "src/assets/";
     private String defaultImgPath = assetPath + "CARDBACK.png";
     
-    public CardMappingController()
+    public CardMapper()
     {
         
     }
