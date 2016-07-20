@@ -7,6 +7,8 @@
  */
 package view.screen.cell;
 
+import java.awt.GridBagConstraints;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import model.facade.AcesFacade;
@@ -44,15 +46,22 @@ public class PlayerCell extends AbsCell
         }     
     }
     
+    /**
+     * Draws to card backs if the player has a hand.
+     */
     public void drawCards()
     {
-        JLabel cards;
+        JLabel cardImage1, cardImage2;
         ImageIcon cardback = new ImageIcon("src/assets/CARDBACK.png");
         
-        cards = new JLabel();
-        cards.setIcon(cardback);
+        cardImage1 = new JLabel();
+        cardImage2 = new JLabel();
         
-        this.add(cards);
+        cardImage1.setIcon(cardback);
+        cardImage2.setIcon(cardback);
+        
+        this.add(cardImage1);
+        this.add(cardImage2);
     }
     
 //    public void setStatus(String status)

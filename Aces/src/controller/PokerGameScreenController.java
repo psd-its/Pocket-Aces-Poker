@@ -67,9 +67,12 @@ public class PokerGameScreenController implements ActionListener
             // will need to get the input from text area and parse as integer
             // TODO input validation here
             String raiseInput = gameScreen.getRaiseInput().getText();
-            int raiseAmount = Integer.parseInt(raiseInput);
             
-            this.user.raise(this.facade.getGame().getTable(), raiseAmount);
+            if(raiseInput != null && !raiseInput.isEmpty())
+            {
+                int raiseAmount = Integer.parseInt(raiseInput);
+                this.user.raise(this.facade.getGame().getTable(), raiseAmount);
+            }
         }
     }
     
