@@ -47,7 +47,7 @@ public class MainView extends JFrame
         this.setLookAndFeel();
         
         // main window size
-        this.setSize(800, 600);
+        this.setSize(1400, 800);
         
         // main window location
         this.setWindowLocation();
@@ -147,7 +147,7 @@ public class MainView extends JFrame
                 this.acesFacade.getGame().dealCards();
                 PokerGameScreen pokerScreen = (PokerGameScreen) this.texasGameScreen;
                 pokerScreen.updateAllCells();
-                this.pack();
+                //this.pack();
                 break;
             
             default :
