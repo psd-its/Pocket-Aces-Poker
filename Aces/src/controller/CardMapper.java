@@ -15,8 +15,7 @@ public class CardMapper
     private String defaultImgPath = assetPath + "CARDBACK.png";
     
     public CardMapper()
-    {
-        
+    {  
     }
     
     /**
@@ -49,6 +48,28 @@ public class CardMapper
             }
         }
         return defaultImgPath;
+    }
+    
+    /**
+     * Overloaded map method, this takes an additional parameter 'size'. A way
+     * to obtain a different size image, e.g *_2X.png
+     * 
+     * @param s The user's hand, player.getHand.ToString()
+     * @param size The size requested e.g 2X 
+     * @return String Path to the image or path to default image if something
+     * went wrong.
+     */
+    public String map(String s, String size)
+    {
+        String basePath = map(s);
+        
+        // quick check to make sure we don't add to an image path that isn't valid
+        if(!basePath.equals(defaultImgPath))
+        {
+            String fullPath = new StringBuffer(basePath).insert(basePath.length()-4, size).toString();
+            return fullPath;
+        }
+        return basePath;
     }
     
     /**
@@ -128,5 +149,4 @@ public class CardMapper
         
         return null;
     }
-
 }

@@ -16,13 +16,13 @@ import model.player.Player;
 public class UserHandCell extends AbsCell
 {
     private Player player;
-    private CardMapper mapper;
+    //private CardMapper mapper;
     
     public UserHandCell(AcesFacade facade, Player player)
     {
         super(facade);
         this.player = player;
-        this.mapper = new CardMapper();
+        //this.mapper = new CardMapper();
     }
 
     @Override

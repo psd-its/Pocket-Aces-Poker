@@ -7,19 +7,50 @@
 
 package view.screen.cell;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import controller.CardMapper;
 import model.facade.AcesFacade;
+import model.table.Table;
 
 public class CardDisplayCell extends AbsCell
 {
-    public CardDisplayCell(AcesFacade facade)
+    private JLabel card;
+    private Table table;
+    private CardMapper mapper;
+    private int cardNum, cardIndex;
+    
+    public CardDisplayCell(AcesFacade facade, Table table, int cardNum)
     {
         super(facade);
+        this.table = table;
+        this.mapper = new CardMapper();
+        this.card = new JLabel();
+        this.cardNum = cardNum;
+        this.cardIndex = this.cardNum - 1;
     }
 
     @Override
     public void refresh()
     {
-        // TODO Auto-generated method stub
-        
+        // dont try to draw if no card at index (hasn't been dealt yet)
+        if(table.getCardsInPlay()[this.cardIndex] != null)
+        {
+            drawCard(table.getCardsInPlay()[this.cardIndex].toString());
+        }
+    }
+    
+    /**
+     * Draws a card based on the string given. We need the x2 size for these
+     * images.
+     * 
+     * @param s The toString representation of the card.
+     */
+    private void drawCard(String s)
+    {
+        String path = mapper.map(s, "_2X");
+        ImageIcon image = new ImageIcon(path);
+        card.setIcon(image);
+        this.add(card);
     }
 }

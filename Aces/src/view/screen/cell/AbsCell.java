@@ -11,22 +11,26 @@ package view.screen.cell;
 import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+
+import controller.CardMapper;
 import model.facade.AcesFacade;
 
 public abstract class AbsCell extends JPanel
 {
     private AcesFacade facade;
+    protected CardMapper mapper;
     
     public AbsCell(AcesFacade facade)
     {
         this.setBorder(BorderFactory.createLineBorder(Color.black));
         this.facade = facade;
+        this.mapper = new CardMapper();
     }
     
     public AcesFacade getFacade()
     {
         return this.facade;
     }
-    
+
     public abstract void refresh();
 }
