@@ -11,6 +11,9 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JOptionPane;
+
 import model.facade.AcesFacade;
 import model.player.Player;
 import view.main.MainView;
@@ -40,9 +43,14 @@ public class PokerGameScreenController implements ActionListener
         if(e.getActionCommand().equals(PokerGameScreenController.EXIT_COMMAND))
         {
             System.out.println("exit command \n");
+            int option = JOptionPane.showConfirmDialog(mainView, "Sure you want to exit?");
             
-            // might need to do some sort of 'end game' process here
-            this.mainView.switchScreen(this.gameScreen, MainView.START_SCREEN);
+            // if yes was selected end game and go back to start screen
+            if(option == JOptionPane.YES_OPTION)
+            {
+             // might need to do some sort of 'end game' process here
+                this.mainView.switchScreen(this.gameScreen, MainView.START_SCREEN);
+            }    
         }
         
         // handle user fold
