@@ -21,19 +21,17 @@
 
 package view.screen;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-
 import controller.PokerGameScreenController;
 import model.facade.AcesFacade;
-import model.game.RTM;
 import model.player.Player;
 import view.main.MainView;
 import view.screen.cell.AbsCell;
@@ -290,12 +288,12 @@ public class PokerGameScreen extends AbsGameScreen
         // 6x2 - Fold button
         pane = createButtonPane("fold");
         c.gridx = 1;
-        this.add(pane);
+        this.add(pane, c);
         
         // 6x3 - Call button
         pane = createButtonPane("call");
         c.gridx = 2;
-        this.add(pane);
+        this.add(pane, c);
         
         // 6x4 - Name + Balance cell
         c.gridx = 3;
@@ -304,19 +302,19 @@ public class PokerGameScreen extends AbsGameScreen
         // 6x5 - Raise button
         pane = createButtonPane("raise $");
         c.gridx = 4;
-        this.add(pane);
+        this.add(pane, c);
         
         // 6x6 - Raise input field
-        //pane = createTextInputPane(1, 10);
         this.raiseInput = new JTextArea(1,10);
         pane = createEmptyPane();
         pane.add(this.raiseInput);
-        c.gridx = 5;
-        this.add(pane);
+        //c.gridx = 5;
+        c.gridx = GridBagConstraints.RELATIVE;
+        this.add(pane, c);
         
         // 6x7
         pane = createEmptyPane();
-        c.gridx = 6;
+        c.gridx = 5;
         c.gridwidth = GridBagConstraints.REMAINDER;
         this.add(pane, c);
     }
@@ -442,7 +440,7 @@ public class PokerGameScreen extends AbsGameScreen
      */
     private JPanel createEmptyPane()
     {
-        JPanel panel = new JPanel();
+        JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(BorderFactory.createLineBorder(Color.black));
         return panel;
     }

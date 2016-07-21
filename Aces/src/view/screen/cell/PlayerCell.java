@@ -25,6 +25,8 @@ public class PlayerCell extends AbsCell
         
         this.player = player;
         
+        GridBagConstraints c = new GridBagConstraints();
+        
         this.nameLabel = new JLabel(player.getName());
         this.balanceLabel = new JLabel(Integer.toString(player.getBalance()));
         

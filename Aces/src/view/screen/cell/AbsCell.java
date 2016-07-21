@@ -9,9 +9,9 @@
 package view.screen.cell;
 
 import java.awt.Color;
+import java.awt.GridBagLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-
 import controller.CardMapper;
 import model.facade.AcesFacade;
 
@@ -22,6 +22,7 @@ public abstract class AbsCell extends JPanel
     
     public AbsCell(AcesFacade facade)
     {
+        super(new GridBagLayout());
         this.setBorder(BorderFactory.createLineBorder(Color.black));
         this.facade = facade;
         this.mapper = new CardMapper();
