@@ -18,12 +18,12 @@ Test Harness
 5 Play Game  
 0 Exit
 
-Select 1 to test the dealing of random cards to static players  
-Select 2 to test random win conditions (that winners are selected and what hand has won)  
-Select 3 to test the main view. (will open in a new window) Players name can be entered    
+**Select 1** to test the dealing of random cards to static players  
+**Select 2**to test random win conditions (that winners are selected and what hand has won)  
+**Select 3** to test the main view. (will open in a new window) Players name can be entered   
 a game can be started, but buttons not linked in yet.  
-Select 4 to test winning hands output.  
-Select 5 to play a txt based version of Texas Hold Em poker. Follow onscreen instructions to RAISE, CALL, FOLD, CHECK....  
+**Select 4** to test winning hands output.  
+**Select 5** to play a txt based version of Texas Hold Em poker. Follow onscreen instructions to RAISE, CALL, FOLD, CHECK....  
 
 
 **Project Collaborators**
