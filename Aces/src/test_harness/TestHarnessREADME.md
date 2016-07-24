@@ -5,7 +5,7 @@
 To run on your local machine:
 * **1.** Download the file to your PC
 * **2.** Open command prompt and change to the directory where you downloaded the file
-* **3.** Open the file with the following command - java -jar fileName.jar
+* **3.** Open the file with the following command  ```java -jar fileName.jar```
 
 The test harness menu will appear -  
 
