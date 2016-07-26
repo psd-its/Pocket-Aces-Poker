@@ -9,7 +9,8 @@ package view.screen.cell;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import controller.CardMapper;
+
+import model.card.CardMapper;
 import model.facade.AcesFacade;
 import model.player.Player;
 

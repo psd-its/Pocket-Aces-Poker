@@ -12,7 +12,7 @@ import java.awt.Color;
 import java.awt.GridBagLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import controller.CardMapper;
+import model.card.CardMapper;
 import model.facade.AcesFacade;
 
 public abstract class AbsCell extends JPanel
