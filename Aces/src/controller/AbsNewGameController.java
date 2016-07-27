@@ -7,6 +7,8 @@
 package controller;
 
 import java.awt.event.ActionListener;
+import java.util.Observer;
+
 import model.facade.AcesFacade;
 import model.game.Game;
 import model.player.Player;
@@ -73,11 +75,11 @@ public abstract class AbsNewGameController implements ActionListener
     /**
      * @param Player The player to add to the game.
      */
-    public void addPlayer(Player player)
+    public void addPlayer(Player player, Observer o)
     {
         try
         {
-            this.facade.addPlayer(player);
+            this.facade.addPlayer(player, o);
         }
         catch (TableFull e)
         {

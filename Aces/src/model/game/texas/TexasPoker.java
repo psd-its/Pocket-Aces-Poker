@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Observable;
 import java.util.Timer;
 
 import model.card.Card;
@@ -23,7 +24,7 @@ import model.table.TableFull;
  * @author Tristan s3528615
  * 
  */
-public class TexasPoker implements Game
+public class TexasPoker extends Observable implements Game
 {
     private TopHand th;
     private Table table;
@@ -755,6 +756,7 @@ public class TexasPoker implements Game
         }
     }
 
+    
     public TopHand getTh()
     {
         return th;

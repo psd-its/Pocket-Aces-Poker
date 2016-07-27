@@ -9,6 +9,8 @@
 package controller;
 
 import java.awt.event.ActionEvent;
+import java.util.Observer;
+
 import model.player.ComputerPlayer;
 import model.player.Player;
 import model.table.TableFull;
@@ -18,9 +20,12 @@ import view.screen.SinglePlayerTexasScreen;
 
 public class SingleTexasController extends AbsGameSetupController
 {
+    // Instance of the screen that implements observer
+    private Observer observer;
     public SingleTexasController(AbsGameScreen gameSetupScreen)
     {
         super(gameSetupScreen);
+        this.observer = (Observer) gameSetupScreen;
     }
 
     @Override
@@ -43,7 +48,7 @@ public class SingleTexasController extends AbsGameSetupController
                     Player newPlayer = new ComputerPlayer("HAL" + (i + 1)); 
                     
                     // add comp player
-                    super.getFacade().addPlayer(newPlayer);
+                    super.getFacade().addPlayer(newPlayer, observer);
                 }
                 
                 // transfer to game playing screen - single texas poker game should be fully initialised

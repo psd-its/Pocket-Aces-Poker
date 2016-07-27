@@ -10,14 +10,18 @@ package view.screen;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+
 import controller.SingleTexasController;
 import model.facade.AcesFacade;
 import view.main.MainView;
 
-public class SinglePlayerTexasScreen extends AbsGameScreen
+public class SinglePlayerTexasScreen extends AbsGameScreen implements Observer
 {
     // controller for screen
     private SingleTexasController controller;
@@ -134,5 +138,12 @@ public class SinglePlayerTexasScreen extends AbsGameScreen
     {
         // this is awkward. The +1 is needed because indexes start at 0
         return Integer.valueOf(this.numPlayersDropdown.getSelectedIndex()) + 1;
+    }
+
+    @Override
+    public void update(Observable o, Object arg)
+    {
+        // TODO Auto-generated method stub
+        
     }
 }

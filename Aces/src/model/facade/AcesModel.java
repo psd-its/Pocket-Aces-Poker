@@ -1,5 +1,8 @@
 package model.facade;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import model.game.Game;
 import model.game.RTM;
 import model.player.Player;
@@ -40,12 +43,6 @@ public class AcesModel implements AcesFacade
         game.getTable().setBlind(smallBlind);
     }
 
-    public void addPlayer(Player player) throws TableFull
-    {
-        // Add a player to the game
-        game.addPlayer(player);
-    }
-
     @Override
     public boolean removePlayer(Player player)
     {
@@ -69,6 +66,16 @@ public class AcesModel implements AcesFacade
     {
         // return player at the specified seat   
         return game.getPlayers()[seat];
+    }
+
+    @Override
+    public void addPlayer(Player player, Observer o) throws TableFull
+    {
+        // Add player to the table 
+        game.getTable().addPlayer(player);
+        // Add the player as an observer to the game
+        ((Observable)game).addObserver(o);
+        
     }
 
 }

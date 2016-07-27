@@ -3,6 +3,8 @@
  */
 package model.facade;
 
+import java.util.Observer;
+
 import model.game.Game;
 import model.game.RTM;
 import model.player.Player;
@@ -42,8 +44,9 @@ public interface AcesFacade
     /**
      * Add a player to the game
      * @param player
+     * @param Observer that is watching the game
      */
-    public void addPlayer(Player player) throws TableFull;
+    public void addPlayer(Player player, Observer o) throws TableFull;
     
     /**
      * Remove a player from the table

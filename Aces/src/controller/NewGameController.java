@@ -10,7 +10,10 @@
 package controller;
 
 import java.awt.event.ActionEvent;
+import java.util.Observer;
+
 import javax.swing.JOptionPane;
+
 import model.facade.AcesFacade;
 import model.game.Game;
 import model.game.texas.TexasPoker;
@@ -24,6 +27,7 @@ import test_harness.Harness;
 
 public class NewGameController extends AbsNewGameController
 {   
+    private MainView mainView;
     /**
      * Constructor, just calls super for now.
      * 
@@ -35,6 +39,7 @@ public class NewGameController extends AbsNewGameController
     public NewGameController(MainView mainView, StartScreen startScreen, AcesFacade facade)
     {
         super(mainView, startScreen, facade);
+        this.mainView = mainView;
     }
 
     @Override
@@ -59,7 +64,7 @@ public class NewGameController extends AbsNewGameController
                     // init player
                     Player newPlayer = new HumanPlayer(super.getNameInput());
                     // add player to game
-                    super.addPlayer(newPlayer);
+                    super.addPlayer(newPlayer, ((Observer) mainView.getSingleGameScreen()));
                     // switch screen
                     super.switchScreen(MainView.SINGLE_PLAYER_TEXAS_SCREEN);
                 }
