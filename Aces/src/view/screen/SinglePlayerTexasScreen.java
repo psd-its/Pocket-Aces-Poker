@@ -10,17 +10,19 @@ package view.screen;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import controller.SingleTexasController;
+
 import model.facade.AcesFacade;
 import view.main.MainView;
+import controller.SingleTexasSetupController;
 
 public class SinglePlayerTexasScreen extends AbsGameScreen
 {
     // controller for screen
-    private SingleTexasController controller;
+    private SingleTexasSetupController controller;
     
     // button text - will be reference from the controller
     public static final String START_BUTTON = "Start";
@@ -52,7 +54,7 @@ public class SinglePlayerTexasScreen extends AbsGameScreen
     {
         super(mainView, facade);
         this.setVisible(false);
-        this.controller = new SingleTexasController(this);
+        this.controller = new SingleTexasSetupController(this);
     }
     
     /**
