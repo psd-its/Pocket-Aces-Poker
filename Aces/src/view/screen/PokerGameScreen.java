@@ -469,10 +469,16 @@ public class PokerGameScreen extends AbsGameScreen implements Observer
         return this.raiseInput;
     }
 
+    /**
+     * The second argument will be the TexasPoker object.
+     */
     @Override
     public void update(Observable o, Object arg)
     {
-        // TODO Auto-generated method stub
-        
+        this.updateAllCells();
+        this.updateUserBalance();
+        this.updateUserHand();
+        this.revalidate();
+        this.repaint();
     }
 }
