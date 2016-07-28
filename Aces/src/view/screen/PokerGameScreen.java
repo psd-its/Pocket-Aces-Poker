@@ -26,6 +26,9 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -41,7 +44,7 @@ import view.screen.cell.PotDisplayCell;
 import view.screen.cell.UserHandCell;
 import view.screen.cell.UserInfoCell;
 
-public class PokerGameScreen extends AbsGameScreen
+public class PokerGameScreen extends AbsGameScreen implements Observer
 {
     private GridBagConstraints c;
     private PokerGameScreenController controller;
@@ -441,7 +444,7 @@ public class PokerGameScreen extends AbsGameScreen
     private JPanel createEmptyPane()
     {
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBorder(BorderFactory.createLineBorder(Color.black));
+        //panel.setBorder(BorderFactory.createLineBorder(Color.black));
         return panel;
     }
     
@@ -464,5 +467,18 @@ public class PokerGameScreen extends AbsGameScreen
     public JTextArea getRaiseInput()
     {
         return this.raiseInput;
+    }
+
+    /**
+     * The second argument will be the TexasPoker object.
+     */
+    @Override
+    public void update(Observable o, Object arg)
+    {
+        this.updateAllCells();
+        this.updateUserBalance();
+        this.updateUserHand();
+        this.revalidate();
+        this.repaint();
     }
 }
