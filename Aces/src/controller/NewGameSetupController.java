@@ -25,7 +25,7 @@ import view.main.MainView;
 import view.screen.StartScreen;
 import test_harness.Harness;
 
-public class NewGameController extends AbsNewGameController
+public class NewGameSetupController extends AbsNewGameController
 {   
     private MainView mainView;
     /**
@@ -36,7 +36,7 @@ public class NewGameController extends AbsNewGameController
      * @param StartScreen A reference to the game's start screen.
      * @param AcesFacade A reference to the model facade.
      */
-    public NewGameController(MainView mainView, StartScreen startScreen, AcesFacade facade)
+    public NewGameSetupController(MainView mainView, StartScreen startScreen, AcesFacade facade)
     {
         super(mainView, startScreen, facade);
         this.mainView = mainView;
