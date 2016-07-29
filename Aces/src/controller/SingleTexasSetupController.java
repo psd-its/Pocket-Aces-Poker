@@ -25,7 +25,7 @@ public class SingleTexasSetupController extends AbsGameSetupController
     public SingleTexasSetupController(AbsGameScreen gameSetupScreen)
     {
         super(gameSetupScreen);
-        this.observer = (Observer) gameSetupScreen;
+        this.observer = (Observer) gameSetupScreen.getMainView().getGameScreen();
     }
 
     @Override
@@ -48,7 +48,7 @@ public class SingleTexasSetupController extends AbsGameSetupController
                     Player newPlayer = new ComputerPlayer("HAL" + (i + 1)); 
                     
                     // add comp player
-                    super.getFacade().addPlayer(newPlayer, observer);
+                    super.getFacade().addPlayer(newPlayer);
                 }
                 
                 // transfer to game playing screen - single texas poker game should be fully initialised

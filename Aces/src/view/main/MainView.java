@@ -162,8 +162,8 @@ public class MainView extends JFrame
         return this.acesFacade;
     }
     
-    public AbsGameScreen getSingleGameScreen()
+    public AbsGameScreen getGameScreen()
     {
-        return singlePlayerScreen;
+        return texasGameScreen;
     }
 }

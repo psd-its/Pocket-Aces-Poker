@@ -42,7 +42,13 @@ public interface AcesFacade
     public void setBlind(int smallBlind);
     
     /**
-     * Add a player to the game
+     * Add a computer player to the game
+     * @param player
+     */
+    public void addPlayer(Player player) throws TableFull;
+    
+    /**
+     * Add a human player to the game
      * @param player
      * @param Observer that is watching the game
      */

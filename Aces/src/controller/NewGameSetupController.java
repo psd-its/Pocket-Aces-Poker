@@ -64,7 +64,7 @@ public class NewGameSetupController extends AbsNewGameController
                     // init player
                     Player newPlayer = new HumanPlayer(super.getNameInput());
                     // add player to game
-                    super.addPlayer(newPlayer, ((Observer) mainView.getSingleGameScreen()));
+                    super.addPlayer(newPlayer, ((Observer) mainView.getGameScreen()));
                     // switch screen
                     super.switchScreen(MainView.SINGLE_PLAYER_TEXAS_SCREEN);
                 }

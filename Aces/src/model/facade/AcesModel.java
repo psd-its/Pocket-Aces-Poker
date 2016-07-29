@@ -69,6 +69,13 @@ public class AcesModel implements AcesFacade
     }
 
     @Override
+    public void addPlayer(Player player) throws TableFull
+    {
+        // Add player to the table 
+        game.getTable().addPlayer(player);        
+    }
+    
+    @Override
     public void addPlayer(Player player, Observer o) throws TableFull
     {
         // Add player to the table 
