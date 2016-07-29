@@ -7,7 +7,11 @@ import javax.swing.JOptionPane;
 
 import model.facade.AcesFacade;
 import model.player.HumanPlayer;
-
+/**
+ * @deprecated
+ * @author deep_thought
+ *
+ */
 public class TexasGameController implements ActionListener
 {
     /**

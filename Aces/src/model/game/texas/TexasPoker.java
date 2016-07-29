@@ -578,9 +578,9 @@ public class TexasPoker extends Observable implements Game
             // Deal the cards
             dealCards();
             firstIter = true;
-            // Print header
-            System.out.printf("%s\n%-10s\n%s\n", Const.BREAK, 
-                    Const.SSTRING, Const.BREAK);
+//            // Print header
+//            System.out.printf("%s\n%-10s\n%s\n", Const.BREAK, 
+//                    Const.SSTRING, Const.BREAK);
             // Go through the stages of betting
             for (Bet stage : Bet.values())
             {
@@ -616,9 +616,9 @@ public class TexasPoker extends Observable implements Game
                                             .placeBet(Const.START_BLIND);
                                     getTable().setCurrentBet(
                                             Const.START_BLIND);
-                                    System.out.println(table.getSeats()[index].getName() +
-                                            " pays small blind of $" + 
-                                            (int)Const.START_BLIND);
+//                                    System.out.println(table.getSeats()[index].getName() +
+//                                            " pays small blind of $" + 
+//                                            (int)Const.START_BLIND);
 
                                 }
                                 // pay big blind
@@ -628,14 +628,15 @@ public class TexasPoker extends Observable implements Game
                                             .placeBet(Const.START_BLIND * 2);
                                     getTable().setCurrentBet(
                                             Const.START_BLIND * 2);
-                                    System.out.println(table.getSeats()[index].getName() +
-                                            " pays small blind of $" 
-                                            + (2 * (int)Const.START_BLIND));
+//                                    System.out.println(table.getSeats()[index].getName() +
+//                                            " pays small blind of $" 
+//                                            + (2 * (int)Const.START_BLIND));
                                 }
                                 // only give players if blinds have been payed
                                 else
                                 {
                                     this.takeTurn(table.getSeats()[index]);
+                                    this.notifyObservers(this);
                                 }
 
                             }
@@ -643,6 +644,7 @@ public class TexasPoker extends Observable implements Game
                             {
                                 // Let the player have there turn
                                 this.takeTurn(table.getSeats()[index]);
+                                this.notifyObservers(this);
                             }
 
                         }
@@ -722,10 +724,10 @@ public class TexasPoker extends Observable implements Game
                                 {
                                     c.show();
                                 }
-                                System.out.println(p.toString());
+//                                System.out.println(p.toString());
                             }
                         }
-                        System.out.println();
+//                        System.out.println();
                         break;
                 }
             }
@@ -736,13 +738,13 @@ public class TexasPoker extends Observable implements Game
                 Player[] winners = checkForWinner();
                 // Account for split pot
                 int amount = table.getPot() / winners.length;
-                System.out.println("Pot: " + amount + "\nWon by:");
+//                System.out.println("Pot: " + amount + "\nWon by:");
                 for (Player p : winners)
                 {
                     System.out.println(p.getName());
                     p.addCash(amount);
                 }
-                System.out.println();
+//                System.out.println();
                 // move the dealer button
                 int button = table.getDealer() + 1;
                 table.setDealer(button);

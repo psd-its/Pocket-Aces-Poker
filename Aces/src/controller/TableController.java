@@ -4,7 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import model.facade.AcesFacade;
-
+/**
+ * @deprecated
+ * @author deep_thought
+ *
+ */
 public class TableController implements ActionListener
 {
     private AcesFacade model;
