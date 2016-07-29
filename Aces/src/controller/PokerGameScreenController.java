@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 import model.facade.AcesFacade;
+import model.player.HumanPlayer;
 import model.player.Player;
 import view.main.MainView;
 import view.screen.PokerGameScreen;
@@ -24,7 +25,8 @@ public class PokerGameScreenController implements ActionListener
     private AcesFacade facade;
     private PokerGameScreen gameScreen;
     private MainView mainView;
-    private Player user;
+    // Changed type to HumanPlayer so we can user Timertask functions
+    private HumanPlayer user;
     
     private static final String EXIT_COMMAND = "exit", FOLD_COMMAND = "fold",
                                 CALL_COMMAND = "call", RAISE_COMMAND = "raise $";
@@ -58,6 +60,8 @@ public class PokerGameScreenController implements ActionListener
         {
             System.out.println("fold command \n");
             this.user.fold();
+            user.cancel();
+            
         }
         
         // handle user call
@@ -65,6 +69,7 @@ public class PokerGameScreenController implements ActionListener
         {
             System.out.println("call command \n");
             this.user.call(this.facade.getGame().getTable());
+            user.cancel();
         }
         
         // handle user raise
@@ -80,12 +85,13 @@ public class PokerGameScreenController implements ActionListener
             {
                 int raiseAmount = Integer.parseInt(raiseInput);
                 this.user.raise(this.facade.getGame().getTable(), raiseAmount);
+                user.cancel();
             }
         }
     }
     
     public void setUser(Player user)
     {
-        this.user = user;
+        this.user = (HumanPlayer)user;
     }
 }
