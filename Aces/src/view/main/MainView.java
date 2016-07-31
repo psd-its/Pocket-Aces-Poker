@@ -10,6 +10,7 @@ import java.awt.HeadlessException;
 import java.awt.*;
 import javax.swing.*;
 import model.facade.AcesFacade;
+import model.game.RTM;
 import view.screen.AbsGameScreen;
 import view.screen.SinglePlayerTexasScreen;
 import view.screen.StartScreen;
@@ -142,7 +143,17 @@ public class MainView extends JFrame
                 currentScreen.setVisible(false);
                 this.getContentPane().add(texasGameScreen, BorderLayout.CENTER);
                 this.texasGameScreen.setVisible(true);
-                this.acesFacade.getGame().dealCards();
+                //this.acesFacade.getGame().dealCards();
+                try
+                {
+                    this.acesFacade.getGame().play();
+                }
+                catch (RTM e)
+                {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                
                 PokerGameScreen pokerScreen = (PokerGameScreen) this.texasGameScreen;
                 pokerScreen.updateAllCells();
                 break;
