@@ -74,7 +74,7 @@ public class PlayerCell extends AbsCell
         
         else 
         {
-            card1 = new ImageIcon("src/assets/CARDBACK.png");
+            card1 = new ImageIcon(this.mapper.getCardbackPath());
             cardImage1.setIcon(card1);
         }
         
@@ -87,7 +87,7 @@ public class PlayerCell extends AbsCell
         
         else 
         {
-            card2 = new ImageIcon("src/assets/CARDBACK.png");
+            card2 = new ImageIcon(this.mapper.getCardbackPath());
             cardImage2.setIcon(card2);
         }
 

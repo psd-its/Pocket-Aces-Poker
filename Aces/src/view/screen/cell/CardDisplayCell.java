@@ -7,6 +7,8 @@
 
 package view.screen.cell;
 
+import java.io.File;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -34,6 +36,7 @@ public class CardDisplayCell extends AbsCell
     @Override
     public void refresh()
     {
+        //String pathsep = File.pathSeparator;
         // dont try to draw if no card at index (hasn't been dealt yet)
         if(table.getCardsInPlay()[this.cardIndex] != null && table.getCardsInPlay()[this.cardIndex].isShowing())
         {
@@ -42,7 +45,7 @@ public class CardDisplayCell extends AbsCell
         
         else 
         {
-            String path = "src/assets/CARDBACK_2X.png";
+            String path = mapper.getCardbackLargePath();
             ImageIcon image = new ImageIcon(path);
             card.setIcon(image);
             this.add(card);

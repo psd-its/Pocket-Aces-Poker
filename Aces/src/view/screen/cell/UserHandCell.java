@@ -59,6 +59,9 @@ public class UserHandCell extends AbsCell
         
         this.removeAll();
         
+        System.out.println(card1Path);
+        System.out.println(card2Path);
+        
         this.add(card1Label);
         this.add(card2Label);
     }

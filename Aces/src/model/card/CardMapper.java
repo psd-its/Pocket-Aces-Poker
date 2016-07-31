@@ -11,13 +11,36 @@ import java.io.File;
 
 public class CardMapper
 {
-    private String pathsep = File.pathSeparator;
-    private String assetPath = "src" + pathsep + "assets" + pathsep;
-    private String defaultImgPath = assetPath + "CARDBACK.png";
+//    private String pathSep = File.separator;
+    private String pathSep;
+//    private String p = File.pathSeparator;
+//    private String assetPath = "src/assets/";
+//    private String assetPath = "src" + pathSep + "assets" + pathSep;
+//    private String assetPath = "src" + pathSep + "assets" + pathSep;
+    private String assetPath;
+//    private String defaultImgPath = assetPath + "CARDBACK.png";
+    private String defaultImgPath;
+    private String defaultImgPathLarge;
     
-    
+    /**
+     * Constructor for CardMapper, sets path separator for platform.
+     */
     public CardMapper()
     {  
+        // build file paths
+        if(File.pathSeparator.equals(":"))
+        {
+            this.pathSep = "/";
+        }
+        
+        else
+        {
+            this.pathSep = File.pathSeparator;
+        }
+        
+        this.assetPath = "src" + this.pathSep + "assets" + this.pathSep;
+        this.defaultImgPath = assetPath + "CARDBACK.png";
+        this.defaultImgPathLarge = assetPath + "CARDBACK_2X.png";
     }
     
     /**
@@ -86,6 +109,16 @@ public class CardMapper
         // split on space
         String[] split = s.split(" ");
         return split;
+    }
+    
+    public String getCardbackPath()
+    {
+        return this.defaultImgPath;
+    }
+    
+    public String getCardbackLargePath()
+    {
+        return this.defaultImgPathLarge;
     }
     
     /**
