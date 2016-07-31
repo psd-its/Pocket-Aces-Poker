@@ -28,14 +28,14 @@ public class CardMapper
     public CardMapper()
     {  
         // build file paths
-        if(File.pathSeparator.equals(":"))
+        if(File.separator.equals(":"))
         {
             this.pathSep = "/";
         }
         
         else
         {
-            this.pathSep = File.pathSeparator;
+            this.pathSep = File.separator;
         }
         
         this.assetPath = "src" + this.pathSep + "assets" + this.pathSep;
