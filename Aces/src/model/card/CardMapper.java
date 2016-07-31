@@ -11,8 +11,10 @@ import java.io.File;
 
 public class CardMapper
 {
-    private String assetPath = "src/assets/";
+    private String pathsep = File.pathSeparator;
+    private String assetPath = "src" + pathsep + "assets" + pathsep;
     private String defaultImgPath = assetPath + "CARDBACK.png";
+    
     
     public CardMapper()
     {  
@@ -69,6 +71,7 @@ public class CardMapper
             String fullPath = new StringBuffer(basePath).insert(basePath.length()-4, size).toString();
             return fullPath;
         }
+        System.out.println(basePath);
         return basePath;
     }
     
@@ -80,7 +83,7 @@ public class CardMapper
      */
     private String[] splitString(String s)
     {
-        // ssplit on space
+        // split on space
         String[] split = s.split(" ");
         return split;
     }
