@@ -21,9 +21,9 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
+import controller.NewGameSetupController;
 import model.facade.AcesFacade;
 import view.main.MainView;
-import controller.NewGameSetupController;
 
 public class StartScreen extends AbsGameScreen
 {

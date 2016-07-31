@@ -10,14 +10,12 @@ package view.screen;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-
+import controller.SingleTexasSetupController;
 import model.facade.AcesFacade;
 import view.main.MainView;
-import controller.SingleTexasSetupController;
 
 public class SinglePlayerTexasScreen extends AbsGameScreen
 {
