@@ -35,9 +35,17 @@ public class CardDisplayCell extends AbsCell
     public void refresh()
     {
         // dont try to draw if no card at index (hasn't been dealt yet)
-        if(table.getCardsInPlay()[this.cardIndex] != null)
+        if(table.getCardsInPlay()[this.cardIndex] != null && table.getCardsInPlay()[this.cardIndex].isShowing())
         {
             drawCard(table.getCardsInPlay()[this.cardIndex].toString());
+        }
+        
+        else 
+        {
+            String path = "src/assets/CARDBACK_2X.png";
+            ImageIcon image = new ImageIcon(path);
+            card.setIcon(image);
+            this.add(card);
         }
     }
     
