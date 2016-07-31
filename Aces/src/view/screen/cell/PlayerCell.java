@@ -11,6 +11,8 @@ import java.awt.GridBagConstraints;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+
+import model.card.CardMapper;
 import model.facade.AcesFacade;
 import model.player.Player;
 
@@ -18,12 +20,14 @@ public class PlayerCell extends AbsCell
 {
     private JLabel nameLabel, statusLabel, balanceLabel;
     private Player player;
+    private CardMapper mapper;
     
     public PlayerCell(AcesFacade facade, Player player)
     {
         super(facade);
         
         this.player = player;
+        this.mapper = new CardMapper();
         
         GridBagConstraints c = new GridBagConstraints();
         
@@ -49,19 +53,44 @@ public class PlayerCell extends AbsCell
     }
     
     /**
-     * Draws to card backs if the player has a hand.
+     * Draws to card backs if the player has a hand. Draw card front if player's
+     * hand is visible.
      */
     public void drawCards()
     {
         JLabel cardImage1, cardImage2;
-        ImageIcon cardback = new ImageIcon("src/assets/CARDBACK.png");
-        
+        ImageIcon card1, card2;
+        String card1Path, card2Path;
         cardImage1 = new JLabel();
         cardImage2 = new JLabel();
         
-        cardImage1.setIcon(cardback);
-        cardImage2.setIcon(cardback);
         
+        if(this.player.getHand()[0].isShowing() && this.player.getHand()[0] != null)
+        {
+            card1Path = mapper.map(this.player.getHand()[0].toString());
+            card1 = new ImageIcon(card1Path);
+            cardImage1.setIcon(card1);
+        }
+        
+        else 
+        {
+            card1 = new ImageIcon("src/assets/CARDBACK.png");
+            cardImage1.setIcon(card1);
+        }
+        
+        if(this.player.getHand()[1].isShowing() && this.player.getHand()[1] != null)
+        {
+            card2Path = mapper.map(this.player.getHand()[1].toString());
+            card2 = new ImageIcon(card2Path);
+            cardImage2.setIcon(card2);
+        }
+        
+        else 
+        {
+            card2 = new ImageIcon("src/assets/CARDBACK.png");
+            cardImage2.setIcon(card2);
+        }
+
         this.add(cardImage1);
         this.add(cardImage2);
     }
