@@ -37,12 +37,12 @@ public class TexasGameController implements ActionListener
         {
             case "foldButton":
                 p.fold();
-                p.cancel();
+                //p.cancel();
                 break;
             case "checkButton":
                 if (p.check(model.getGame().getTable()))
                 {
-                    p.cancel();
+                   // p.cancel();
                     break;
                 }
                 else

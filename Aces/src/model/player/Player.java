@@ -3,6 +3,8 @@
  */
 package model.player;
 
+import java.util.concurrent.CyclicBarrier;
+
 import model.card.Card;
 import model.card.Face;
 import model.card.Tup;
@@ -128,6 +130,7 @@ public interface Player
     /**
      * Defines how a player has their turn
      * @param game
+     * @return 
      * @throws Return to menu exception
      */
     public void playHand(Game g) throws RTM;
@@ -149,5 +152,6 @@ public interface Player
      */
     public void setPlayingHand(boolean playingHand);
     
-    
+   
+   
 }

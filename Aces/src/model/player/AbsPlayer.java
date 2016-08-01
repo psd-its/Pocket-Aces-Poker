@@ -8,7 +8,7 @@ import model.card.Tup;
 import model.card.WinningHands;
 import model.table.Table;
 
-public abstract class AbsPlayer extends TimerTask implements Player
+public abstract class AbsPlayer implements Player, Runnable
 {
     // This holds the amount the player has staked
     // in the current round of betting. It is moved into the

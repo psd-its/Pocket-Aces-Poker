@@ -2,6 +2,7 @@ package model.player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.BrokenBarrierException;
 
 import model.Rand;
 import model.card.Card;
@@ -87,6 +88,17 @@ public class ComputerPlayer extends AbsPlayer
                 break;
             
         }
+//        try
+//        {
+//            System.out.println(g.getBar().isBroken());
+//            g.getBar().await();
+//        }
+//        catch (InterruptedException | BrokenBarrierException e)
+//        {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        
         
         
     }

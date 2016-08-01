@@ -3,10 +3,11 @@
  */
 package model.game;
 
-import java.util.Timer;
+import java.util.concurrent.CyclicBarrier;
 
 import model.card.TopHand;
 import model.player.Player;
+import model.player.TurnTimer;
 import model.table.Table;
 import model.table.TableFull;
 
@@ -51,6 +52,7 @@ public interface Game
     /**
      * Human will need input from controller 
      * @param player
+     * @return 
      * @throws RTM 
      */
     public void takeTurn(Player player) throws RTM;
@@ -69,14 +71,9 @@ public interface Game
      */
     public void play() throws RTM;
     
-    /**
-     * @return the Thread
-     */
-    public Timer getTimer();
     
     public TopHand getTh();
-
-   
     
+    public TurnTimer getTimer();
     
 }

@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 import java.util.Timer;
+import java.util.concurrent.CyclicBarrier;
 
 import model.card.Card;
 import model.card.Face;
@@ -16,6 +17,7 @@ import model.card.WinningHands;
 import model.game.Game;
 import model.game.RTM;
 import model.player.Player;
+import model.player.TurnTimer;
 import model.table.Table;
 import model.table.TableFull;
 
@@ -28,14 +30,19 @@ public class TexasPoker extends Observable implements Game
 {
     private TopHand th;
     private Table table;
-    private Timer texThread;
+    // static CyclicBarrier bar;
+    private TurnTimer t;
+
+    // private Timer texThread;
 
     public TexasPoker()
     {
         // Instantiate a new thread and an instance
         // of top hand for processing hands
         this.th = new TopHand();
-        this.texThread = new Timer(true);
+
+        this.t = new TurnTimer();
+
     }
 
     @Override
@@ -82,7 +89,7 @@ public class TexasPoker extends Observable implements Game
         // Add the players cards to the array containing the shared cards
         for (Player p : table.getSeats())
         {
-            if (p != null && p.isPlaying() )
+            if (p != null && p.isPlaying())
             {
                 cards[Process.HOLE_L] = p.getHand()[0];
                 cards[Process.HOLE_R] = p.getHand()[1];
@@ -115,21 +122,21 @@ public class TexasPoker extends Observable implements Game
         for (Player h : table.getSeats())
         {
             // fix the null pointer on first round fold:
-            if (h == null || !h.isPlaying()) 
-                {
-                    ++index; // index wasn't being incremented 
-                    continue;
-                }
-            
+            if (h == null || !h.isPlaying())
+            {
+                ++index; // index wasn't being incremented
+                continue;
+            }
+
             /**
-             *  this is the original:
-             *  
-             *  if(h == null || !h.isPlaying()) continue;
-             *  
-             *  so breaking out of the for loop skips incrementing 'index'
-             *  
+             * this is the original:
+             * 
+             * if(h == null || !h.isPlaying()) continue;
+             * 
+             * so breaking out of the for loop skips incrementing 'index'
+             * 
              */
-            
+
             // First iteration so best so far not set
             if (bestSoFar == null)
             {
@@ -577,12 +584,11 @@ public class TexasPoker extends Observable implements Game
             table.resetPot();
             // Deal the cards
             dealCards();
-            this.setChanged();      // added by mat, obviously these will be moved, just making sure we're all connected
-            this.notifyObservers(); // added by mat, obviously these will be moved, just making sure we're all connected
+            this.notifyObservers(this);
             firstIter = true;
-//            // Print header
-//            System.out.printf("%s\n%-10s\n%s\n", Const.BREAK, 
-//                    Const.SSTRING, Const.BREAK);
+            // // Print header
+            // System.out.printf("%s\n%-10s\n%s\n", Const.BREAK,
+            // Const.SSTRING, Const.BREAK);
             // Go through the stages of betting
             for (Bet stage : Bet.values())
             {
@@ -591,7 +597,7 @@ public class TexasPoker extends Observable implements Game
                 progress = false;
                 // Clean slate for new round of betting
                 table.resetBets();
-                // Loop for ensuring all players meet the minimum bet 
+                // Loop for ensuring all players meet the minimum bet
                 // requirements for the current round of betting
                 while (!progress)
                 {
@@ -616,11 +622,11 @@ public class TexasPoker extends Observable implements Game
                                 {
                                     getTable().getSeats()[index]
                                             .placeBet(Const.START_BLIND);
-                                    getTable().setCurrentBet(
-                                            Const.START_BLIND);
-//                                    System.out.println(table.getSeats()[index].getName() +
-//                                            " pays small blind of $" + 
-//                                            (int)Const.START_BLIND);
+                                    getTable().setCurrentBet(Const.START_BLIND);
+                                    // System.out.println(table.getSeats()[index].getName()
+                                    // +
+                                    // " pays small blind of $" +
+                                    // (int)Const.START_BLIND);
 
                                 }
                                 // pay big blind
@@ -630,14 +636,16 @@ public class TexasPoker extends Observable implements Game
                                             .placeBet(Const.START_BLIND * 2);
                                     getTable().setCurrentBet(
                                             Const.START_BLIND * 2);
-//                                    System.out.println(table.getSeats()[index].getName() +
-//                                            " pays small blind of $" 
-//                                            + (2 * (int)Const.START_BLIND));
+                                    // System.out.println(table.getSeats()[index].getName()
+                                    // +
+                                    // " pays small blind of $"
+                                    // + (2 * (int)Const.START_BLIND));
                                 }
-                                // only give players if blinds have been payed
+                                // only give players turn if blinds have been
+                                // payed
                                 else
                                 {
-                                    this.takeTurn(table.getSeats()[index]);
+                                    takeTurn(table.getSeats()[index]);
                                     this.notifyObservers(this);
                                 }
 
@@ -645,8 +653,9 @@ public class TexasPoker extends Observable implements Game
                             else
                             {
                                 // Let the player have there turn
-                                this.takeTurn(table.getSeats()[index]);
+                                takeTurn(table.getSeats()[index]);
                                 this.notifyObservers(this);
+
                             }
 
                         }
@@ -676,7 +685,7 @@ public class TexasPoker extends Observable implements Game
                                 progress = true;
                             }
                         }
-                        
+
                         // move to the next player
                         ++index;
                     }
@@ -726,27 +735,27 @@ public class TexasPoker extends Observable implements Game
                                 {
                                     c.show();
                                 }
-//                                System.out.println(p.toString());
+                                // System.out.println(p.toString());
                             }
                         }
-//                        System.out.println();
+                        // System.out.println();
                         break;
                 }
             }
-            
+
             try
             {
                 // Check for a winner of the pot
                 Player[] winners = checkForWinner();
                 // Account for split pot
                 int amount = table.getPot() / winners.length;
-//                System.out.println("Pot: " + amount + "\nWon by:");
+                // System.out.println("Pot: " + amount + "\nWon by:");
                 for (Player p : winners)
                 {
                     System.out.println(p.getName());
                     p.addCash(amount);
                 }
-//                System.out.println();
+                // System.out.println();
                 // move the dealer button
                 int button = table.getDealer() + 1;
                 table.setDealer(button);
@@ -760,18 +769,17 @@ public class TexasPoker extends Observable implements Game
         }
     }
 
-    
     public TopHand getTh()
     {
         return th;
     }
 
-    /**
-     * @return the texThread
+     /**
+     * @return the Timer for a human players turn
      */
-    public Timer getTimer()
+    public TurnTimer getTimer()
     {
-        return texThread;
+        return t;
     }
 
 }
