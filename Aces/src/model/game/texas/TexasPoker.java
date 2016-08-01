@@ -577,6 +577,8 @@ public class TexasPoker extends Observable implements Game
             table.resetPot();
             // Deal the cards
             dealCards();
+            this.setChanged();      // added by mat, obviously these will be moved, just making sure we're all connected
+            this.notifyObservers(); // added by mat, obviously these will be moved, just making sure we're all connected
             firstIter = true;
 //            // Print header
 //            System.out.printf("%s\n%-10s\n%s\n", Const.BREAK, 
