@@ -11,6 +11,7 @@ import java.awt.*;
 import javax.swing.*;
 import model.facade.AcesFacade;
 import model.game.RTM;
+import model.game.texas.TexasPoker;
 import view.screen.AbsGameScreen;
 import view.screen.SinglePlayerTexasScreen;
 import view.screen.StartScreen;
@@ -143,19 +144,25 @@ public class MainView extends JFrame
                 currentScreen.setVisible(false);
                 this.getContentPane().add(texasGameScreen, BorderLayout.CENTER);
                 this.texasGameScreen.setVisible(true);
-                //this.acesFacade.getGame().dealCards();
+                PokerGameScreen pokerScreen = (PokerGameScreen) this.texasGameScreen;
                 try
                 {
-                    this.acesFacade.getGame().play();
+                    TexasPoker game = (TexasPoker)this.acesFacade.getGame();
+                    game.addObserver(pokerScreen);
+                    game.play();
+
                 }
                 catch (RTM e)
                 {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
                 
-                PokerGameScreen pokerScreen = (PokerGameScreen) this.texasGameScreen;
-                pokerScreen.updateAllCells();
+                catch(Exception e)
+                {
+                    System.out.println("something exceptional happened...");
+                    System.out.println(e.getMessage()); 
+                    e.printStackTrace();
+                }
                 break;
             
             default :

@@ -366,7 +366,7 @@ public class PokerGameScreen extends AbsGameScreen implements Observer
      */
     public void updateUserHand()
     {
-        AbsCell userCell = cells.get("userCell");
+        AbsCell userCell = cells.get("userHandCell");
         userCell.refresh();
     }
 
@@ -488,6 +488,8 @@ public class PokerGameScreen extends AbsGameScreen implements Observer
     @Override
     public void update(Observable o, Object arg)
     {
+        this.removeAll();
+        this.load();
         this.updateAllCells();
         this.updateUserBalance();
         this.updateUserHand();
