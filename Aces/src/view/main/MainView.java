@@ -145,6 +145,7 @@ public class MainView extends JFrame
                 this.getContentPane().add(texasGameScreen, BorderLayout.CENTER);
                 this.texasGameScreen.setVisible(true);
                 PokerGameScreen pokerScreen = (PokerGameScreen) this.texasGameScreen;
+                //pokerScreen.load();
                 try
                 {
                     TexasPoker game = (TexasPoker)this.acesFacade.getGame();
