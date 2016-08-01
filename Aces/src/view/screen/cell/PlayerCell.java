@@ -58,6 +58,9 @@ public class PlayerCell extends AbsCell
      */
     public void drawCards()
     {
+        
+        this.removeAll();
+        
         JLabel cardImage1, cardImage2;
         ImageIcon card1, card2;
         String card1Path, card2Path;
@@ -91,8 +94,10 @@ public class PlayerCell extends AbsCell
             cardImage2.setIcon(card2);
         }
 
+        
         this.add(cardImage1);
         this.add(cardImage2);
+
     }
     
 //    public void setStatus(String status)

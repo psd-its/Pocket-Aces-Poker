@@ -36,6 +36,7 @@ public class CardDisplayCell extends AbsCell
     @Override
     public void refresh()
     {
+        this.removeAll();
         //String pathsep = File.pathSeparator;
         // dont try to draw if no card at index (hasn't been dealt yet)
         if(table.getCardsInPlay()[this.cardIndex] != null && table.getCardsInPlay()[this.cardIndex].isShowing())
@@ -60,6 +61,7 @@ public class CardDisplayCell extends AbsCell
      */
     private void drawCard(String s)
     {
+        this.removeAll();
         String path = mapper.map(s, "_2X");
         ImageIcon image = new ImageIcon(path);
         card.setIcon(image);

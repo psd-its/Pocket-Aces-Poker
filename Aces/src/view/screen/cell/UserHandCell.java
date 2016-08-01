@@ -17,13 +17,13 @@ import model.player.Player;
 public class UserHandCell extends AbsCell
 {
     private Player player;
-    //private CardMapper mapper;
+    private CardMapper mapper;
     
     public UserHandCell(AcesFacade facade, Player player)
     {
         super(facade);
         this.player = player;
-        //this.mapper = new CardMapper();
+        this.mapper = new CardMapper();
     }
 
     @Override
@@ -41,6 +41,7 @@ public class UserHandCell extends AbsCell
      */
     private void drawCards()
     {   
+        this.removeAll();
         String card1Path, card2Path;
         JLabel card1Label, card2Label;
         ImageIcon card1Image, card2Image;
