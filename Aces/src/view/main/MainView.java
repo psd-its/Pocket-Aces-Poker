@@ -11,6 +11,7 @@ import java.awt.*;
 import javax.swing.*;
 import model.facade.AcesFacade;
 import model.game.RTM;
+import model.game.texas.TexasGameWorker;
 import model.game.texas.TexasPoker;
 import view.screen.AbsGameScreen;
 import view.screen.SinglePlayerTexasScreen;
@@ -143,19 +144,17 @@ public class MainView extends JFrame
                 this.texasGameScreen.load();
                 currentScreen.setVisible(false);
                 this.getContentPane().add(texasGameScreen, BorderLayout.CENTER);
-                this.texasGameScreen.setVisible(true);
+                //this.texasGameScreen.setVisible(true);
                 PokerGameScreen pokerScreen = (PokerGameScreen) this.texasGameScreen;
-                //pokerScreen.load();
+                pokerScreen.load();
+                pokerScreen.setVisible(true);
                 try
                 {
                     TexasPoker game = (TexasPoker)this.acesFacade.getGame();
                     game.addObserver(pokerScreen);
-                    game.play();
-
-                }
-                catch (RTM e)
-                {
-                    e.printStackTrace();
+                    //game.play();
+                    TexasGameWorker gameWorker = new TexasGameWorker(game);
+                    gameWorker.execute();
                 }
                 
                 catch(Exception e)
