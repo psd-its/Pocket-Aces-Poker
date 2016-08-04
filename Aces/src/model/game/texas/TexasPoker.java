@@ -648,6 +648,7 @@ public class TexasPoker extends Observable implements Game
                                 else
                                 {
                                     takeTurn(table.getSeats()[index]);
+                                    this.setChanged();
                                     this.notifyObservers(this);
                                 }
 
@@ -656,6 +657,7 @@ public class TexasPoker extends Observable implements Game
                             {
                                 // Let the player have there turn
                                 takeTurn(table.getSeats()[index]);
+                                this.setChanged();
                                 this.notifyObservers(this);
 
                             }

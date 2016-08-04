@@ -81,6 +81,7 @@ public class PokerGameScreen extends AbsGameScreen implements Observer
         // Think this is cleaner mat change if you see fit
         controller.setUser(super.getFacade().getPlayer(0));
         allocateGrid();
+    
     }
 
     /**
@@ -345,6 +346,7 @@ public class PokerGameScreen extends AbsGameScreen implements Observer
     {
         AbsCell pot = cells.get("potCell");
         pot.refresh();
+       
     }
 
     /**
@@ -359,6 +361,7 @@ public class PokerGameScreen extends AbsGameScreen implements Observer
         String player = "player" + playerNum;
         AbsCell playerCell = cells.get(player);
         playerCell.refresh();
+        
     }
 
     /**
@@ -368,6 +371,7 @@ public class PokerGameScreen extends AbsGameScreen implements Observer
     {
         AbsCell userCell = cells.get("userHandCell");
         userCell.refresh();
+       
     }
 
     /**
@@ -377,6 +381,7 @@ public class PokerGameScreen extends AbsGameScreen implements Observer
     {
         AbsCell cell = cells.get("userInfoCell");
         cell.refresh();
+                
     }
 
     /**
@@ -489,11 +494,14 @@ public class PokerGameScreen extends AbsGameScreen implements Observer
     public void update(Observable o, Object arg)
     {
         this.removeAll();
+        
         this.load();
         this.updateAllCells();
         this.updateUserBalance();
         this.updateUserHand();
-        this.revalidate();
+        
+        this.validate();
+        
         this.repaint();
     }
 }
