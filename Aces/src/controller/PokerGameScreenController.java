@@ -60,7 +60,7 @@ public class PokerGameScreenController implements ActionListener
                 synchronized (t)
                 {
                     t.cancelTask();
-                    notifyAll();
+                    t.notifyAll();
                 }
             }
         }
@@ -74,7 +74,7 @@ public class PokerGameScreenController implements ActionListener
             synchronized (t)
             {
                 t.cancelTask();
-                notifyAll();
+                t.notifyAll();
             }
 
         }
@@ -88,7 +88,7 @@ public class PokerGameScreenController implements ActionListener
             synchronized (t)
             {
                 t.cancelTask();
-                notifyAll();
+                t.notify();
             }
 
         }
@@ -111,7 +111,7 @@ public class PokerGameScreenController implements ActionListener
                 synchronized (t)
                 {
                     t.cancelTask();
-                    notifyAll();
+                    t.notifyAll();
                 }
 
             }
