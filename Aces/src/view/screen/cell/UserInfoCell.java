@@ -13,8 +13,14 @@ public class UserInfoCell extends AbsCell
     {
         super(facade);
         this.player = player;
-        this.name = new JLabel(player.getName());
-        this.balance = new JLabel(Integer.toString(player.getBalance()));
+        //this.name = new JLabel(player.getName());
+        //this.balance = new JLabel(Integer.toString(player.getBalance()));
+        
+        String nameText = this.player.getName() + " ";
+        String balanceText = "$" + Integer.toString(this.player.getBalance());
+        
+        this.name = new JLabel(nameText);
+        this.balance = new JLabel(balanceText);
         
         this.add(name);
         this.add(balance);
@@ -23,6 +29,6 @@ public class UserInfoCell extends AbsCell
     @Override
     public void refresh()
     {
-        this.balance.setText(Integer.toString(this.player.getBalance()));
+        this.balance.setText("$" + Integer.toString(this.player.getBalance()));
     }
 }
