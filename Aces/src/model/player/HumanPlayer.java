@@ -1,14 +1,20 @@
 package model.player;
 
+import java.io.Serializable;
 import java.util.Timer;
 
 import model.game.Game;
 import model.game.RTM;
 
-public class HumanPlayer extends AbsPlayer
+public class HumanPlayer extends AbsPlayer implements Serializable
 {
 
     // Currently set for console play;
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -9068942747924325632L;
 
     public HumanPlayer(String name)
     {
