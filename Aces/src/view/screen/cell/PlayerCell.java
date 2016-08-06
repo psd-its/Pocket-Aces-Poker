@@ -18,7 +18,6 @@ import model.player.Player;
 
 public class PlayerCell extends AbsCell
 {
-    private JLabel nameLabel, statusLabel, balanceLabel;
     private Player player;
     private CardMapper mapper;
     
@@ -28,21 +27,16 @@ public class PlayerCell extends AbsCell
         
         this.player = player;
         this.mapper = new CardMapper();
-        
-        GridBagConstraints c = new GridBagConstraints();
-        
-        this.nameLabel = new JLabel(player.getName());
-        this.balanceLabel = new JLabel(Integer.toString(player.getBalance()));
-        
-        this.add(nameLabel);
-        this.add(balanceLabel);
     }
 
     @Override
     public void refresh()
     {
+        // clear the container
+        this.removeAll();
+        
         // write labels
-        this.balanceLabel.setText(Integer.toString(player.getBalance()));
+        drawPlayerInfo();
         //this.statusLabel.setText(status);
         
         // only draw cards if player has a hand
@@ -53,20 +47,36 @@ public class PlayerCell extends AbsCell
     }
     
     /**
+     * Draws player's info, their name and balance.
+     */
+    private void drawPlayerInfo()
+    {
+        // building the label, used html to add some basic styling
+        String nameBalanceText = "<html><div style='text-align: center;'>" + 
+                                 this.player.getName() + "<br/><br/>" + "$" + 
+                                 Integer.toString(this.player.getBalance()) + 
+                                 "</div></html>";
+        JLabel nameBalanceLabel = new JLabel(nameBalanceText);
+        
+        // adding some internal padding
+        GridBagConstraints c = new GridBagConstraints();
+        c.ipadx = 20;
+        c.ipady = 20;
+        
+        this.add(nameBalanceLabel, c);
+    }
+    
+    /**
      * Draws to card backs if the player has a hand. Draw card front if player's
      * hand is visible.
      */
     public void drawCards()
     {
-        
-        this.removeAll();
-        
         JLabel cardImage1, cardImage2;
         ImageIcon card1, card2;
         String card1Path, card2Path;
         cardImage1 = new JLabel();
         cardImage2 = new JLabel();
-        
         
         if(this.player.getHand()[0].isShowing() && this.player.getHand()[0] != null)
         {
