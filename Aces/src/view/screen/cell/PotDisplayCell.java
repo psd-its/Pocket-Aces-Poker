@@ -12,16 +12,21 @@ import model.facade.AcesFacade;
 
 public class PotDisplayCell extends AbsCell
 {
-    private final String text = "Pot";
+    private final String text = "Pot $";
     private int potSize;
     private JLabel textLabel, potSizeLabel;
 
     public PotDisplayCell(AcesFacade facade, int potSize)
     {
         super(facade);
+        
         this.potSize = potSize;
         this.textLabel = new JLabel(text);
         this.potSizeLabel = new JLabel(Integer.toString(potSize));
+        
+        // set larger font
+        this.textLabel.setFont(textLabel.getFont().deriveFont(30.0f));
+        this.potSizeLabel.setFont(potSizeLabel.getFont().deriveFont(30.0f));
         
         this.add(textLabel);
         this.add(potSizeLabel);
