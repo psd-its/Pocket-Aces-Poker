@@ -33,6 +33,7 @@ public class TexasPoker extends Observable implements Game, Serializable
     private static final long serialVersionUID = -8615017059418596549L;
     private TopHand th;
     private Table table;
+    private Player currentPlayer; 
     // static CyclicBarrier bar;
     private TurnTimer t;
 

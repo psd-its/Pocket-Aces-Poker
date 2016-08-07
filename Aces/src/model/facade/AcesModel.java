@@ -1,5 +1,6 @@
 package model.facade;
 
+import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -8,8 +9,12 @@ import model.game.RTM;
 import model.player.Player;
 import model.table.TableFull;
 
-public class AcesModel implements AcesFacade
+public class AcesModel implements AcesFacade, Serializable
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -5824985898074149179L;
     private Game game;
 
     public AcesModel()

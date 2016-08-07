@@ -6,13 +6,17 @@ import java.io.ObjectOutputStream;
 
 import javax.net.ssl.SSLSocket;
 
+import model.facade.AcesFacade;
+
 public class SocketThread implements Runnable
 {
     private SSLSocket client;
-    public SocketThread(SSLSocket client)
+    private AcesFacade model;
+    public SocketThread(SSLSocket client, AcesFacade facade)
     {
         // TODO Auto-generated constructor stub
         this.client = client;
+        this.model = facade;
     }
 
     @Override

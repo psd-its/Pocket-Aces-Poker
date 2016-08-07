@@ -6,6 +6,9 @@ import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSocket;
 
+import model.facade.AcesFacade;
+import model.facade.AcesModel;
+
 public class PokerServer
 {
 
@@ -17,11 +20,12 @@ public class PokerServer
     public static void main(String[] args)
     {
         // TODO Auto-generated method stub
+        AcesFacade facade = new AcesModel();
         SSLServerSocket server = null;
         SSLSocket socket = null;
         try
         {
-            // Get default SSL seting for the server
+            // Get default SSL setting for the server
             SSLServerSocketFactory factory = (SSLServerSocketFactory) 
                     SSLServerSocketFactory.getDefault();
             // Create a secure server socket on the specified port
@@ -39,7 +43,7 @@ public class PokerServer
                     e.printStackTrace();
                 }
                 // Put client socket on its own thread
-                new Thread(new SocketThread(socket)).start();
+                new Thread(new SocketThread(socket, facade)).start();
             }
         }
         catch(IOException e)

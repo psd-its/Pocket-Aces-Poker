@@ -21,11 +21,11 @@ import view.screen.SinglePlayerTexasScreen;
 public class SingleTexasSetupController extends AbsGameSetupController
 {
     // Instance of the screen that implements observer
-    private Observer observer;
+    //private Observer observer;
     public SingleTexasSetupController(AbsGameScreen gameSetupScreen)
     {
         super(gameSetupScreen);
-        this.observer = (Observer) gameSetupScreen.getMainView().getGameScreen();
+        //this.observer = (Observer) gameSetupScreen.getMainView().getGameScreen();
     }
 
     @Override
