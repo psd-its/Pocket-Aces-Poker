@@ -84,7 +84,7 @@ public class NewGameSetupController extends AbsNewGameController
                 // Create the player
                 Player newPlayer = new HumanPlayer(super.getNameInput());
                 // instantiate the client
-                PokerClient client = new PokerClient(newPlayer);
+                PokerClient client = new PokerClient(super.getMainView(), newPlayer);
                 // join the server
                 client.join();
                 // switch screen

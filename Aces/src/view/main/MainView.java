@@ -184,4 +184,10 @@ public class MainView extends JFrame
     {
         return texasGameScreen;
     }
+    
+    // Added a setter for the facade to facilitate multi-player
+    public void setFacade(AcesFacade facade)
+    {
+        this.acesFacade = facade;
+    }
 }

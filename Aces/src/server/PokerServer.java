@@ -8,6 +8,8 @@ import javax.net.ssl.SSLSocket;
 
 import model.facade.AcesFacade;
 import model.facade.AcesModel;
+import model.game.texas.TexasPoker;
+import model.table.TexasTable;
 
 public class PokerServer
 {
@@ -21,6 +23,8 @@ public class PokerServer
     {
         // TODO Auto-generated method stub
         AcesFacade facade = new AcesModel();
+        facade.createGame(new TexasPoker());
+        facade.getGame().addTable(new TexasTable());
         SSLServerSocket server = null;
         SSLSocket socket = null;
         try

@@ -4,7 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import model.facade.AcesFacade;
-
+/**
+ * @deprecated
+ */
 public class PlayerScreenController implements ActionListener
 {
     private AcesFacade facade;

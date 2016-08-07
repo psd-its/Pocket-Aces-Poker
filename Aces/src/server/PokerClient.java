@@ -10,6 +10,7 @@ import javax.net.ssl.SSLSocketFactory;
 
 import model.facade.AcesFacade;
 import model.player.Player;
+import view.main.MainView;
 
 public class PokerClient
 {
@@ -18,10 +19,11 @@ public class PokerClient
     private AcesFacade model;
     private ObjectInputStream in;
     private ObjectOutputStream out;
-    public PokerClient(Player player)
+    private MainView view;
+    public PokerClient(MainView view, Player player)
     {
         // TODO Auto-generated constructor stub
-        
+        this.view = view;
         this.player = player;
         this.model = null;
         this.in = null;
@@ -40,11 +42,17 @@ public class PokerClient
                     SSLSocketFactory.getDefault();
             socket = (SSLSocket) factory.createSocket(ServerConst.TITAN,
                     ServerConst.PORT);
+            // open streams
             in = new ObjectInputStream(socket.getInputStream());
             out = new ObjectOutputStream(socket.getOutputStream());
+            /// get the facade from the server
             while(model == null)
             {
                 model = (AcesFacade) in.readObject();
+                if (model != null)
+                {
+                    view.setFacade(model);
+                }
             }
         }
         catch (UnknownHostException e)

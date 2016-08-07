@@ -29,6 +29,7 @@ public class SocketThread implements Runnable
         {
             ostream = new ObjectOutputStream(client.getOutputStream());
             istream = new ObjectInputStream(client.getInputStream());
+            ostream.writeObject(model);
         }
         catch (IOException e)
         {
