@@ -8,8 +8,14 @@
 
 package view.screen;
 
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
+import java.awt.Image;
 import java.awt.Insets;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -54,6 +60,25 @@ public class SinglePlayerTexasScreen extends AbsGameScreen
         this.setVisible(false);
         this.controller = new SingleTexasSetupController(this);
     }
+    
+    /**
+     * This method loads the background image for this screen.
+     */
+    @Override
+    protected void paintComponent(Graphics g) {
+        Image bgImage = null;
+        try
+        {
+            bgImage = ImageIO.read(new File("src/assets/BG_ORANGE_L.png"));
+        }
+        catch (IOException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        super.paintComponent(g);
+            g.drawImage(bgImage, 0, 0, null);
+  }
     
     /**
      * Method to perform the actions we couldn't do in constructor because
