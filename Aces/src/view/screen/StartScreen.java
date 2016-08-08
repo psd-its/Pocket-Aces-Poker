@@ -12,6 +12,10 @@
 
 package view.screen;
 
+import java.io.*;
+import java.awt.*;
+import javax.imageio.*;
+import java.awt.image.*;
 import java.awt.Insets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -94,6 +98,25 @@ public class StartScreen extends AbsGameScreen
         String gameType = String.valueOf(this.selectGameDropdown.getSelectedItem());
         
         return gameType;
+    }
+
+    /**
+     * This method loads the background image for this screen.
+     */
+    @Override
+    protected void paintComponent(Graphics g) {
+        Image bgImage = null;
+        try
+        {
+            bgImage = ImageIO.read(new File("src/assets/BG_BLUE_L.png"));
+        }
+        catch (IOException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        super.paintComponent(g);
+            g.drawImage(bgImage, 0, 0, null);
     }
 
     @Override
