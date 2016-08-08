@@ -48,7 +48,7 @@ public class MainView extends JFrame
         this.setLookAndFeel();
         
         // main window size
-        this.setSize(1400, 800);
+        this.setSize(1400, 1050);
         
         // main window location
         this.setWindowLocation();
