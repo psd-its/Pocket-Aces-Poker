@@ -23,6 +23,7 @@ package view.screen;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.Image;
@@ -90,7 +91,8 @@ public class PokerGameScreen extends AbsGameScreen implements Observer
             e.printStackTrace();
         }
         super.paintComponent(g);
-            g.drawImage(bgImage, 0, 0, null);
+            Dimension d = getSize();
+            g.drawImage(bgImage, 0, 0, d.width, d.height, null);
   }
 
     /**

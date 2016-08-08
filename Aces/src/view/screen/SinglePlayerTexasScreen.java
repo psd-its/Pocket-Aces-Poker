@@ -8,6 +8,7 @@
 
 package view.screen;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.Image;
@@ -77,7 +78,8 @@ public class SinglePlayerTexasScreen extends AbsGameScreen
             e.printStackTrace();
         }
         super.paintComponent(g);
-            g.drawImage(bgImage, 0, 0, null);
+            Dimension d = getSize();
+            g.drawImage(bgImage, 0, 0, d.width, d.height, null);
   }
     
     /**

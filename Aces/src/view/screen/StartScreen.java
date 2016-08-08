@@ -116,7 +116,8 @@ public class StartScreen extends AbsGameScreen
             e.printStackTrace();
         }
         super.paintComponent(g);
-            g.drawImage(bgImage, 0, 0, null);
+            Dimension d = getSize();
+            g.drawImage(bgImage, 0, 0, d.width, d.height, null);
     }
 
     @Override
