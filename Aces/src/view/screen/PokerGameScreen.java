@@ -70,6 +70,25 @@ public class PokerGameScreen extends AbsGameScreen implements Observer
     }
 
     /**
+     * This method loads the background image for this screen.
+     */
+    @Override
+    protected void paintComponent(Graphics g) {
+        Image bgImage = null;
+        try
+        {
+            bgImage = ImageIO.read(new File("src/assets/BG_GAMESCREEN_L.png"));
+        }
+        catch (IOException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        super.paintComponent(g);
+            g.drawImage(bgImage, 0, 0, null);
+  }
+
+    /**
      * Loads grid, buttons etc.
      */
     @Override
