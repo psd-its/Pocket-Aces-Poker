@@ -3,9 +3,10 @@
  */
 package model.card;
 
+import java.io.Serializable;
 import java.util.List;
 
-public interface Process
+public interface Process extends Serializable
 {
     public static final int HAND = 4; 
     public static final int START = 12; 

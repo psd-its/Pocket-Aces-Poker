@@ -1,9 +1,10 @@
 package server;
 
 import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 
-import javax.net.ssl.SSLServerSocket;
-import javax.net.ssl.SSLServerSocketFactory;
+import javax.net.ServerSocketFactory;
 import javax.net.ssl.SSLSocket;
 
 import model.facade.AcesFacade;
@@ -13,34 +14,28 @@ import model.table.TexasTable;
 
 public class PokerServer
 {
-
-    public PokerServer()
-    {
-        // TODO Auto-generated constructor stub
-    }
-
     public static void main(String[] args)
     {
         // TODO Auto-generated method stub
         AcesFacade facade = new AcesModel();
         facade.createGame(new TexasPoker());
         facade.getGame().addTable(new TexasTable());
-        SSLServerSocket server = null;
-        SSLSocket socket = null;
+        ServerSocket server = null;
+        Socket socket = null;
         try
         {
             // Get default SSL setting for the server
-            SSLServerSocketFactory factory = (SSLServerSocketFactory) 
-                    SSLServerSocketFactory.getDefault();
+            ServerSocketFactory factory = (ServerSocketFactory) 
+                    ServerSocketFactory.getDefault();
             // Create a secure server socket on the specified port
-            server = (SSLServerSocket) 
+            server = (ServerSocket) 
                     factory.createServerSocket(ServerConst.PORT);
             while(true)
             {
                 try
                 {
                     // Accept client socket
-                    socket = (SSLSocket) server.accept();
+                    socket = (Socket) server.accept();
                 }
                 catch(IOException e)
                 {

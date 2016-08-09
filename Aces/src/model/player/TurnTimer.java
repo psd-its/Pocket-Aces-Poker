@@ -1,11 +1,16 @@
 package model.player;
 
+
+import java.io.Serializable;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class TurnTimer extends Timer
+public class TurnTimer extends Timer implements Serializable 
 {
-
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private Runnable task;
     private TimerTask timerTask;
 

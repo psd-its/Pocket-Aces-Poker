@@ -3,6 +3,7 @@
  */
 package model.facade;
 
+import java.io.Serializable;
 import java.util.Observer;
 
 import model.game.Game;
@@ -14,7 +15,7 @@ import model.table.TableFull;
  * @author Tristan s3528615
  *
  */
-public interface AcesFacade
+public interface AcesFacade extends Serializable
 {
     /**
      * Create a version of poker to play

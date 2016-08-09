@@ -3,7 +3,7 @@
  */
 package model.game;
 
-import java.util.concurrent.CyclicBarrier;
+import java.io.Serializable;
 
 import model.card.TopHand;
 import model.player.Player;
@@ -15,7 +15,7 @@ import model.table.TableFull;
  * @author Tristan s3528615
  *
  */
-public interface Game
+public interface Game extends Serializable
 {    
     /**
      * Add a concrete Table class for the version

@@ -25,12 +25,12 @@ import model.table.TableFull;
  * @author Tristan s3528615
  * 
  */
-public class TexasPoker extends Observable implements Game, Serializable
+public class TexasPoker extends Observable implements Game
 {
     /**
      * 
      */
-    private static final long serialVersionUID = -8615017059418596549L;
+    private static final long serialVersionUID = 3646392568658961652L;
     private TopHand th;
     private Table table;
     private Player currentPlayer; 

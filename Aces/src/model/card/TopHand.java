@@ -6,6 +6,11 @@ import java.util.List;
 
 public class TopHand implements Process
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -613040525077272260L;
+
     // Constructor
     public TopHand()
     {

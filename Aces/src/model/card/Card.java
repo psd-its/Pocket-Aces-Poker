@@ -1,7 +1,9 @@
 package model.card;
 
+import java.io.Serializable;
 
-public class Card
+
+public class Card implements Serializable
 {
     // types are defined as enums
     private Suit suit;

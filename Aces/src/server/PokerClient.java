@@ -3,10 +3,11 @@ package server;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.net.UnknownHostException;
 
+import javax.net.SocketFactory;
 import javax.net.ssl.SSLSocket;
-import javax.net.ssl.SSLSocketFactory;
 
 import model.facade.AcesFacade;
 import model.player.Player;
@@ -14,7 +15,7 @@ import view.main.MainView;
 
 public class PokerClient
 {
-    private SSLSocket socket;
+    private Socket socket;
     private Player player;
     private AcesFacade model;
     private ObjectInputStream in;
@@ -38,9 +39,9 @@ public class PokerClient
         try
         {
             // Join the server
-            SSLSocketFactory factory = (SSLSocketFactory) 
-                    SSLSocketFactory.getDefault();
-            socket = (SSLSocket) factory.createSocket(ServerConst.TITAN,
+            SocketFactory factory = (SocketFactory) 
+                    SocketFactory.getDefault();
+            socket = (Socket) factory.createSocket(ServerConst.LOCAL,
                     ServerConst.PORT);
             // open streams
             in = new ObjectInputStream(socket.getInputStream());

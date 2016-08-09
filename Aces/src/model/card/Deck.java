@@ -1,12 +1,18 @@
 package model.card;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author Tristan s3528615
  *
  */
-public class Deck
+public class Deck implements Serializable
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 7030907506729754051L;
     private Card[] cards;
     // Constructor
     public Deck()

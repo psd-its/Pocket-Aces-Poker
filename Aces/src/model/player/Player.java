@@ -3,7 +3,7 @@
  */
 package model.player;
 
-import java.util.concurrent.CyclicBarrier;
+import java.io.Serializable;
 
 import model.card.Card;
 import model.card.Face;
@@ -18,7 +18,7 @@ import model.table.Table;
  * @author Tristan s3528615
  *
  */
-public interface Player 
+public interface Player extends Serializable
 {
     /**
      * Constant for starting balance

@@ -1,7 +1,5 @@
 package model.player;
 
-import java.util.TimerTask;
-
 import model.card.Card;
 import model.card.Face;
 import model.card.Tup;
@@ -10,6 +8,11 @@ import model.table.Table;
 
 public abstract class AbsPlayer implements Player, Runnable
 {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     // This holds the amount the player has staked
     // in the current round of betting. It is moved into the
     // pot before the next round of betting starts

@@ -1,10 +1,12 @@
 package model.table;
 
+import java.io.Serializable;
+
 import model.card.Card;
 import model.card.Deck;
 import model.player.Player;
 
-public interface Table
+public interface Table extends Serializable
 {
     //table constants
     public static final int MAX_PLAYERS = 10;

@@ -11,6 +11,10 @@ import model.player.Player;
  */
 public class TexasTable extends AbsTable
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private int playersAtTable;
     private Card cardsInPlay[];
     private int playersDealt;

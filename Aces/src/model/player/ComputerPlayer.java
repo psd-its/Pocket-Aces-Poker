@@ -1,18 +1,15 @@
 package model.player;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.BrokenBarrierException;
-
 import model.Rand;
-import model.card.Card;
-import model.card.Process;
-import model.card.WinningHands;
 import model.game.Game;
-import model.table.Table;
 
 public class ComputerPlayer extends AbsPlayer 
 {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
     public ComputerPlayer(String name)
     {

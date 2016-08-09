@@ -3,6 +3,7 @@ package server;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.Socket;
 
 import javax.net.ssl.SSLSocket;
 
@@ -10,9 +11,9 @@ import model.facade.AcesFacade;
 
 public class SocketThread implements Runnable
 {
-    private SSLSocket client;
+    private Socket client;
     private AcesFacade model;
-    public SocketThread(SSLSocket client, AcesFacade facade)
+    public SocketThread(Socket client, AcesFacade facade)
     {
         // TODO Auto-generated constructor stub
         this.client = client;
