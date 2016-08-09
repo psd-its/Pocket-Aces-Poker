@@ -1,5 +1,7 @@
 package view.screen.cell;
 
+import java.awt.Color;
+
 import javax.swing.JLabel;
 import model.facade.AcesFacade;
 import model.player.Player;
@@ -21,6 +23,11 @@ public class UserInfoCell extends AbsCell
         
         this.name = new JLabel(nameText);
         this.balance = new JLabel(balanceText);
+        
+        this.name.setForeground(Color.LIGHT_GRAY);
+        this.balance.setForeground(Color.LIGHT_GRAY);
+        this.name.setFont(name.getFont().deriveFont(18.0f));
+        this.balance.setFont(balance.getFont().deriveFont(18.0f));
         
         this.add(name);
         this.add(balance);

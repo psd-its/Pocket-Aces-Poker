@@ -7,6 +7,7 @@
  */
 package view.screen.cell;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 
 import javax.swing.ImageIcon;
@@ -53,10 +54,12 @@ public class PlayerCell extends AbsCell
     {
         // building the label, used html to add some basic styling
         String nameBalanceText = "<html><div style='text-align: center;'>" + 
-                                 this.player.getName() + "<br/><br/>" + "$" + 
+                                 this.player.getName() + "<br/>" + "$" + 
                                  Integer.toString(this.player.getBalance()) + 
                                  "</div></html>";
         JLabel nameBalanceLabel = new JLabel(nameBalanceText);
+        nameBalanceLabel.setForeground(Color.LIGHT_GRAY);
+        nameBalanceLabel.setFont(nameBalanceLabel.getFont().deriveFont(18.0f));
         
         // adding some internal padding
         GridBagConstraints c = new GridBagConstraints();

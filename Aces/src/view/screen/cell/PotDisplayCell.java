@@ -7,6 +7,8 @@
 
 package view.screen.cell;
 
+import java.awt.Color;
+
 import javax.swing.JLabel;
 import model.facade.AcesFacade;
 
@@ -27,6 +29,8 @@ public class PotDisplayCell extends AbsCell
         // set larger font
         this.textLabel.setFont(textLabel.getFont().deriveFont(30.0f));
         this.potSizeLabel.setFont(potSizeLabel.getFont().deriveFont(30.0f));
+        this.textLabel.setForeground(Color.LIGHT_GRAY);
+        this.potSizeLabel.setForeground(Color.LIGHT_GRAY);
         
         this.add(textLabel);
         this.add(potSizeLabel);
