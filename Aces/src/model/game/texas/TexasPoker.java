@@ -652,8 +652,18 @@ public class TexasPoker extends Observable implements Game, Serializable
                                 else
                                 {
                                     takeTurn(table.getSeats()[index]);
+                                    
+                                    // added pause between players bets
                                     this.setChanged();
                                     this.notifyObservers(this);
+                                    try
+                                    {
+                                        Thread.sleep(1000);
+                                    }
+                                    catch (InterruptedException e)
+                                    {
+                                        e.printStackTrace();
+                                    }
                                 }
 
                             }
@@ -661,9 +671,18 @@ public class TexasPoker extends Observable implements Game, Serializable
                             {
                                 // Let the player have there turn
                                 takeTurn(table.getSeats()[index]);
+                                
+                                // added pause between players bets
                                 this.setChanged();
                                 this.notifyObservers(this);
-
+                                try
+                                {
+                                    Thread.sleep(1000);
+                                }
+                                catch (InterruptedException e)
+                                {
+                                    e.printStackTrace();
+                                }
                             }
 
                         }
@@ -763,6 +782,23 @@ public class TexasPoker extends Observable implements Game, Serializable
                     System.out.println(p.getName());
                     p.addCash(amount);
                 }
+                
+                // ADDED BY MAT
+                for (Player p : table.getSeats())
+                {
+                    if (p != null)
+                    {
+                        for (Card c : p.getHand())
+                        {
+                            c.show();
+                        }
+                    }
+                }
+                this.setChanged();
+                this.notifyObservers(this);
+                Thread.sleep(4000);
+                // END ADDED BY MAT
+                
                 // System.out.println();
                 // move the dealer button
                 int button = table.getDealer() + 1;
