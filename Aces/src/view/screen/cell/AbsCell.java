@@ -27,12 +27,13 @@ public abstract class AbsCell extends JPanel
         this.facade = facade;
         this.mapper = new CardMapper();
         this.setOpaque(false);
+        this.setDoubleBuffered(true);
     }
     
     public AcesFacade getFacade()
     {
         return this.facade;
     }
-
+    
     public abstract void refresh();
 }

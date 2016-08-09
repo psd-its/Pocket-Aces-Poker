@@ -29,6 +29,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import controller.PokerGameScreenController;
 import model.facade.AcesFacade;
+import model.game.texas.TexasPoker;
 import model.player.Player;
 import view.main.MainView;
 import view.screen.cell.AbsCell;
@@ -329,6 +330,7 @@ public class PokerGameScreen extends AbsGameScreen implements Observer
 
         // 6x6 - Raise input field
         this.raiseInput = new JTextArea(1, 10);
+        this.raiseInput.setDoubleBuffered(true);
         pane = createEmptyPane();
         pane.add(this.raiseInput);
         // c.gridx = 5;
@@ -508,15 +510,32 @@ public class PokerGameScreen extends AbsGameScreen implements Observer
     @Override
     public void update(Observable o, Object arg)
     {
+        // build fresh screen
+        PokerGameScreen nextIteration = new PokerGameScreen(this.mainView, this.facade);
+        TexasPoker game = (TexasPoker)this.facade.getGame();
+        game.addObserver(nextIteration);
+        game.deleteObserver(this);
+        
+        // load fresh screens cells etc
+        nextIteration.load();
+        nextIteration.updateAllCells();
+        nextIteration.updateUserBalance();
+        nextIteration.updateUserHand();
+
+        // add fresh screen to main view
+        nextIteration.mainView.getContentPane().add(nextIteration, BorderLayout.CENTER); 
+        
+        // make fresh screen visible
+        nextIteration.setVisible(true);
+        this.setVisible(false);
         this.removeAll();
-        
-        this.load();
-        this.updateAllCells();
-        this.updateUserBalance();
-        this.updateUserHand();
-        
-        this.validate();
-        
-        this.repaint();
+//        
+//        this.load();
+//        this.updateAllCells();
+//        this.updateUserBalance();
+//        this.updateUserHand();
+//        
+//        this.revalidate();
+//        this.repaint();
     }
 }
