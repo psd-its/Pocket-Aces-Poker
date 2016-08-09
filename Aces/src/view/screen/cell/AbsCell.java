@@ -26,6 +26,7 @@ public abstract class AbsCell extends JPanel
         //this.setBorder(BorderFactory.createLineBorder(Color.black));
         this.facade = facade;
         this.mapper = new CardMapper();
+        this.setOpaque(false);
     }
     
     public AcesFacade getFacade()

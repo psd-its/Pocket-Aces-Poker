@@ -4,18 +4,6 @@
  * will fit the layout designed by Manuel. This is a quick and dirty implementation
  * for now just to see that all the panels etc are playing together nicely.
  * 
- * We'll need to add specific names to the cells (except the empty ones) like
- * displayCard1Cell or player6Cell, so we can update them from the controller, 
- * all the ones here so far are nameless.
- * 
- * TODO
- * Instance variables for all panes we'll need to update.
- * Finish createUserPane()
- * Finish createPlayerPane()
- * Add action listener (controller) to buttons.
- * Remove borders when we're happy with where everything is sitting.
- * Add graphics.
- * 
  * @author Mathew Harrington
  */
 
@@ -503,6 +491,7 @@ public class PokerGameScreen extends AbsGameScreen implements Observer
         JPanel buttonPane = createEmptyPane();
         JButton button = new JButton(buttonName);
         button.addActionListener(controller);
+        buttonPane.setOpaque(false);
 
         buttonPane.add(button);
         return buttonPane;
