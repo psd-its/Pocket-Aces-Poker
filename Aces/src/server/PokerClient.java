@@ -5,12 +5,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Observer;
 
 import javax.net.SocketFactory;
-import javax.net.ssl.SSLSocket;
 
 import model.facade.AcesFacade;
 import model.player.Player;
+import model.table.TableFull;
 import view.main.MainView;
 
 public class PokerClient
@@ -53,6 +54,7 @@ public class PokerClient
                 if (model != null)
                 {
                     view.setFacade(model);
+                    view.getFacade().addPlayer(player, (Observer) view.getGameScreen());
                 }
             }
         }
@@ -71,6 +73,12 @@ public class PokerClient
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        catch (TableFull e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
         
     }
 
