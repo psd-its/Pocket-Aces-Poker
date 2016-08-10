@@ -8,7 +8,7 @@ public interface ServerConst
     /**
      * Constant for the port the game is run on
      */
-    public static final int PORT = 8615;
+    public static final int PORT = 28615;
     
     /**
      * Constant for local hosting
@@ -18,5 +18,5 @@ public interface ServerConst
     /** 
      * Constant for core-teaching server address
      */
-    public static final String TITAN = "titan.csit.rimt.edu.au";
+    public static final String TITAN = "titan.csit.rmit.edu.au";
 }

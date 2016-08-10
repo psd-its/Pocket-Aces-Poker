@@ -42,7 +42,7 @@ public class PokerClient
             // Join the server
             SocketFactory factory = (SocketFactory) 
                     SocketFactory.getDefault();
-            socket = (Socket) factory.createSocket(ServerConst.LOCAL,
+            socket = (Socket) factory.createSocket(ServerConst.TITAN,
                     ServerConst.PORT);
             // open streams
             in = new ObjectInputStream(socket.getInputStream());

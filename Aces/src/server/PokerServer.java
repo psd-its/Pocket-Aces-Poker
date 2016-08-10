@@ -30,11 +30,13 @@ public class PokerServer
             // Create a secure server socket on the specified port
             server = (ServerSocket) 
                     factory.createServerSocket(ServerConst.PORT);
+            System.out.println("Server started on port " + ServerConst.PORT);
             while(true)
             {
                 try
                 {
                     // Accept client socket
+                    System.out.println("Waiting for client");
                     socket = (Socket) server.accept();
                 }
                 catch(IOException e)
@@ -42,6 +44,7 @@ public class PokerServer
                     e.printStackTrace();
                 }
                 // Put client socket on its own thread
+                System.out.println("Creating new thread for client connection");
                 new Thread(new SocketThread(socket, facade)).start();
             }
         }
@@ -54,6 +57,7 @@ public class PokerServer
             try
             {
                 // close server socket to prevent memory leaks
+                System.out.println("Closing the server");
                 server.close();
             }
             catch(Exception e)
