@@ -11,14 +11,8 @@ import java.io.File;
 
 public class CardMapper
 {
-//    private String pathSep = File.separator;
     private String pathSep;
-//    private String p = File.pathSeparator;
-//    private String assetPath = "src/assets/";
-//    private String assetPath = "src" + pathSep + "assets" + pathSep;
-//    private String assetPath = "src" + pathSep + "assets" + pathSep;
     private String assetPath;
-//    private String defaultImgPath = assetPath + "CARDBACK.png";
     private String defaultImgPath;
     private String defaultImgPathLarge;
     
@@ -55,7 +49,7 @@ public class CardMapper
     {
         File f;
         
-        // first split string
+        // first, split string
         String[] values = splitString(s);
         
         // lookup in assets the card required
@@ -72,12 +66,14 @@ public class CardMapper
                 return path;
             }
         }
+        // nothing found, return default path
         return defaultImgPath;
     }
     
     /**
      * Overloaded map method, this takes an additional parameter 'size'. A way
-     * to obtain a different size image, e.g *_2X.png
+     * to obtain a different size image, e.g *_2X.png, This could be expanded
+     * to _3X.png and so on if needed.
      * 
      * @param s The user's hand, player.getHand.ToString()
      * @param size The size requested e.g 2X 
@@ -91,15 +87,17 @@ public class CardMapper
         // quick check to make sure we don't add to an image path that isn't valid
         if(!basePath.equals(defaultImgPath))
         {
+            // can't remember why but this works
             String fullPath = new StringBuffer(basePath).insert(basePath.length()-4, size).toString();
             return fullPath;
         }
-        System.out.println(basePath);
+        
+        // something wasn't found so return base path
         return basePath;
     }
     
     /**
-     * Breaks string into an array on the space character.
+     * Breaks string into an array on the space char.
      * 
      * @param s The string to split.
      * @return String array containing the tokens.
