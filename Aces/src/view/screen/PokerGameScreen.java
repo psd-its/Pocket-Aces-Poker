@@ -41,6 +41,11 @@ import view.screen.cell.UserInfoCell;
 
 public class PokerGameScreen extends AbsGameScreen implements Observer
 {
+    
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -3602990048362411637L;
     private GridBagConstraints c;
     private PokerGameScreenController controller;
     Player[] players;
@@ -461,8 +466,8 @@ public class PokerGameScreen extends AbsGameScreen implements Observer
      */
     private void addCardDisplayCell(GridBagConstraints c, int i)
     {
-        CardDisplayCell cdCell = new CardDisplayCell(facade, facade.getGame()
-                .getTable(), i);
+        CardDisplayCell cdCell = new CardDisplayCell(super.getFacade(), 
+                super.getFacade().getGame().getTable(), i);
         this.add(cdCell, c);
         cells.put("cardDisplayCell" + i, cdCell);
     }

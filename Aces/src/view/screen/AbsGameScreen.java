@@ -16,6 +16,10 @@ import view.main.MainView;
 
 public abstract class AbsGameScreen extends JPanel
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 8514159757897058230L;
     protected MainView mainView;
     protected AcesFacade facade;
     protected GridBagConstraints constraints;
@@ -55,6 +59,6 @@ public abstract class AbsGameScreen extends JPanel
      */
     public AcesFacade getFacade()
     {
-        return this.facade;
+        return this.mainView.getFacade(); // Getting this from the mainView for multiplayer
     }
 }

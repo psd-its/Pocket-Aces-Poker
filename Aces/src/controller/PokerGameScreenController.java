@@ -43,7 +43,7 @@ public class PokerGameScreenController implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        TurnTimer t = facade.getGame().getTimer();
+        TurnTimer t = mainView.getFacade().getGame().getTimer();
         // handle game exit
         if (e.getActionCommand().equals(PokerGameScreenController.EXIT_COMMAND))
         {
@@ -84,7 +84,7 @@ public class PokerGameScreenController implements ActionListener
         {
             System.out.println("call command \n");
 
-            this.user.call(this.facade.getGame().getTable());
+            this.user.call(mainView.getFacade().getGame().getTable());
             synchronized (t)
             {
                 t.cancelTask();
@@ -107,7 +107,7 @@ public class PokerGameScreenController implements ActionListener
             {
                 int raiseAmount = Integer.parseInt(raiseInput);
 
-                this.user.raise(this.facade.getGame().getTable(), raiseAmount);
+                this.user.raise(mainView.getFacade().getGame().getTable(), raiseAmount);
                 synchronized (t)
                 {
                     t.cancelTask();

@@ -88,7 +88,7 @@ public class NewGameSetupController extends AbsNewGameController
                 // join the server
                 client.join();
                 // switch screen
-                super.switchScreen(MainView.SINGLE_PLAYER_TEXAS_SCREEN);
+                super.switchScreen(MainView.TEXAS_GAME_SCREEN);
 
                 break;
 

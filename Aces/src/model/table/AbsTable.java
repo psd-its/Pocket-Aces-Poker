@@ -7,6 +7,10 @@ import model.player.Player;
 // Need to implement concrete classes before use
 public abstract class AbsTable implements Table
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -8519131707146124795L;
     protected int currentBet;
     protected Deck deck;
     protected int dealer;

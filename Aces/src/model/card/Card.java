@@ -5,6 +5,10 @@ import java.io.Serializable;
 
 public class Card implements Serializable
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -8815483008742358415L;
     // types are defined as enums
     private Suit suit;
     private Face face;
