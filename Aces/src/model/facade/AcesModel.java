@@ -6,6 +6,7 @@ import java.util.Observer;
 import model.game.Game;
 import model.game.RTM;
 import model.player.Player;
+import model.table.Table;
 import model.table.TableFull;
 
 public class AcesModel implements AcesFacade
@@ -87,6 +88,23 @@ public class AcesModel implements AcesFacade
         // Add the player as an observer to the game
         ((Observable)game).addObserver(o);
         
+    }
+
+    @Override
+    public int getCurrentPlayer()
+    {
+        Player p;
+        // TODO Auto-generated method stub
+        for (int i = 0; i < Table.MAX_PLAYERS; ++i)
+        {
+            p = getPlayer(i);
+            if (p != null && p.getName().equals(game.getCurrentPlayer()))
+            {
+                return i;
+            }
+        }
+        return -1; // should never make it here
+       
     }
 
 }

@@ -826,4 +826,11 @@ public class TexasPoker extends Observable implements Game
         return t;
     }
 
+    @Override
+    public String getCurrentPlayer()
+    {
+        // TODO Auto-generated method stub
+        return currentPlayer.getName();
+    }
+
 }

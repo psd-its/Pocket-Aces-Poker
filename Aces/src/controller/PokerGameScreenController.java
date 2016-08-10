@@ -23,7 +23,7 @@ import view.screen.PokerGameScreen;
 
 public class PokerGameScreenController implements ActionListener
 {
-    private AcesFacade facade;
+    private AcesFacade facade; // this is not used anymore. Get from mainView
     private PokerGameScreen gameScreen;
     private MainView mainView;
     // Changed type to HumanPlayer so we can user Timertask functions

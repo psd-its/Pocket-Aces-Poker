@@ -71,6 +71,12 @@ public interface Game extends Serializable
      */
     public void play() throws RTM;
     
+    /**
+     * Get the name of the current player
+     * @return players name
+     */
+    public String getCurrentPlayer();
+    
     
     public TopHand getTh();
     

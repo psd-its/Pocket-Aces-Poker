@@ -68,5 +68,11 @@ public interface AcesFacade extends Serializable
      * @return Player
      */
     public Player getPlayer(int seat);
+    
+    /**
+     * Helper function for multi-player
+     * @return the seat index of the player who's turn it is
+     */
+    public int getCurrentPlayer();
    
 }

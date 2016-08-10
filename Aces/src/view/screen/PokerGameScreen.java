@@ -97,9 +97,9 @@ public class PokerGameScreen extends AbsGameScreen implements Observer
     {
 
         players = super.getFacade().getGame().getPlayers();
-
+        int index = super.getFacade().getCurrentPlayer();
         // Think this is cleaner mat change if you see fit
-        controller.setUser(super.getFacade().getPlayer(0));
+        controller.setUser(super.getFacade().getPlayer(index));
         allocateGrid();
     
     }
