@@ -46,6 +46,7 @@ public class TexasPoker extends Observable implements Game
         this.th = new TopHand();
 
         this.t = new TurnTimer();
+       
 
     }
 
@@ -620,6 +621,8 @@ public class TexasPoker extends Observable implements Game
                         // ensure we are looking at a valid player
                         if (getTable().getSeats()[index] != null)
                         {
+                            //set the current player
+                            //currentPlayer = getTable().getSeats()[index];
                             // Set blinds
                             if (stage == Bet.FLOP && firstIter)
                             {
@@ -829,7 +832,10 @@ public class TexasPoker extends Observable implements Game
     @Override
     public String getCurrentPlayer()
     {
-        // TODO Auto-generated method stub
+        // player is null
+        if (currentPlayer == null)
+            return null;
+        // player is valid so get there name
         return currentPlayer.getName();
     }
 

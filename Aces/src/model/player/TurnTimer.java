@@ -44,6 +44,7 @@ public class TurnTimer extends Timer implements Serializable
     
     public void cancelTask()
     {
-        timerTask.cancel();
+        if (timerTask != null)
+            timerTask.cancel();
     }
 }

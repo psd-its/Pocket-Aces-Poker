@@ -103,7 +103,7 @@ public class AcesModel implements AcesFacade
                 return i;
             }
         }
-        return -1; // should never make it here
+        return 0; // return 0 on null for single player
        
     }
 
