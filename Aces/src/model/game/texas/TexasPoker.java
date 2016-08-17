@@ -678,14 +678,14 @@ public class TexasPoker extends Observable implements Game
                                 // added pause between players bets
                                 this.setChanged();
                                 this.notifyObservers(this);
-                                try
-                                {
-                                    Thread.sleep(1000);
-                                }
-                                catch (InterruptedException e)
-                                {
-                                    e.printStackTrace();
-                                }
+//                                try
+//                                {
+//                                    Thread.sleep(2000);
+//                                }
+//                                catch (InterruptedException e)
+//                                {
+//                                    e.printStackTrace();
+//                                }
                             }
 
                         }
