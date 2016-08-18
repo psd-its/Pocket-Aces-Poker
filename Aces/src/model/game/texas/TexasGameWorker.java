@@ -30,7 +30,7 @@ public class TexasGameWorker extends SwingWorker<Integer, String>
     protected Integer doInBackground() throws Exception
     {
         // added for debugging
-        publish("inside doInBackground()");
+        //publish("inside doInBackground()");
         
         game.play();
         return 0;
