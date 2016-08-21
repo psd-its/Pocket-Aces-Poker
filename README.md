@@ -12,7 +12,11 @@ To run on your local machine:
 *Eclipse*  
 * **1.** Open eclipse and got to. ***File -> Import***  
 * **2.** Under ***General*** select ***Existing projects into workspace***  
-
+* **3.** Select ***Archive file*** and click ***Browse*** to locate the file on your hard drive  
+* **4.** Select ***Open***  
+* **5.** Select ***Finish***
+* **6.** The source code should now be in eclipse and it is now just a matter of selecting ***Run***  
+* **7.** The game will open in a new window and commands and a record will be displayed on the console.
 **The Game**
   
 The start screen allows a player to enter their name (no spaces, numbers or special chars.)  
